@@ -7,7 +7,7 @@
 <br />
 <br />
 <img src="https://img.shields.io/static/v1?label=SSAFY&message=4%EA%B8%B0&color=ff69b4">
-<img src="https://img.shields.io/static/v1?label=서울&message=3반&color=violet">
+<img src="https://img.shields.io/static/v1?label=서울&message=4반&color=violet">
 <img src="https://img.shields.io/static/v1?label=Domain&message=자율&color=blueviolet">
 </p>
 
@@ -107,6 +107,8 @@ still working ...
 
 > [📓git flow 전략](https://www.notion.so/Git-flow-60ffe0684268485e82993a35ae8ee679)  
 > [📕git 컨벤션](https://www.notion.so/Git-735deb09e4364ee397d9ea834c4aec70)  
+> [🐘java 컨벤션](https://www.notion.so/java-79a0e9905b154bb38d1c14a82af26d67)
+> [📌React 컨벤션](https://www.notion.so/React-1c53910e9520467aa9e3215f9d684d3d)
 
 &nbsp;
 &nbsp;
