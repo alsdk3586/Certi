@@ -3,3 +3,7 @@
 changelog.config.js
 
 application.properties
+DBConfig
+
+.gradle
+.idea

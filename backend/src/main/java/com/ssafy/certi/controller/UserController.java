@@ -39,7 +39,7 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<String> join(@ApiParam(value = "userEmail, userPassword, userNickname", required = true) @RequestBody Map<String, String> user) {
         try {
-            userService.validateDuplicateUserNick(user.get("userNickname"));
+            userService.validateDuplicateUserNickname(user.get("userNickname"));
             userService.validateDuplicateUserEmail(user.get("userEmail"));
             userRepository.save(User.builder()
                     .userEmail(user.get("userEmail"))
@@ -98,7 +98,7 @@ public class UserController {
         User curUser = userService.findByToken(JwtTokenProvider.resolveToken(request));
         try {
             if (!user.get("userNickname").equals(curUser.getUserNickname())) {
-                userService.validateDuplicateUserNick(user.get("userNickname"));
+                userService.validateDuplicateUserNickname(user.get("userNickname"));
                 curUser.setUserNickname(user.get("userNickname"));
             }
             curUser.setUserPassword(passwordEncoder.encode(user.get("userPassword")));
@@ -127,7 +127,7 @@ public class UserController {
     @PostMapping(value = "/token/follow/{certificateCode}")
     public ResponseEntity<String> follow(@PathVariable("certificateCode") int certificateCode, HttpServletRequest request) {
         try {
-
+            // 작성 예정
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }

@@ -12,14 +12,15 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public void validateDuplicateUserNick(String userNickName) {
+    // 중복 닉네임 체크
+    public void validateDuplicateUserNickname(String userNickName) {
         userRepository.findByUserNickname(userNickName)
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 닉네임입니다.");
                 });
     }
 
-
+    // 중복 이메일 체크
     public void validateDuplicateUserEmail(String userEmail) {
         userRepository.findByUserEmail(userEmail)
                 .ifPresent(m -> {
@@ -37,9 +38,7 @@ public class UserService implements UserDetailsService {
 
     // token으로 회원 찾기
     public User findByToken(String token) {
-
-        return loadUserByUsername(JwtTokenProvider.getUserNo(token));
-
+        return loadUserByUsername(JwtTokenProvider.getUserId(token));
     }
 
 }
