@@ -33,3 +33,9 @@ com/ssafy/certi/domain/Board.java
  com.ssafy.certi.domain.Board
 com/ssafy/certi/domain/Comment.java
  com.ssafy.certi.domain.Comment
+com/ssafy/certi/controller/NotificationController.java
+ com.ssafy.certi.controller.NotificationController
+com/ssafy/certi/repository/NotificationRepository.java
+ com.ssafy.certi.repository.NotificationRepository
+com/ssafy/certi/domain/Notification.java
+ com.ssafy.certi.domain.Notification
