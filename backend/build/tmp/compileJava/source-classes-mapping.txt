@@ -21,3 +21,9 @@ com/ssafy/certi/config/WebSecurityConfig.java
  com.ssafy.certi.config.WebSecurityConfig
 com/ssafy/certi/CertiApplication.java
  com.ssafy.certi.CertiApplication
+com/ssafy/certi/repository/BoardRepository.java
+ com.ssafy.certi.repository.BoardRepository
+com/ssafy/certi/controller/BoardController.java
+ com.ssafy.certi.controller.BoardController
+com/ssafy/certi/domain/Board.java
+ com.ssafy.certi.domain.Board
