@@ -13,7 +13,7 @@ public class DBConfig {
     public DataSource dataSource() {
         return DataSourceBuilder.create()
                 .driverClassName("com.mysql.cj.jdbc.Driver")
-                .url("jdbc:mysql://K4A407.p.ssafy.io/certi?useSSL=false&autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8")
+                .url("jdbc:mysql://K4A407.p.ssafy.io:3306/certi?useSSL=false&autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8")
                 .username("certi")
                 .password("ssafy")
                 .build();
