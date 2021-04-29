@@ -4,9 +4,7 @@ import com.ssafy.certi.domain.User;
 import com.ssafy.certi.repository.UserRepository;
 import com.ssafy.certi.security.JwtTokenProvider;
 import com.ssafy.certi.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,17 +33,38 @@ public class UserController {
 
 
     // 회원 가입
-    @ApiOperation(value = "회원가입", notes = "회원가입")
+    @ApiOperation(value = "회원 가입", notes = "회원가입 성공시 닉네임 반환합니다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "회원가입 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
     @PostMapping("/join")
     public ResponseEntity<String> join(@ApiParam(value = "userEmail, userPassword, userNickname", required = true) @RequestBody Map<String, String> user) {
         try {
-            userService.validateDuplicateUserNick(user.get("userNickname"));
-            userService.validateDuplicateUserEmail(user.get("userEmail"));
+            userService.userNicknameDuplicateCheck(user.get("userNickname"));
+            userService.userEmailDuplicateCheck(user.get("userEmail"));
             userRepository.save(User.builder()
                     .userEmail(user.get("userEmail"))
                     .userPassword(passwordEncoder.encode(user.get("userPassword")))
                     .userNickname(user.get("userNickname"))
+                    .userFlag(1)
                     .build());
+
+            return new ResponseEntity<>(user.get("userNickname"), HttpStatus.OK); // 회원가입 성공하면 닉네임 반환
+
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    // 닉네임 중복 확인
+    @ApiOperation(value = "닉네임 중복 확인", notes = "중복 아닐시 닉네임 반환")
+    @PostMapping("/nicknameDuplicateCheck")
+    public ResponseEntity<String> nicknameDuplicateCheck(@ApiParam(value = "userNickname", required = true) @RequestBody Map<String, String> user) {
+        try {
+            userService.userNicknameDuplicateCheck(user.get("userNickname"));
 
             return new ResponseEntity<>(user.get("userNickname"), HttpStatus.OK);
 
@@ -56,17 +75,21 @@ public class UserController {
 
 
     // 로그인
-    @ApiOperation(value = "로그인", notes = "로그인")
+    @ApiOperation(value = "로그인", notes = "로그인 성공시 token 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "로그인 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login
-    (@ApiParam(value = "userEmail, userPassword", required = true) @RequestBody Map<String, String> user) {
+    public ResponseEntity<Map<String, Object>> login(@ApiParam(value = "userEmail, userPassword", required = true) @RequestBody Map<String, String> user) {
         Map<String, Object> response = new HashMap<>();
         HttpStatus status;
         try {
             User curUser = userRepository.findByUserEmail(user.get("userEmail"))
-                    .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 이메일 입니다."));
+                    .orElseThrow(() -> new IllegalArgumentException("join first. (no such Email on database)"));
             if (!passwordEncoder.matches(user.get("userPassword"), curUser.getPassword())) {
-                throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+                throw new IllegalArgumentException("wrong password.");
             }
             response.put("token", jwtTokenProvider.createToken(curUser.getUsername()));
             status = HttpStatus.OK;
@@ -81,9 +104,9 @@ public class UserController {
 
 
     // 토큰으로 회원조회
-    @ApiOperation(value = "token으로 회원 정보 조회", notes = "token 필요")
+    @ApiOperation(value = "회원 정보 조회", notes = "token 필요. 성공시 유저 데이터 반환")
     @GetMapping(value = "/token/mypage")
-    public ResponseEntity<User> getUser(HttpServletRequest request) {
+    public ResponseEntity<User> getUserInfo(HttpServletRequest request) {
         Optional<User> user = Optional.ofNullable(userService.findByToken(JwtTokenProvider.resolveToken(request)));
         return user
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -94,11 +117,11 @@ public class UserController {
     // 회원 정보 수정
     @ApiOperation(value = "회원 정보 변경", notes = "token 필요")
     @PutMapping(value = "/token/updateInfo", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> updateMember(@RequestBody Map<String, String> user, HttpServletRequest request) {
+    public ResponseEntity<String> updateUserInfo(@RequestBody Map<String, String> user, HttpServletRequest request) {
         User curUser = userService.findByToken(JwtTokenProvider.resolveToken(request));
         try {
             if (!user.get("userNickname").equals(curUser.getUserNickname())) {
-                userService.validateDuplicateUserNick(user.get("userNickname"));
+                userService.userNicknameDuplicateCheck(user.get("userNickname"));
                 curUser.setUserNickname(user.get("userNickname"));
             }
             curUser.setUserPassword(passwordEncoder.encode(user.get("userPassword")));
@@ -111,10 +134,27 @@ public class UserController {
         return new ResponseEntity<>(user.get("userNickname"), HttpStatus.OK);
     }
 
-    //  비밀번호 일치 여부
-    @ApiOperation(value = "비밀번호 일치 여부", notes = "token 필요")
+
+    // 회원 탈퇴
+    @ApiOperation(value = "회원 탈퇴", notes = "token 필요, flag만 0으로 변경 후 성공시 0 반환")
+    @PutMapping(value = "/token/delete", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> deleteUser(@RequestBody Map<String, String> user, HttpServletRequest request) {
+        User curUser = userService.findByToken(JwtTokenProvider.resolveToken(request));
+        try {
+            curUser.setUserFlag(0);
+            userRepository.save(curUser);
+
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(user.get("userFlag"), HttpStatus.OK);
+    }
+
+
+    //  비밀번호 일치 여부 확인
+    @ApiOperation(value = "비밀번호 일치 여부 확인", notes = "token 필요")
     @PostMapping(value = "/token/passwordConfirm")
-    public HttpStatus passwordConfirm(HttpServletRequest request, @RequestBody String userPassword) {
+    public HttpStatus validatePasswordConfirm(HttpServletRequest request, @RequestBody String userPassword) {
         User user = userService.findByToken(JwtTokenProvider.resolveToken(request));
         if (!passwordEncoder.matches(userPassword.substring(0, userPassword.length() - 1), user.getPassword())) {
             return HttpStatus.NOT_ACCEPTABLE;
@@ -122,12 +162,13 @@ public class UserController {
         return HttpStatus.OK;
     }
 
+
     // 자격증 좋아요
     @ApiOperation(value = "자격증 좋아요", notes = "token, certificate code")
     @PostMapping(value = "/token/follow/{certificateCode}")
     public ResponseEntity<String> follow(@PathVariable("certificateCode") int certificateCode, HttpServletRequest request) {
         try {
-
+            // 작성 예정
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
