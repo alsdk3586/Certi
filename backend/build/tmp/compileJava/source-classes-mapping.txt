@@ -25,5 +25,11 @@ com/ssafy/certi/repository/BoardRepository.java
  com.ssafy.certi.repository.BoardRepository
 com/ssafy/certi/controller/BoardController.java
  com.ssafy.certi.controller.BoardController
+com/ssafy/certi/repository/CommentRepository.java
+ com.ssafy.certi.repository.CommentRepository
+com/ssafy/certi/controller/CommentController.java
+ com.ssafy.certi.controller.CommentController
 com/ssafy/certi/domain/Board.java
  com.ssafy.certi.domain.Board
+com/ssafy/certi/domain/Comment.java
+ com.ssafy.certi.domain.Comment

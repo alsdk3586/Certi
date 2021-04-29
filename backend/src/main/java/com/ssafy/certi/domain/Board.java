@@ -1,9 +1,5 @@
 package com.ssafy.certi.domain;
 
-
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
