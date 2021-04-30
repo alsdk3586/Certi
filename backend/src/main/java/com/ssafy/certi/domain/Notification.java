@@ -17,8 +17,9 @@ public class Notification {
     private int notificationId;
 
     @NotBlank
-    @Column(name="user_id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name="User_userId")
+    private User userId;
 
     @NotBlank
     @Column(name="notification_message")
@@ -37,7 +38,9 @@ public class Notification {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date notificationCreate;
 
-    @Column(name = "board_id")
-    private int boardId;
+
+    @OneToOne
+    @JoinColumn(name = "Board_board_id")
+    private Board boardId;
 
 }

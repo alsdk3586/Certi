@@ -17,8 +17,9 @@ public class Board {
     private int boardId;
 
     @NotBlank
-    @Column(name="user_id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name="User_userId")
+    private User user;
 
     @NotBlank
     @Column(name="board_category")

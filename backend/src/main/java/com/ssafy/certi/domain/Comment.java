@@ -16,12 +16,14 @@ public class Comment {
     private int commentId;
 
     @NotBlank
-    @Column(name="board_id")
-    private int boardId;
+    @ManyToOne
+    @JoinColumn(name="Board_board_id")
+    private Board board;
 
     @NotBlank
-    @Column(name="user_id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name="Board_user_id")
+    private Board userId;
 
     @NotBlank
     @Column(name="comment_user_id")
