@@ -1,12 +1,12 @@
 import React from 'react';
 import Router from './Router';
-import Navbar from './Navbar';
+import GlobalStyles from './GlobalStyles';
 
 function App() {
   return (
     <>
-      <Navbar />
       <Router />
+      <GlobalStyles />
     </>
   );
 }
