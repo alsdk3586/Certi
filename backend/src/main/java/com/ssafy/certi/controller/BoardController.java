@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class BoardController {
 
-
     @Autowired
     private BoardRepository boardRepository;
 

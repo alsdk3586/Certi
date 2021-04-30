@@ -7,8 +7,13 @@ com/ssafy/certi/repository/NotificationRepository.java
  com.ssafy.certi.repository.NotificationRepository
 com/ssafy/certi/security/JwtTokenProvider.java
  com.ssafy.certi.security.JwtTokenProvider
+com/ssafy/certi/controller/RoomForm.java
+ com.ssafy.certi.controller.RoomForm
 com/ssafy/certi/service/UserService.java
  com.ssafy.certi.service.UserService
+com/ssafy/certi/domain/Chat.java
+ com.ssafy.certi.domain.Chat
+ com.ssafy.certi.domain.Chat$ChatBuilder
 com/ssafy/certi/CertiApplication.java
  com.ssafy.certi.CertiApplication
 com/ssafy/certi/dto/ChatMessage.java
@@ -19,6 +24,8 @@ com/ssafy/certi/domain/Room.java
  com.ssafy.certi.domain.Room$RoomBuilder
 com/ssafy/certi/repository/RoomRepository.java
  com.ssafy.certi.repository.RoomRepository
+com/ssafy/certi/repository/CertificateRepository.java
+ com.ssafy.certi.repository.CertificateRepository
 com/ssafy/certi/service/ChatService.java
  com.ssafy.certi.service.ChatService
 com/ssafy/certi/repository/UserRepository.java
@@ -39,8 +46,6 @@ com/ssafy/certi/domain/Notification.java
  com.ssafy.certi.domain.Notification
 com/ssafy/certi/config/WebSecurityConfig.java
  com.ssafy.certi.config.WebSecurityConfig
-com/ssafy/certi/config/WebSocketConfig.java
- com.ssafy.certi.config.WebSocketConfig
 com/ssafy/certi/domain/Comment.java
  com.ssafy.certi.domain.Comment
 com/ssafy/certi/config/SpringConfig.java
@@ -57,8 +62,8 @@ com/ssafy/certi/security/JwtAuthenticationFilter.java
  com.ssafy.certi.security.JwtAuthenticationFilter
 com/ssafy/certi/domain/Board.java
  com.ssafy.certi.domain.Board
-com/ssafy/certi/domain/Chat.java
- com.ssafy.certi.domain.Chat
- com.ssafy.certi.domain.Chat$ChatBuilder
-com/ssafy/certi/controller/RoomForm.java
- com.ssafy.certi.controller.RoomForm
+com/ssafy/certi/domain/Certificate.java
+ com.ssafy.certi.domain.Certificate
+ com.ssafy.certi.domain.Certificate$CertificateBuilder
+com/ssafy/certi/controller/CertificateController.java
+ com.ssafy.certi.controller.CertificateController
