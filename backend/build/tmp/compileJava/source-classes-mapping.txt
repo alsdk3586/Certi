@@ -62,3 +62,9 @@ com/ssafy/certi/domain/Chat.java
  com.ssafy.certi.domain.Chat$ChatBuilder
 com/ssafy/certi/domain/Likes.java
  com.ssafy.certi.domain.Likes
+com/ssafy/certi/config/WebSocketConfig.java
+ com.ssafy.certi.config.WebSocketConfig
+com/ssafy/certi/repository/LikesRepository.java
+ com.ssafy.certi.repository.LikesRepository
+com/ssafy/certi/controller/LikesController.java
+ com.ssafy.certi.controller.LikesController
