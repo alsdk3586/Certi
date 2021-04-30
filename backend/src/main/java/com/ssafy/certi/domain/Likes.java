@@ -1,17 +1,23 @@
 package com.ssafy.certi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
-public class Like {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Likes {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="like_id")
-    private int likeId;
+    @NotBlank
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="likes_id")
+    private int likesId;
 
     @NotBlank
     @ManyToOne

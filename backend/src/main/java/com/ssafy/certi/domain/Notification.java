@@ -1,6 +1,8 @@
 package com.ssafy.certi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.Date;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Notification {
 
     @NotBlank
@@ -37,7 +41,6 @@ public class Notification {
     @Column(name="notification_create")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date notificationCreate;
-
 
     @OneToOne
     @JoinColumn(name = "Board_board_id")

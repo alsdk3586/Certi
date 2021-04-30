@@ -9,6 +9,8 @@ com/ssafy/certi/security/JwtTokenProvider.java
  com.ssafy.certi.security.JwtTokenProvider
 com/ssafy/certi/service/UserService.java
  com.ssafy.certi.service.UserService
+com/ssafy/certi/controller/RoomForm.java
+ com.ssafy.certi.controller.RoomForm
 com/ssafy/certi/CertiApplication.java
  com.ssafy.certi.CertiApplication
 com/ssafy/certi/dto/ChatMessage.java
@@ -35,8 +37,8 @@ com/ssafy/certi/controller/ChatController.java
  com.ssafy.certi.controller.ChatController
 com/ssafy/certi/controller/CommentController.java
  com.ssafy.certi.controller.CommentController
-com/ssafy/certi/controller/RoomForm.java
- com.ssafy.certi.controller.RoomForm
+com/ssafy/certi/domain/Notification.java
+ com.ssafy.certi.domain.Notification
 com/ssafy/certi/config/WebSecurityConfig.java
  com.ssafy.certi.config.WebSecurityConfig
 com/ssafy/certi/domain/Comment.java
@@ -58,5 +60,5 @@ com/ssafy/certi/domain/Board.java
 com/ssafy/certi/domain/Chat.java
  com.ssafy.certi.domain.Chat
  com.ssafy.certi.domain.Chat$ChatBuilder
-com/ssafy/certi/domain/Notification.java
- com.ssafy.certi.domain.Notification
+com/ssafy/certi/domain/Likes.java
+ com.ssafy.certi.domain.Likes

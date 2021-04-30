@@ -1,6 +1,8 @@
 package com.ssafy.certi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.Date;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Board {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
