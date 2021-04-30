@@ -1,70 +1,32 @@
 package com.ssafy.certi.domain;
 
+import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Getter
 public class Comment {
 
-    @Id @GeneratedValue
-    private int comment_id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="comment_id")
+    private int commentId;
 
-    private int baord_id;
+    @Column(name="board_id")
+    private int boardId;
 
-    private int user_id;
+    @Column(name="user_id")
+    private int userId;
 
-    private int comment_userid;
+    @Column(name="comment_user_id")
+    private int commentUserId;
 
-    private String comment_content;
+    @Column(name = "comment_content")
+    private String commentContent;
 
+    @Column(name="comment_create")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private int comment_create;
+    private int commentCreate;
 
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public int getBaord_id() {
-        return baord_id;
-    }
-
-    public int getComment_create() {
-        return comment_create;
-    }
-
-    public int getComment_id() {
-        return comment_id;
-    }
-
-    public int getComment_userid() {
-        return comment_userid;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public void setBaord_id(int baord_id) {
-        this.baord_id = baord_id;
-    }
-
-    public void setComment_content(String comment_content) {
-        this.comment_content = comment_content;
-    }
-
-    public void setComment_create(int comment_create) {
-        this.comment_create = comment_create;
-    }
-
-    public void setComment_id(int comment_id) {
-        this.comment_id = comment_id;
-    }
-
-    public void setComment_userid(int comment_userid) {
-        this.comment_userid = comment_userid;
-    }
 }
