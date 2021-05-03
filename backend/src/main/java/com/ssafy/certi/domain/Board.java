@@ -1,61 +1,56 @@
 package com.ssafy.certi.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class Board {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="board_id")
-    @NotBlank
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "board_id")
     private int boardId;
 
-    @NotBlank
     @ManyToOne
-    @JoinColumn(name="User_userId")
-    private User user;
+    @JoinColumn(name = "User_userId")
+    private User userId;
 
-    @NotBlank
-    @Column(name="board_category")
+    @Column(name = "board_category")
     private int boardCategory;
 
-    @NotBlank
-    @Column(name="board_title")
+    @Column(name = "board_title")
     private String boardTitle;
 
-    @NotBlank
-    @Column(name="board_content")
+    @Column(name = "board_content")
     private String boardContent;
 
-    @Column(name="board_file")
+    @Column(name = "board_file")
     private String boardFile;
 
-    @NotBlank
-    @Column(name="board_writer")
+    @Column(name = "board_writer")
     private String boardWriter;
 
-    @NotBlank
-    @Column(name="board_create")
+    @Column(name = "board_create", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date boardCreate;
+    private LocalDate boardCreate;
 
-    @NotBlank
-    @Column(name="board_hit")
-    private int boardHit;
+    @Column(name = "board_hit")
+    private Integer boardHit;
 
-    @NotBlank
-    @Column(name="board_flag")
-    private int boardFlag;
+    @Column(name = "board_flag")
+    private Integer boardFlag;
 
+    public Board() {
+
+    }
 }
 
