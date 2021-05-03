@@ -1,0 +1,36 @@
+/*******************************************************************
+// 위치 : src/components/css/login/style.scss 
+// 설명 : 로그인 view에 적용되는 스타일에 대해 정의함 
+// 주의 : 로그인 view에 포함된 컴포넌트에 대한 스타일도 함께 정의
+********************************************************************/
+
+@import "../colors.scss";
+
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .logoWrapper {
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .logo {
+            color: $basic-white;
+            font-family: 'Noto-sans';
+            font-size: 50px;
+            letter-spacing: 5px;
+            text-decoration: none;
+        }
+    }
+
+    .contents {
+        background: $basic-white;
+        padding: 2rem;
+        height: auto;
+    }
+
+}
