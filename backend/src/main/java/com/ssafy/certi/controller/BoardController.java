@@ -57,7 +57,7 @@ public class BoardController {
             .boardHit(0)
             .boardCreate(LocalDate.now())
             .build());
-            return new ResponseEntity<>("true", HttpStatus.OK); // 회원가입 성공하면 닉네임 반환
+            return new ResponseEntity<>("true", HttpStatus.OK);
 
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
