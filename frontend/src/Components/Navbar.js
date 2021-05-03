@@ -49,6 +49,8 @@ export default withRouter(({ location : { pathname }}) => (
         <Slink to="/certi">자격증</Slink></Item>
       <Item current={pathname === '/user'}>
         <Slink to="/user">회원</Slink></Item>
+      <Item current={pathname === '/login'}>
+        <Slink to="/login">로그인</Slink></Item>
     </List>
   </Header>
 ));
