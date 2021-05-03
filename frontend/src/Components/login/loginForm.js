@@ -20,9 +20,19 @@ class LoginForm extends Component{
         return (
             <div class="loginForm">
                 <div class="input">
-                    <input type="email" id="inputEmail" placeholder="이메일" name="email" onChange={this.handleChange} />
+                    <input
+                        type="email"
+                        id="inputEmail"
+                        placeholder="이메일"
+                        name="email"
+                        onChange={this.handleChange} />
                     <br></br>
-                    <input type="password" id="inputPassword" placeholder="비밀번호" name="password" onChange={this.handleChange} />
+                    <input
+                        type="password"
+                        id="inputPassword"
+                        placeholder="비밀번호"
+                        name="password"
+                        onChange={this.handleChange} />
                 </div>
                 <button class="loginButton"
                     type="button"
