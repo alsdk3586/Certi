@@ -11,38 +11,40 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    align-items: center;
 
     .logo {
-        height: 5rem;
         display: flex;
-        align-items: center;
         justify-content: center;
-        color: $basic-black;
-        font-family: 'Noto-sans';
-        font-size: 50px;
-        letter-spacing: 5px;
-        text-decoration: none;
-
+        width: 421px;
+        height: 178px;
+        padding-bottom: 50px;
     }
 
-    .contents {
-        background: $basic-white;
-        padding: 2rem;
-        font-size: 20px;
-        height: auto;
-    }
+    // 로그인 폼
+    .loginForm {
+        margin-top: 48px;
+        margin-left: 30px;
 
-    .loginButton {
-        width: 100%;
-        margin-top: 66px;
-        font-weight: bold;
-        font-size: 20px;
-        color: $basic-white;
-        border-radius: 8px;
+        .input {
+            width: 360px;
+        }
 
-        &.active {
-            background: linear-gradient(109.63deg, #78D0FF 1.79%, #4B6EB2 101.38%);
+        .loginButton {
+            width: 360px;
+            height: 63px;
+            padding: 0px 16px;
+            margin-top: 41px;
+            font-weight: bold;
+            font-size: 20px;
+            color: $basic-white;
+            border-radius: 8px;
+            background: rgba(238, 238, 238, 0.5);
+
+            // &.active {
+            //     background: linear-gradient(109.63deg, #78D0FF 1.79%, #4B6EB2 101.38%);
+            // }
         }
     }
-
+   
 }
