@@ -28,7 +28,6 @@ import java.util.Optional;
 @RequestMapping("/board")
 public class BoardController {
 
-
     @Autowired
     private BoardRepository boardRepository;
 

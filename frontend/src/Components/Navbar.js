@@ -12,7 +12,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   font-size: 16px;
-  /* background-color: rgba(20, 20, 20, 0.8); */
+  background-color: white;
   z-index: 10;
   box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.5);
   `;
