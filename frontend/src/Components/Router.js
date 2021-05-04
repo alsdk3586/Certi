@@ -6,6 +6,7 @@ import CalendarApp from '../Routes/Calendar';
 import Board from '../Routes/Board';
 import Certi from '../Routes/Certi';
 import User from '../Routes/User';
+import ChatBox from '../Components/aside/ChatMessageBox/ChatMessageBox'
 
 export default () => (
   <Router>
@@ -16,7 +17,8 @@ export default () => (
         <Route path="/calendar" exact component = {CalendarApp} />
         <Route path="/board" exact component = {Board} />
         <Route path="/certi" exact component = {Certi} />
-        <Route path="/user" exact component = {User} />
+        <Route path="/user" exact component={User} />
+        <Route path="/ChatBox" exact component={ ChatBox } />
         <Redirect from="*" to="/" />
       </Switch>
     </>

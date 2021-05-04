@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Menu from '../menu-app-bar/MenuAppBar'
 import Aside from '../aside/Aside'
 import Login from '../login/Login'
 import Footer from '../footer/Footer'
@@ -159,15 +158,6 @@ class ChatMessageBox extends Component {
       object.scrollTop = object.scrollHeight;
   }
 
-  // getRandomColor = () => {
-  //   var letters = '0123456789ABCDEF';
-  //   var color = '#';
-  //   for (var i = 0; i < 6; i++) {
-  //     color += letters[Math.floor(Math.random() * 16)];
-  //   }
-  //   return color;
-  // }
-
   componentDidUpdate() {
     if (this.state.error) {
       throw new Error('Unable to connect to chat room server.');
@@ -197,13 +187,6 @@ class ChatMessageBox extends Component {
         {this.state.channelConnected ?
           (
             <div>
-                {/* 메뉴 */}
-              <Menu roomNotification={this.state.roomNotification}
-                bellRing={this.state.bellRing}
-                openNotifications={this.state.openNotifications}
-                username={this.state.username}
-                broadcastMessage={this.state.broadcastMessage} />
-
               {/* 왼쪽 사이드 */}
               <Paper elevation={5}>
                 <Aside roomNotification={this.state.roomNotification}
