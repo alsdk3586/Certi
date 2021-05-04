@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../Components/css/login/style.scss';
-import { BigLogo } from '../assets/index'
-import LoginForm from '../Components/login/loginForm'
+import { BigLogo } from '../assets/index';
+import LoginForm from '../Components/login/loginForm';
 
 class Login extends Component{
     render() {

@@ -1,45 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import InputForm from '../login/inputForm';
+import '../css/login/style.scss'
 
-class LoginForm extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: ""
-        };
-
-        this.handleInputChange = this.handleInputChange.bind(this);
-    };
-    handleInputChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    };
-    handleOnClick = (e) => {
-        console.log(this.state.email, this.state.password);
-    }
+class LoginForm extends Component {
     render() {
         return (
             <div class="loginForm">
-                <div class="input">
-                    <input
-                        type="email"
-                        id="inputEmail"
-                        placeholder="이메일"
-                        name="email"
-                        onChange={this.handleChange} />
-                    <br></br>
-                    <input
-                        type="password"
-                        id="inputPassword"
-                        placeholder="비밀번호"
-                        name="password"
-                        onChange={this.handleChange} />
-                </div>
-                <button class="loginButton"
-                    type="button"
-                    onClick={this.handleOnClick}>
-                    로그인
-                </button>
+                <InputForm label="이메일" name="email"/>
+                <InputForm label="비밀번호" name="password" type="password"/>
             </div>
         );
-    };
-} export default LoginForm;
+    }
+}
+
+export default LoginForm;
