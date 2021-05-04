@@ -97,6 +97,31 @@ public class BoardController {
         }
     }
 
+
+    @ApiOperation(value = "게시판 삭제", notes = "성공 시, true 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "등록 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @DeleteMapping("/delete/{boardId}")
+    public ResponseEntity<Boolean> boardPostDelete(@PathVariable Integer boardId, HttpServletRequest request) {
+
+        try {
+            User person= userService.findByToken(JwtTokenProvider.resolveToken(request));
+            Board post=boardRepository.findByBoardId(boardId);
+            if(person.getUserId()==post.getUserId().getUserId()){
+                boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
+
+            }
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            List<Board> box=null;
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     @ApiOperation(value = "게시판 이름 검색", notes = "성공 시, true 반환")
     @ApiResponses({
             @ApiResponse(code = 200, message = "등록 성공"),
@@ -115,6 +140,5 @@ public class BoardController {
             return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
-
 
 }
