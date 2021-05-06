@@ -39,7 +39,7 @@ class ChatMessageBox extends Component {
 
       var SockJS = require('sockjs-client')
 
-      SockJS = new SockJS('/ws')
+      SockJS = new SockJS('http://localhost:8080/ws')
 
       stompClient = Stomp.over(SockJS);
 

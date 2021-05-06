@@ -34,7 +34,8 @@ public class ChatService {
      * @param certificateCode 방 코드
      */
     public ChatRoom createRoom(String certificateCode){
-        return roomRepository.save(ChatRoom.createRoom(certificateCode));
+//        return roomRepository.save(ChatRoom.createRoom(certificateCode));
+        return null;
     }
 
 
