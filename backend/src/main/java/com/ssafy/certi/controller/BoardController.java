@@ -43,9 +43,7 @@ public class BoardController {
     @PostMapping("/create")
     public ResponseEntity<String> boardPostAdd(@ApiParam(value = "boardCategory,boardTitle, boardContent,boardFile", required = true) @RequestBody Map<String, String> board, HttpServletRequest request) {
         try {
-            System.out.println("-------");
             User person=userService.findByToken(JwtTokenProvider.resolveToken(request));
-            System.out.println("-------");
 
             boardRepository.save(Board.builder()
             .userId(person)
@@ -140,6 +138,33 @@ public class BoardController {
 
         } catch (IllegalStateException e) { // exception return 하게 수정
             List<Board> box=null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @ApiOperation(value = "게시판 수정", notes = "성공 시, true 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "등록 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @PutMapping("/update/{boardId}")
+    public ResponseEntity<Board> boardPostUpdate(@PathVariable Integer boardId,@ApiParam(value = "boardCategory,boardTitle, boardContent, boardFile", required = true) @RequestBody Map<String, String> newBoard, HttpServletRequest request) {
+
+        try {
+            User person= userService.findByToken(JwtTokenProvider.resolveToken(request));
+            Board board=boardRepository.findByBoardId(boardId);
+            if(person.getUserId()==board.getUserId().getUserId()){
+                // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
+                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"));
+                if(newBoard.get("boardFile")!=null){
+                    board.updateFile(newBoard.get("boardFile"));
+                }
+                boardRepository.save(board);
+            }
+            return new ResponseEntity<>(board, HttpStatus.OK);
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            Board box=null;
             return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
