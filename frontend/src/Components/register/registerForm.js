@@ -5,6 +5,19 @@ import RegisterService from './registerService.js'
 import '../css/register/style.scss'
 
 class RegisterForm extends Component {
+    constructor(props) {
+        super(props)
+        
+        this.state = {
+            userEmail: '',
+            userPassword: '',
+            userNickname: '',
+            showSuccessMessage: false
+        }
+        this.handleChange = this.handleChange.bind(this)
+        this.registerClick = this.registerClick.bind(this)
+    }
+
     handleChange(event) {
         this.setState(
             {
@@ -17,10 +30,12 @@ class RegisterForm extends Component {
     registerClick() {
         RegisterService
             .executeJwtRegisterService(this.state.userEmail, this.state.userPassword, this.state.userNickname)
-            .then((response) => 
+            .then((response) => {
                 console.log(response)
-            ).catch(() => {
-                
+                this.props.history.push(`/login`)
+
+            }).catch(() => {
+                this.setState({showSuccessMessage:false})
             })
     }
     
@@ -30,21 +45,21 @@ class RegisterForm extends Component {
                 <InputForm
                     label="이메일"
                     name="userEmail"
-                    // value={this.state.userEmail}
-                    // onChange={this.handleChange}
+                    value={this.state.userEmail}
+                    onChange={this.handleChange}
                 /><br/>
                 <NicknameForm
                     label="닉네임"
                     name="userNickname"
-                    // value={this.state.userNickname}
-                    // onChange={this.handleChange}
+                    value={this.state.userNickname}
+                    onChange={this.handleChange}
                 /><br/>
                 <InputForm
                     label="비밀번호"
                     name="userPassword"
                     type="password"
-                    // value={this.state.userPassword}
-                    // onChange={this.handleChange}
+                    value={this.state.userPassword}
+                    onChange={this.handleChange}
                 />
                 <InputForm
                     label="비밀번호 확인"

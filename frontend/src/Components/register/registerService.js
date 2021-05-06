@@ -14,6 +14,10 @@ class RegisterService {
         console.log("===execute Service===")
         return axios.get('http://localhost:8080/');        
     }
+
+    registerSuccess(userEmail, userNickname) {
+        console.log("=== register success ===")
+    }
 }
 
 export default new RegisterService()
