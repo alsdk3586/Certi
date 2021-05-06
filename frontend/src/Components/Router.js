@@ -8,6 +8,7 @@ import Board from '../Routes/Board';
 import Certi from '../Routes/Certi';
 import User from '../Routes/User';
 import Login from '../Routes/Login';
+import Register from '../Routes/Register';
 
 export default () => (
   <Router>
@@ -19,7 +20,8 @@ export default () => (
         <Route path="/board" exact component = {Board} />
         <Route path="/certi" exact component = {Certi} />
         <Route path="/user" exact component={User} />
-        <Route path="/login" exact component = {Login} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component = {Register} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

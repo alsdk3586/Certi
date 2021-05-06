@@ -1,35 +1,20 @@
 import React, {Component} from 'react';
 import '../Components/css/login/style.scss';
-import { BigLogo } from '../assets/index'
-import LoginForm from '../Components/login/loginForm'
+import { BigLogo } from '../assets/index';
+import LoginForm from '../Components/login/loginForm';
+import RegisterButton from '../Components/login/registserButton';
 
-class Login extends Component{
+class Login extends Component{    
     render() {
         return (
             <div class="login">
                 <div class="logo">
                     <BigLogo/>
                 </div>  
-                
+                        
                 <LoginForm/>
+                <RegisterButton to="/register">회원가입</RegisterButton>
             </div>
         );
     };
 } export default Login;
-
-
-// import React from 'react';
-// import '../Components/css/login/style.scss';
-
-// const Login = ({ children }) => (
-//     <div class='login'>
-//         <div class='logoWrapper'>
-//             <div class='logo' onclick="location.href='/'">자격증닷컴</div>
-//         </div>
-//         <contents>
-//             {children}
-//         </contents>
-//     </div>
-// );
-
-// export default Login;
