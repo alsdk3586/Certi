@@ -16,21 +16,26 @@ public class UserService implements UserDetailsService {
 
     // 중복 닉네임 체크
     public void userNicknameDuplicateCheck(String userNickname) {
-        if(userRepository.findByUserNickname(userNickname).get().getUserFlag()!=0) {    //  탈퇴하지 않은 회원의 닉네임만 체크
-            userRepository.findByUserNickname(userNickname)
-                    .ifPresent(m -> {
-                        throw new IllegalStateException("duplicate Nickname!!!!!");
-                    });
+        Optional<User> person= userRepository.findByUserNickname(userNickname);
+        if(!person.isEmpty()){
+            if(person.get().getUserFlag()!=0) {    //  탈퇴하지 않은 회원의 닉네임만 체크
+                userRepository.findByUserNickname(userNickname)
+                        .ifPresent(m -> {
+                            throw new IllegalStateException("duplicate Nickname!!!!!");
+                        });
+            }
         }
     }
 
     // 중복 이메일 체크
     public void userEmailDuplicateCheck(String userEmail) {
         Optional<User> curUser = userRepository.findByUserEmail(userEmail);
-        if(curUser.get().getUserFlag()!=0) {    //  탈퇴하지 않은 회원의 이메일만 체크
+        if(!curUser.isEmpty()){
+            if(curUser.get().getUserFlag()!=0) {    //  탈퇴하지 않은 회원의 이메일만 체크
             curUser.ifPresent(m -> {
                         throw new IllegalStateException("duplicate Email!!!!!");
                     });
+            }
         }
     }
 
