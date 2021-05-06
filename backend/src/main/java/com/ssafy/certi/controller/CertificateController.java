@@ -1,16 +1,17 @@
 package com.ssafy.certi.controller;
 
 import com.ssafy.certi.domain.Certificate;
+import com.ssafy.certi.domain.Schedule;
 import com.ssafy.certi.repository.CertificateRepository;
+import com.ssafy.certi.repository.ScheduleRepository;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,7 +20,32 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/certificate")
 public class CertificateController {
-    private final CertificateRepository certificateRepository;
+
+
+    private CertificateRepository certificateRepository;
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    // 메인 캘린더 자격증 일정 정보
+    @ApiOperation(value = "캘린더 자격증 일정", notes = "캘린더 메인페이지 일정 등록을 위한 데이터 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("/schedule")
+    public ResponseEntity<List<Schedule>> scheduleAll() {
+
+        try { // schedule 자격증 데이터 모두 반환
+            List<Schedule> scheduleList=scheduleRepository.findAll();
+            return new ResponseEntity<>(scheduleList, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            List<Schedule> box = null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // 자격증 DB 테스트
     @ApiOperation(value = "자격증 DB 테스트", notes = "")
     @ApiResponses({
