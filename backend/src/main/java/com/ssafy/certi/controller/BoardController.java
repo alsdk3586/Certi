@@ -31,8 +31,6 @@ public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
 
-    private UserRepository userRepository;
-
     @Autowired
     UserService userService;
 
@@ -43,17 +41,20 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
     @PostMapping("/create")
-    public ResponseEntity<String> boardPostAdd(@ApiParam(value = "boardCategory,boardTitle, boardContent,boardFile,boardWriter", required = true) @RequestBody Map<String, String> board, HttpServletRequest request) {
+    public ResponseEntity<String> boardPostAdd(@ApiParam(value = "boardCategory,boardTitle, boardContent,boardFile", required = true) @RequestBody Map<String, String> board, HttpServletRequest request) {
         try {
+            System.out.println("-------");
             User person=userService.findByToken(JwtTokenProvider.resolveToken(request));
+            System.out.println("-------");
+
             boardRepository.save(Board.builder()
             .userId(person)
             .boardCategory(Integer.parseInt(board.get("boardCategory")))
             .boardTitle(board.get("boardTitle"))
             .boardContent(board.get("boardContent"))
-            .boardWriter(board.get("boardWriter"))
+            .boardWriter(person.getUsername())
             .boardFile(board.get("boardFile"))
-            .boardFlag(0)
+            .boardFlag(Boolean.TRUE)
             .boardHit(0)
             .boardCreate(LocalDate.now())
             .build());
@@ -89,6 +90,7 @@ public class BoardController {
 
         try {
             Board board=boardRepository.findByBoardId(boardId);
+            board.show(); //hit up
             return new ResponseEntity<>(board, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
@@ -105,19 +107,20 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
     @DeleteMapping("/delete/{boardId}")
-    public ResponseEntity<Boolean> boardPostDelete(@PathVariable Integer boardId, HttpServletRequest request) {
+    public ResponseEntity<Board> boardPostDelete(@PathVariable Integer boardId, HttpServletRequest request) {
 
         try {
             User person= userService.findByToken(JwtTokenProvider.resolveToken(request));
-            Board post=boardRepository.findByBoardId(boardId);
-            if(person.getUserId()==post.getUserId().getUserId()){
-                boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-
+            Board board=boardRepository.findByBoardId(boardId);
+            if(person.getUserId()==board.getUserId().getUserId()){
+               // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
+                board.delete();
+                boardRepository.save(board);
             }
-            return new ResponseEntity<>(true, HttpStatus.OK);
+            return new ResponseEntity<>(board, HttpStatus.OK);
         } catch (IllegalStateException e) { // exception return 하게 수정
-            List<Board> box=null;
-            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+            Board box=null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
 
