@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import InputForm from './inputForm';
-import AuthenticationService from './authenticationService.js'
-import RegisterButton from './registserButton';
+import LoginService from './loginService.js'
 import '../css/login/style.scss';
 
 class LoginForm extends Component {
@@ -29,16 +28,18 @@ class LoginForm extends Component {
     }
 
     loginClicked() {
-        AuthenticationService
-        .executeJwtAuthenticationService(this.state.userEmail, this.state.userPassword)
+        LoginService
+        .executeJwtLoginService(this.state.userEmail, this.state.userPassword)
         .then((response) => {
             console.log(response)
             this.setState({
                 token: response.data.token
             });
-            AuthenticationService.registerSuccessfulLoginForJwt(this.state.userEmail,this.state.token)
-            // this.props.history.push(`/welcome/${this.state.username}`)
-            this.props.history.push('/')
+            LoginService.registerSuccessfulLoginForJwt(this.state.userEmail, this.state.token)
+            
+            // 로그인 성공 시 페이지 이동
+            this.props.history.push(`/user`)
+            // this.props.push('/')
         }).catch( () =>{
             this.setState({showSuccessMessage:false})
             this.setState({hasLoginFailed:true})
@@ -47,25 +48,22 @@ class LoginForm extends Component {
     
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div class="loginForm">
-                    <InputForm
-                        label="이메일"
-                        name="userEmail"
-                        value={this.state.userEmail}
-                        onChange={this.handleChange}
-                    />
-                    <InputForm
-                        label="비밀번호"
-                        name="userPassword"
-                        type="password"
-                        value={this.state.userPassword}
-                        onChange={this.handleChange}
-                    />
-                    <div class="loginButton" onClick={this.loginClicked}>로그인</div>
-                    <RegisterButton to="/register">회원가입</RegisterButton>
-                </div>
-            </form>
+            <div class="loginForm">
+                <InputForm
+                    label="이메일"
+                    name="userEmail"
+                    value={this.state.userEmail}
+                    onChange={this.handleChange}
+                />
+                <InputForm
+                    label="비밀번호"
+                    name="userPassword"
+                    type="password"
+                    value={this.state.userPassword}
+                    onChange={this.handleChange}
+                />
+                <div class="loginButton" onClick={this.loginClicked}>로그인</div>
+            </div>
         );
     }
 }

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-class AuthenticationService {
+class LoginService {
     // send username, password to the SERVER
-    executeJwtAuthenticationService(userEmail, userPassword) {
+    executeJwtLoginService(userEmail, userPassword) {
         return axios.post('http://localhost:8080/api/user/login', {
             userEmail,
             userPassword
@@ -68,4 +68,4 @@ class AuthenticationService {
     }
 }
 
-export default new AuthenticationService()
+export default new LoginService()
