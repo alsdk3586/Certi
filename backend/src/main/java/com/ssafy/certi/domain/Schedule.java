@@ -1,5 +1,6 @@
 package com.ssafy.certi.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,42 +31,52 @@ public class Schedule {
     private int scheduleImplSeq;
 
     @Column(name = "schedule_doc_reg_start_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheduleDocRegStartDt;
 
     @Column(name = "schedule_doc_reg_end_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheduleDocRegEndDt;
 
     @Column(name = "schedule_doc_exam_start_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheduleDocExamStartDt;
 
     @Column(name = "schedule_doc_exam_end_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheduleDocExamEndDt;
 
     @Column(name = "schedule_doc_pass_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheduleDocPassDt;
 
     @Column(name = "schedule_prac_reg_start_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date schedulePracRegStartDt;
 
     @Column(name = "schedule_prac_reg_end_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date schedulePracRegEndDt;
 
     @Column(name = "schedule_prac_exam_start_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date schedulePracExamStartDt;
 
     @Column(name = "schedule_prac_exam_end_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date schedulePracExamEndDt;
 
     @Column(name = "schedule_prac_pass_dt")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date schedulePracPassDt;
 }
