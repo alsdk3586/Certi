@@ -6,7 +6,7 @@ class LoginService {
         return axios.post('http://localhost:8080/api/user/login', {
             userEmail,
             userPassword
-        })
+        });
     }
 
     executeService() {
@@ -25,7 +25,7 @@ class LoginService {
 
     // 앞에 Bearer를 추가해서 Token 생성
     createJWTToken(token) {
-        return 'Bearer ' + token
+        return 'Bearer ' + token;
     }
 
     setupAxiosInterceptors() {

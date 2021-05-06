@@ -16,6 +16,7 @@ class RegisterForm extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.registerClick = this.registerClick.bind(this)
+        this.duplicateCheckClick = this.duplicateCheckClick.bind(this)
     }
 
     handleChange(event) {
@@ -34,9 +35,24 @@ class RegisterForm extends Component {
                 console.log(response)
                 this.props.history.push(`/login`)
 
-            }).catch(() => {
+            }).catch((response) => {
+                console.log(response)
                 this.setState({showSuccessMessage:false})
             })
+    }
+
+    duplicateCheckClick() {
+        RegisterService
+            .duplicateCheckClick(this.state.userNickname)
+            .then((response) => {
+                alert("사용가능한 닉네임입니다");
+
+            }).catch((response) => {
+                console.log(response)
+                alert("이미 사용중인 닉네임입니다");
+                this.setState({showSuccessMessage:false})
+        })
+
     }
     
     render() {
@@ -53,7 +69,9 @@ class RegisterForm extends Component {
                     name="userNickname"
                     value={this.state.userNickname}
                     onChange={this.handleChange}
-                /><br/>
+                />
+                <button className="duplicateCheckButton" onClick={this.duplicateCheckClick}>중복확인</button>
+                <br />
                 <InputForm
                     label="비밀번호"
                     name="userPassword"
