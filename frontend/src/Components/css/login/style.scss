@@ -4,59 +4,51 @@
 // 주의 : 로그인 view에 포함된 컴포넌트에 대한 스타일도 함께 정의
 ********************************************************************/
 
-@import "../colors.scss";
+@import '../colors.scss';
 
 .login {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
 
-    .logo {
-        display: flex;
-        justify-content: center;
-        width: 421px;
-        height: 178px;
-        padding-bottom: 50px;
+  .logo {
+    display: flex;
+    justify-content: center;
+    width: 421px;
+    height: 178px;
+    padding-bottom: 50px;
+  }
+
+  // 로그인 폼
+  .loginForm {
+    margin-top: 48px;
+    margin-left: 25px;
+
+    .loginButton {
+      width: 360px;
+      height: 63px;
+      padding: 23px;
+      margin-top: 41px;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      color: $basic-white;
+      border-radius: 8px;
+      background: rgba(238, 238, 238, 0.3);
+      cursor: pointer;
+      user-select: none;
+      transition: 0.2s all;
+
+      &:hover {
+        background: rgba(238, 238, 238, 0.5);
+      }
+
+      &:active {
+        background: $primary-white;
+        color: $basic-black;
+      }
     }
-
-    // 로그인 폼
-    .loginForm {
-        margin-top: 48px;
-        margin-left: 25px;
-
-        .loginButton {
-            width: 360px;
-            height: 63px;
-            padding: 23px;
-            margin-top: 41px;
-            font-weight: bold;
-            font-size: 20px;
-            text-align: center;
-            color: $basic-white;
-            border-radius: 8px;
-            background: rgba(238, 238, 238, 0.3);
-            cursor: pointer;
-            user-select: none;
-            transition: .2s all;
-        
-            &:hover {
-                background: rgba(238, 238, 238, 0.5);
-            }
-        
-            &:active {
-                background: $primary-white;
-                color: $basic-black;
-            }
-        }
-
-        .toRegisterButton {
-            font-weight: bold;
-            font-size: 18px;
-            color: $basic-black;
-            margin-top: 31px;
-        }
-    }
-   
+  }
 }

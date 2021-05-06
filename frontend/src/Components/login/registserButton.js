@@ -4,8 +4,8 @@ import oc from 'open-color';
 import { Link } from 'react-router-dom';
 
 const Aligner = styled.div`
-    margin-top: 1rem;
-    text-align: right;
+    margin-top: 3rem;
+    text-align: center;
 `;
 
 
