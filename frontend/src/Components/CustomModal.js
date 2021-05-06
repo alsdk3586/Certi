@@ -1,7 +1,10 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Table } from 'react-bootstrap';
+import LineChart from './LineChart';
 
 export default function CustomModal(props) {
+  const eventData = props.data;
+
   return (
     <>
       <Modal
@@ -16,12 +19,32 @@ export default function CustomModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </p>
+          <Table striped border size="md">
+            <tbody>
+              <tr>
+                <td>필기시험접수일</td>
+                <td>{eventData.startDt}</td>
+              </tr>
+              <tr>
+                <td>필기시험일</td>
+                <td>{eventData.endDt}</td>
+              </tr>
+              <tr>
+                <td>필기합격률</td>
+                <td>{eventData.acceptancerate_doc*100}%</td>
+              </tr>
+              <tr>
+                <td>실기합격률</td>
+                <td>{eventData.acceptancerate_result*100}%</td>
+              </tr>
+              <tr>
+                <td>최종합격률</td>
+                <td>{eventData.acceptancerate_prac*100}%</td>
+              </tr>
+            </tbody>
+          </Table>
+          {/* Chart */}
+          <LineChart />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
