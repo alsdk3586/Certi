@@ -14,7 +14,8 @@ class LoginForm extends Component {
             hasLoginFailed: false,
             showSuccessMessage: false, // 로그인 성공 시 버튼 활성화
             buttonColor: "background: rgba(238, 238, 238, 0.3)",
-            textColor: "color: #FFFFFF"
+            textColor: "color: #FFFFFF",
+            cursor: "cursor: default"
         }
         this.handleChange = this.handleChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
@@ -59,13 +60,15 @@ class LoginForm extends Component {
             this.setState({
                 buttonColor: "#e1eef6",
                 textColor: "#000000",
-                showSuccessMessage: true
+                showSuccessMessage: true,
+                cursor: "pointer"
             })
         }
         else {
             this.setState({
                 buttonColor: "rgba(238, 238, 238, 0.3)",
-                showSuccessMessage: false
+                showSuccessMessage: false,
+                cursor: "default"
             })
         }
     }
@@ -91,9 +94,11 @@ class LoginForm extends Component {
                 <div
                     class="loginButton"
                     onClick={this.loginClicked}
+                    disabled={!this.state.showSuccessMessage}
                     style={{
                         backgroundColor: this.state.buttonColor,
-                        color: this.state.textColor
+                        color: this.state.textColor,
+                        cursor: this.state.cursor
                     }}>
                     로그인</div>
             </div>
