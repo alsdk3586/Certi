@@ -12,24 +12,27 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Room {
+public class ChatRoom {
     @Id
 //    @GeneratedValue
 //    @Column(name = "certificate_code")
     private String certificateCode;
-    private LocalDateTime chatroomCreate;
+    private LocalDateTime localDateTime;
 
+
+    //어떤 필드에 어떤 값을 넣어야할지 명확하게 구분하기 위해 생성자 말고 Builder를 사용함
     @Builder
-    public Room(String certificateCode){
+    public ChatRoom(String certificateCode,LocalDateTime localDateTime){
         this.certificateCode = certificateCode;
+        this.localDateTime=localDateTime;
     }
 
     //채팅방 생성
 
-    public static Room createRoom(String certificateCode){
-        return Room.builder()
-                .certificateCode(certificateCode)
-                .build();
-    }
+//    public static ChatRoom createRoom(String certificateCode){
+//        return ChatRoom.builder()
+//                .certificateCode(certificateCode)
+//                .build();
+//    }
 
 }

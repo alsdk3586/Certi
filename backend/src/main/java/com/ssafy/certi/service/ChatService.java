@@ -1,9 +1,9 @@
 package com.ssafy.certi.service;
 
 import com.ssafy.certi.domain.Chat;
-import com.ssafy.certi.domain.Room;
+import com.ssafy.certi.domain.ChatRoom;
 import com.ssafy.certi.repository.ChatRepository;
-import com.ssafy.certi.repository.RoomRepository;
+import com.ssafy.certi.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +12,20 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ChatService {
-    private final RoomRepository roomRepository;
+    private final ChatRoomRepository roomRepository;
     private final ChatRepository chatRepository;
 
 
 
     //모든 채팅방 찾기
-    public List<Room> findAllRoom(){
+    public List<ChatRoom> findAllRoom(){
         return roomRepository.findAll();
     }
     /**
      * 특정 채팅방 찾기
      * @param certificateCode certificateCode
      */
-    public Room findRoomByCertificateCode(String certificateCode){
+    public ChatRoom findRoomByCertificateCode(String certificateCode){
         return roomRepository.findById(certificateCode).orElseThrow();
     }
 
@@ -33,8 +33,9 @@ public class ChatService {
      * 채팅방 만들기
      * @param certificateCode 방 코드
      */
-    public Room createRoom(String certificateCode){
-        return roomRepository.save(Room.createRoom(certificateCode));
+    public ChatRoom createRoom(String certificateCode){
+//        return roomRepository.save(ChatRoom.createRoom(certificateCode));
+        return null;
     }
 
 
@@ -45,7 +46,7 @@ public class ChatService {
      * @param message 내용
      */
     public Chat createChat(String certificateCode,int messageSenderId,String message){
-        Room room=roomRepository.findById(certificateCode).orElseThrow();
+        ChatRoom room=roomRepository.findById(certificateCode).orElseThrow();
         return chatRepository.save(Chat.createChat(certificateCode,messageSenderId,message));
     }
 
