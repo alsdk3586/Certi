@@ -40,15 +40,6 @@
       cursor: pointer;
       user-select: none;
       transition: 0.2s all;
-
-      &:hover {
-        background: rgba(238, 238, 238, 0.5);
-      }
-
-      &:active {
-        background: $primary-white;
-        color: $basic-black;
-      }
     }
 
     .duplicateCheckButton {

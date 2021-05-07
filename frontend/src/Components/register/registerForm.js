@@ -12,11 +12,16 @@ class RegisterForm extends Component {
             userEmail: '',
             userPassword: '',
             userNickname: '',
-            showSuccessMessage: false
+            showSuccessMessage: false,
+            duplicateCheck: false,
+            buttonColor: "background: rgba(238, 238, 238, 0.3)",
+            textColor: "color: #FFFFFF",
+            cursor: "cursor: default"
         }
         this.handleChange = this.handleChange.bind(this)
         this.registerClick = this.registerClick.bind(this)
         this.duplicateCheckClick = this.duplicateCheckClick.bind(this)
+        this.handleActivation = this.handleActivation.bind(this)
     }
 
     handleChange(event) {
@@ -26,6 +31,26 @@ class RegisterForm extends Component {
                   :event.target.value
             }
         )
+    }
+
+    handleActivation() {
+        if (this.state.userEmail.includes("@") && this.state.userPassword.length >= 3 && this.state.duplicateCheck === true) {
+            this.setState({
+                buttonColor: "#e1eef6",
+                textColor: "#000000",
+                showSuccessMessage: true,
+                cursor: "pointer",
+                duplicateCheck: true
+            })
+        }
+        else {
+            this.setState({
+                buttonColor: "rgba(238, 238, 238, 0.3)",
+                showSuccessMessage: false,
+                cursor: "default",
+                duplicateCheck: false
+            })
+        }
     }
 
     registerClick() {
@@ -46,6 +71,7 @@ class RegisterForm extends Component {
             .duplicateCheckClick(this.state.userNickname)
             .then(() => {
                 alert("사용가능한 닉네임입니다");
+                this.setState({ duplicateCheck:true })
 
             }).catch((response) => {
                 console.log(response)
@@ -57,7 +83,7 @@ class RegisterForm extends Component {
     
     render() {
         return (
-            <div class="registerForm">
+            <div class="registerForm" onKeyUp={this.handleActivation}>
                 <InputForm
                     label="이메일"
                     name="userEmail"
@@ -84,7 +110,14 @@ class RegisterForm extends Component {
                     name="passwordConfirm"
                     type="password"
                 />
-                <div class="registerButton" onClick={this.registerClick}>회원가입</div>
+                <div class="registerButton"
+                    onClick={this.registerClick}
+                    style={{
+                        backgroundColor: this.state.buttonColor,
+                        color: this.state.textColor,
+                        cursor: this.state.cursor
+                    }}>
+                    회원가입</div>
             </div>
         );
     }
