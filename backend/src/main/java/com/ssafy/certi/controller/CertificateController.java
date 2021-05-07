@@ -1,12 +1,14 @@
 package com.ssafy.certi.controller;
 
-import com.ssafy.certi.domain.Certificate;
-import com.ssafy.certi.domain.Schedule;
+import com.ssafy.certi.domain.*;
+import com.ssafy.certi.repository.AcceptanceRateRepository;
 import com.ssafy.certi.repository.CertificateRepository;
 import com.ssafy.certi.repository.ScheduleRepository;
+import com.ssafy.certi.repository.StatisticsRepository;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,10 @@ public class CertificateController {
     private CertificateRepository certificateRepository;
     @Autowired
     private ScheduleRepository scheduleRepository;
+    @Autowired
+    private AcceptanceRateRepository acceptanceRateRepository;
+    @Autowired
+    private StatisticsRepository statisticsRepository;
 
     // 메인 캘린더 자격증 일정 정보
     @ApiOperation(value = "캘린더 자격증 일정", notes = "캘린더 메인페이지 일정 등록을 위한 데이터 반환")
@@ -42,6 +48,27 @@ public class CertificateController {
 
         } catch (IllegalStateException e) { // exception return 하게 수정
             List<Schedule> box = null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 캘린더 자격증 상세 정보 조회
+    // DTO로 변환 필요.
+    @ApiOperation(value = "자격증 상세정보 조회", notes = "자격증 상세정보 조회를 위한 특정 자격증 상세정보 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("/{certificateCode}")
+    public ResponseEntity<List<AcceptanceRate>> certificateDetail(@PathVariable String certificateCode) {
+        try {
+            List<AcceptanceRate> result=acceptanceRateRepository.findByCertificateCodeCertificateCode(certificateCode);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            List<AcceptanceRate> box=null;
             return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
