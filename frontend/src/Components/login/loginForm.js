@@ -12,7 +12,7 @@ class LoginForm extends Component {
             userPassword: '',
             token: localStorage.getItem("token") || '',
             hasLoginFailed: false,
-            showSuccessMessage: false, // 로그인 성공 시 버튼 활성화
+            loginSuccess: false, // 로그인 성공 시 버튼 활성화
             buttonColor: "background: rgba(238, 238, 238, 0.3)",
             textColor: "color: #FFFFFF",
             cursor: "cursor: default"
@@ -31,46 +31,46 @@ class LoginForm extends Component {
         )
     }
 
-    loginClicked() {
-        LoginService
-        .executeJwtLoginService(this.state.userEmail, this.state.userPassword)
-        .then((response) => {
-            console.log(response)
-            this.setState({
-                token: response.data.token
-            });
-            LoginService.registerSuccessfulLoginForJwt(this.state.userEmail, this.state.token)
-            
-            if (this.state.showSuccessMessage === true) { // 로그인 성공 시 페이지 이동
-                this.props.history.push(`/user`)
-                // this.props.push('/')
-            }
-            else {
-                alert("로그인에 실패하였습니다")
-            }
-            
-        }).catch( () =>{
-            this.setState({showSuccessMessage:false})
-            this.setState({hasLoginFailed:true})
-        })
-    }
-
     handleActivation() {
         if (this.state.userEmail.includes("@") && this.state.userPassword.length >= 3) {
             this.setState({
                 buttonColor: "#e1eef6",
                 textColor: "#000000",
-                showSuccessMessage: true,
+                loginSuccess: true,
                 cursor: "pointer"
             })
         }
         else {
             this.setState({
                 buttonColor: "rgba(238, 238, 238, 0.3)",
-                showSuccessMessage: false,
+                loginSuccess: false,
                 cursor: "default"
             })
         }
+    }
+
+    loginClicked() {
+        LoginService
+        .executeJwtLoginService(this.state.userEmail, this.state.userPassword)
+        .then((response) => {
+            console.log(response)
+            this.setState({
+                token: response.data.token,
+                loginSuccess: true
+            });
+            LoginService.registerSuccessfulLoginForJwt(this.state.userEmail, this.state.token)
+            
+            if (this.state.loginSuccess === true) { // 로그인 성공 시 페이지 이동
+                this.props.history.push(`/user`)
+            }
+            else {
+                alert("로그인에 실패하였습니다")
+            }
+            
+        }).catch( () =>{
+            this.setState({loginSuccess:false})
+            this.setState({hasLoginFailed:true})
+        })
     }
     
     render() {
@@ -94,7 +94,6 @@ class LoginForm extends Component {
                 <div
                     class="loginButton"
                     onClick={this.loginClicked}
-                    disabled={!this.state.showSuccessMessage}
                     style={{
                         backgroundColor: this.state.buttonColor,
                         color: this.state.textColor,
