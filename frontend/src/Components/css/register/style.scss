@@ -1,12 +1,12 @@
 /*******************************************************************
-// 위치 : src/Components/css/login/style.scss 
-// 설명 : 로그인 view에 적용되는 스타일에 대해 정의함 
-// 주의 : 로그인 view에 포함된 컴포넌트에 대한 스타일도 함께 정의
+// 위치 : src/Components/css/register/style.scss 
+// 설명 : 회원가입 view에 적용되는 스타일에 대해 정의함 
+// 주의 : 회원가입 view에 포함된 컴포넌트에 대한 스타일도 함께 정의
 ********************************************************************/
 
 @import '../colors.scss';
 
-.login {
+.register {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16,17 +16,17 @@
   .logo {
     display: flex;
     justify-content: center;
-    width: 421px;
-    height: 178px;
+    width: 314px;
+    height: 141px;
     padding-bottom: 50px;
+    margin-left: 10px;
   }
 
-  // 로그인 폼
-  .loginForm {
+  // 회원가입 폼
+  .registerForm {
     margin-top: 48px;
-    margin-left: 25px;
 
-    .loginButton {
+    .registerButton {
       width: 360px;
       height: 63px;
       padding: 23px;
@@ -49,6 +49,16 @@
         background: $primary-white;
         color: $basic-black;
       }
+    }
+
+    .duplicateCheckButton {
+      align-items: center;
+      margin-left: 16px;
+      position: absolute;
+      width: 79px;
+      height: 48px;
+      background: #eeeeee;
+      border-radius: 4px;
     }
   }
 }
