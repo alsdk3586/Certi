@@ -32,7 +32,12 @@
     "styled-component": "^2.8.0",
     "styled-components": "^5.2.3",
     "styled-reset": "^4.3.4",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "@material-ui/core": "^1.2.2",
+    "@material-ui/icons": "^2.0.1",
+    "react-error-boundary": "^3.1.1",
+    "react-stomp": "^4.2.0",
+    "sockjs-client": "^1.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
