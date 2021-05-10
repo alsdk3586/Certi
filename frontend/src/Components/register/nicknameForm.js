@@ -27,11 +27,10 @@ const Input = styled.input`
     padding-right: 0.5rem;
 `;
 
-const NicknameForm = ({label, ...rest}) => (
+const NicknameForm = ({ label, ...rest }) => (
     <Wrapper>
         <Label>{label}</Label>
         <Input {...rest} />
-        <button className="duplicateCheckButton">중복확인</button>
     </Wrapper>
 );
 
