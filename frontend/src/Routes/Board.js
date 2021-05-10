@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import "../Components/css/css.scss";
 import BoardList from "../Components/BoardList";
 
-export default function Board() {
-  const [key, setKey] = useState("home");
+import { boardApi } from "../utils/axios";
 
+export default function Board() {
+  const [key, setKey] = useState("all");
+  const [data, setData] = useState();
   return (
     <div id="boardContainer">
       <Navbar id="boardNavBar">
@@ -14,16 +16,18 @@ export default function Board() {
           <Tabs
             id="controlled-tab-example"
             activeKey={key}
-            onSelect={(k) => setKey(k)}
+            onSelect={async (k) => {
+              const res = await boardApi.getAllBoard();
+              setData(res);
+              setKey(k);
+            }}
           >
-            <Tab eventKey="all" title="ALL">
-              {" "}
-            </Tab>
+            <Tab eventKey="all" title="ALL"></Tab>
             <Tab eventKey="study" title="STUDY"></Tab>
             <Tab eventKey="free" title="FREE"></Tab>
           </Tabs>
           <Tab.Content>
-            <BoardList name={key} />
+            <BoardList name={key} data={data} />
           </Tab.Content>
         </div>
 

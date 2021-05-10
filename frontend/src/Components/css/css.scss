@@ -1,12 +1,12 @@
 
 
 #boardContainer{
-    background-color: yellow;
+    // background-color: yellow;
     padding: 30px;
 }
 #boardNavBar{
     flex:1;
-    background-color: red;
+    // background-color: red;
 }
 
 #boardNavBarTab {
@@ -23,4 +23,8 @@
 #boardList{
     flex:1;
     padding-top: 10px;
+}
+
+#boardListTable{
+    flex:1
 }
