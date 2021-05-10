@@ -1,0 +1,26 @@
+
+
+#boardContainer{
+    background-color: yellow;
+    padding: 30px;
+}
+#boardNavBar{
+    flex:1;
+    background-color: red;
+}
+
+#boardNavBarTab {
+    flex:1;
+    background-color:"red";
+}
+
+#boardSearch{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#boardList{
+    flex:1;
+    padding-top: 10px;
+}
