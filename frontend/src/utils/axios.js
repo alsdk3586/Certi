@@ -10,4 +10,9 @@ export const boardApi = {
     //console.log(response);
     return response.data;
   },
+  async getDetailBoard(boardId) {
+    const response = await request.get(`board/${boardId}`);
+    //console.log(response);
+    return response.data;
+  },
 };
