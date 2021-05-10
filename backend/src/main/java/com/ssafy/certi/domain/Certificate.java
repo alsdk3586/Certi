@@ -26,7 +26,10 @@ public class Certificate {
     @Column(name = "certificate_classification_code")
     private String certificateClassificationCode;
 
-    @Column(name = "certificate_classification_name")
+    @Column(name = "certsificate_classification_name")
     private String certificateClassificationName;
 
+    public interface CertificateMapping {
+        String getCertificateCode();
+    }
 }

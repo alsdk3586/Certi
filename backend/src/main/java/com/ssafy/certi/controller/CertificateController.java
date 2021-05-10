@@ -23,7 +23,7 @@ import java.util.Map;
 @RequestMapping("/certificate")
 public class CertificateController {
 
-
+    @Autowired
     private CertificateRepository certificateRepository;
     @Autowired
     private ScheduleRepository scheduleRepository;
@@ -53,18 +53,18 @@ public class CertificateController {
     }
 
     // 캘린더 자격증 상세 정보 조회
-    // DTO로 변환 필요.
+    // DTO로 변환 필요.(일단 실패해서,, 보류.)
+    // 합격률 통계 상세정보 반환
     @ApiOperation(value = "자격증 상세정보 조회", notes = "자격증 상세정보 조회를 위한 특정 자격증 상세정보 반환")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 400, message = "잘못된 접근"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    @GetMapping("/{certificateCode}")
-    public ResponseEntity<List<AcceptanceRate>> certificateDetail(@PathVariable String certificateCode) {
+    @GetMapping("acceptancerate/{certificateCode}")
+    public ResponseEntity<List<AcceptanceRate>> certificateAcceptanceRateDetail(@PathVariable String certificateCode) {
         try {
             List<AcceptanceRate> result=acceptanceRateRepository.findByCertificateCodeCertificateCode(certificateCode);
-
             return new ResponseEntity<>(result, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
@@ -72,6 +72,48 @@ public class CertificateController {
             return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
+
+    // 연령대, 성별, 취득자 수 상세정보 반환
+    @ApiOperation(value = "자격증 상세정보 조회", notes = "자격증 상세정보 조회를 위한 특정 자격증 상세정보 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("statistics/{certificateCode}")
+    public ResponseEntity<List<Statistics>> certificateStatisticsDetail(@PathVariable String certificateCode) {
+        try {
+            List<Statistics> result=statisticsRepository.findByCertificateCodeCertificateCode(certificateCode);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            List<Statistics> box=null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 검색 기능
+    @ApiOperation(value = "자격증 검색 기능", notes = "자격증의 이름을 검색하면 해당 자격증의 정보를 반환한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("/search/{certificateClassificationCode}")
+    public ResponseEntity<List<Certificate>> certificateSearch(@PathVariable String certificateClassificationCode) {
+        try {
+            // 자격증 이름으로 해당 자격증의 정보는 가져왔는데,,, 이 자격증 정보를 바탕으로 Schedule Entity를 어떻게 가져와야 하는지 모르겠음 흑흑.
+            // 자격증 이름을 대충 검색해도 전부 포함시켜서 나오도록 (Like 와이들카드)와 대소문자 구분 없이 하도록 하게끔 Jpa Query를 짜줌.
+            List<Certificate> result=certificateRepository.findByCertificateClassificationCodeContainingIgnoreCase(certificateClassificationCode);
+//            List<Schedule> result = scheduleRepository.findByCertificateCode(result_sub.getCertificateCode());
+            return new ResponseEntity<>(result, HttpStatus.OK);
+            
+        } catch (IllegalStateException e) {
+            List<Certificate> box=null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+        
 
     // 자격증 DB 테스트
     @ApiOperation(value = "자격증 DB 테스트", notes = "")
