@@ -104,12 +104,10 @@ public class CertificateController {
     @GetMapping("/search/{certificateClassificationCode}")
     public ResponseEntity<List<Certificate>> certificateSearch(@PathVariable String certificateClassificationCode) {
         try {
-            // 자격증 이름으로 해당 자격증의 정보는 가져왔는데,,, 이 자격증 정보를 바탕으로 Schedule Entity를 어떻게 가져와야 하는지 모르겠음 흑흑.
             // 자격증 이름을 대충 검색해도 전부 포함시켜서 나오도록 (Like 와이들카드)와 대소문자 구분 없이 하도록 하게끔 Jpa SQL Query를 짜줌.
             List<Certificate> result_sub=certificateRepository.findByCertificateClassificationCodeContainingIgnoreCase(certificateClassificationCode);
-//            System.out.println(result_sub);
-            // 배열 선언
 
+            // 배열 선언
             ArrayList list = new ArrayList();
             for (int i = 0; i < result_sub.size(); i++) {
                 String certi = result_sub.get(i).getCertificateCode().toString();
@@ -118,7 +116,6 @@ public class CertificateController {
                     list.add(schedule.get(j));
                 }
             }
-//            List<Schedule> result = scheduleRepository.findByCertificateCode(result_sub.getCertificateCode());
             return new ResponseEntity<>(list, HttpStatus.OK);
 
         } catch (IllegalStateException e) {
