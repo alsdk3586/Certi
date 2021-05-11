@@ -6,15 +6,24 @@ import { Link } from "react-router-dom";
 export default function BoardList(props) {
   const [data, setData] = useState(props.data);
 
+  const fill = async () => {
+    const res = await boardApi.getAllBoard();
+    console.log(res);
+    setData(res);
+    console.log(data);
+  };
   useEffect(() => {
-    const fill = async () => {
-      const res = await boardApi.getAllBoard();
-      console.log(res);
-      setData(res);
-      console.log(data);
-    };
-    fill();
-  }, []);
+    switch (props.name) {
+      case "all":
+        fill();
+        break;
+      case "study":
+        setData();
+        break;
+      case "free":
+        setData();
+    }
+  }, [props.name]);
 
   return (
     <div id="boardList">
@@ -34,7 +43,7 @@ export default function BoardList(props) {
               <tr key={article.boardId}>
                 <td>{article.boardId}</td>
                 <td>
-                  <Link to={`/board/${article.boardId}`}>
+                  <Link to={`/detailboard/${article.boardId}`}>
                     {article.boardTitle}
                   </Link>
                 </td>
