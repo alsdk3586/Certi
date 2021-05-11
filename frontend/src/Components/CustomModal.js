@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, Button, Table } from 'react-bootstrap';
 import LineChart from './LineChart';
+import PieChart from './PieChart';
+import ColumnChart from './ColumnChart';
 
 export default function CustomModal(props) {
   const eventData = props.data;
@@ -44,6 +46,8 @@ export default function CustomModal(props) {
             </tbody>
           </Table>
           {/* Chart */}
+          <PieChart />
+          <ColumnChart />
           <LineChart />
         </Modal.Body>
         <Modal.Footer>
