@@ -28,8 +28,4 @@ public class Certificate {
 
     @Column(name = "certsificate_classification_name")
     private String certificateClassificationName;
-
-    public interface CertificateMapping {
-        String getCertificateCode();
-    }
 }
