@@ -10,6 +10,7 @@ import User from '../Routes/User';
 import ChatBox from '../Components/aside/ChatMessageBox/ChatMessageBox'
 import Login from '../Routes/Login';
 import Register from '../Routes/Register';
+import AuthenticatedRoute from '../Components/login/AuthenticatedRoute'
 
 export default () => (
   <Router>
@@ -20,10 +21,12 @@ export default () => (
         <Route path="/calendar" exact component = {CalendarApp} />
         <Route path="/board" exact component = {Board} />
         <Route path="/certi" exact component = {Certi} />
-        <Route path="/user" exact component={User} />
+        {/* <Route path="/user" exact component={User} /> */}
         <Route path="/ChatBox" exact component={ ChatBox } />
         <Route path="/login" exact component = {Login} />
-        <Route path="/register" exact component = {Register} />
+        <Route path="/register" exact component={Register} />
+        <AuthenticatedRoute path="/user" component={User} />
+        <AuthenticatedRoute path="/logout" component={Home}/>
         <Redirect from="*" to="/" />
       </Switch>
     </>

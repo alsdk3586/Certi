@@ -61,7 +61,7 @@ class LoginForm extends Component {
             LoginService.registerSuccessfulLoginForJwt(this.state.userEmail, this.state.token)
             
             if (this.state.loginSuccess === true) { // 로그인 성공 시 페이지 이동
-                this.props.history.push(`/user`)
+                this.props.history.push(`/`)
             }
             else {
                 alert("로그인에 실패하였습니다")
