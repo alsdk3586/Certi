@@ -1,0 +1,58 @@
+@import './colors.scss';
+
+#boardContainer{
+    // background-color: yellow;
+    padding: 30px;
+}
+#boardNavBar{
+    flex:1;
+    // background-color: red;
+}
+
+#boardNavBarTab {
+    flex:1;
+    background-color:"red";
+}
+
+#boardSearch{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#boardList{
+    flex:1;
+    padding-top: 10px;
+}
+
+#boardListTable{
+    flex:1
+}
+
+#detailBoard{
+    flex:1;
+    padding:40px;
+}
+
+#detailBoardTop{
+    flex:1;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    padding :10px;
+    background-color: $primary-yellow;
+}
+
+#detailBoardTitle{
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#detailBoardContent{
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: $primary-white;
+    flex:1;
+    justify-content: center;
+}

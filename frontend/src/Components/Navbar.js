@@ -19,7 +19,7 @@ const Header = styled.header`
   `;
 const List = styled.ul`
   display: flex;
-`;
+  `;
 const Item = styled.li`
   text-decoration: none;
   min-width: 80px;
@@ -29,12 +29,20 @@ const Item = styled.li`
   text-align: center;
   border-bottom: 4px solid ${props => (props.current ? "#fcbe32" : "transparent")}; 
   transition: border-bottom 0.3s ease-in-out;
-`;
+  
+  `;
+
+
 const Slink = styled(Link)`
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  &:hover {
+    color: black;
+    text-decoration-line: none;
+    font-weight: bold;
+  }
 `;
 
 export default withRouter(({ location : { pathname }}) => (

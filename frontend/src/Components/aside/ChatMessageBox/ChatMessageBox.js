@@ -39,7 +39,7 @@ class ChatMessageBox extends Component {
 
       var SockJS = require('sockjs-client')
 
-      SockJS = new SockJS('http://localhost:8080/ws')
+      SockJS = new SockJS('http://localhost:8080/ws') // 방 별로 나눠줄 url 추가해주기 
 
       stompClient = Stomp.over(SockJS);
 
@@ -59,9 +59,10 @@ class ChatMessageBox extends Component {
 
     // Subscribing to the public topic
     stompClient.subscribe('/topic/pubic', this.onMessageReceived);
+    console.log("Subscribing to the public topic")
 
     // Registering user to server as a public chat user
-    stompClient.send("/app/addUser", {}, JSON.stringify({ sender: this.state.username, type: 'JOIN' }))
+    stompClient.send("/app/chat/message", {}, JSON.stringify({ sender: this.state.username, type: 'JOIN' }))
 
   }
 
@@ -247,7 +248,6 @@ class ChatMessageBox extends Component {
       </div>
     )
   }
-
 }
 
 export default ChatMessageBox;
