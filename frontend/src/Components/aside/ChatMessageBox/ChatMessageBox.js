@@ -247,7 +247,6 @@ class ChatMessageBox extends Component {
       </div>
     )
   }
-
 }
 
 export default ChatMessageBox;
