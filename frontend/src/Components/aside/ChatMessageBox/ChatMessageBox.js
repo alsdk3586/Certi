@@ -39,7 +39,7 @@ class ChatMessageBox extends Component {
 
       var SockJS = require('sockjs-client')
 
-      SockJS = new SockJS('http://localhost:8080/ws')
+      SockJS = new SockJS('http://localhost:8080/ws') // 방 별로 나눠줄 url 추가해주기 
 
       stompClient = Stomp.over(SockJS);
 
