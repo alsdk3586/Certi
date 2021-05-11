@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
     // 메시지 브로커 구성 (메시지를 브로드캐스팅)
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/pub");
+        registry.setApplicationDestinationPrefixes("/app"); // /pub
         registry.enableSimpleBroker("/sub", "/queue/", "/room/", "/topic/", "/user/");   // 메모리 기반 메시지 브로커가 해당 api 구독하고 있는 client에게 메세지 전달
         registry.setUserDestinationPrefix("/user");
     }

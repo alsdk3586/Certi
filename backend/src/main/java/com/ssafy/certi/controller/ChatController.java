@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,11 +18,18 @@ public class ChatController {
 
     @ApiOperation(value = "채팅")
     @MessageMapping("/chat/message") //  websocket으로 들어오는 메세지 발행 처리.
+    @SendTo("/topic/pubic")
     public void message(ChatMessage message) {
         if (ChatMessage.MessageType.JOIN.equals(message.getType()))
             message.setMessage(message.getSender() + "님이 입장하셨습니다.");
         messagingTemplate.convertAndSend("/sub/chat/room/" + message.getCertificateCode(), message);
     }
+
+//    @MessageMapping("/sendMessage")
+//    @SendTo("/topic/pubic")
+//    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+//        return chatMessage;
+//    }
 
 //    @MessageMapping("/addUser")
 //    @SendTo("/topic/pubic")
