@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findAll();
-    Schedule findByCertificateCode(String certificatecode);
+    List<Schedule> findByCertificateCodeCertificateCode(String certificatecode);
 }

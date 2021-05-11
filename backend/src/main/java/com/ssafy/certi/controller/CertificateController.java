@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -112,12 +113,13 @@ public class CertificateController {
             ArrayList list = new ArrayList();
             for (int i = 0; i < result_sub.size(); i++) {
                 String certi = result_sub.get(i).getCertificateCode().toString();
-//                Schedule schedule = scheduleRepository.findByCertificateCode(certi);
-                System.out.println(certi);
-//                list.add(single_schedule);
+                List<Schedule> schedule = scheduleRepository.findByCertificateCodeCertificateCode(certi);
+                for (int j = 0; j < schedule.size(); j++) {
+                    list.add(schedule.get(j));
+                }
             }
 //            List<Schedule> result = scheduleRepository.findByCertificateCode(result_sub.getCertificateCode());
-            return new ResponseEntity<>(result_sub, HttpStatus.OK);
+            return new ResponseEntity<>(list, HttpStatus.OK);
 
         } catch (IllegalStateException e) {
             List<Certificate> box=null;
