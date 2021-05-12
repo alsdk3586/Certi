@@ -72,7 +72,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedOriginPattern("/*");
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
-//        configuration.applyPermitDefaultValues();
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/*", configuration);
         return source;
