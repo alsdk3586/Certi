@@ -21,7 +21,7 @@ import java.util.Optional;
 @Api(tags = {"1. User"})
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("*")
 @RequestMapping("/api/user")
 public class UserController {
     // 기본형
