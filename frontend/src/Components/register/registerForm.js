@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import InputForm from './inputForm'
 import NicknameForm from './nicknameForm'
 import RegisterService from './registerService.js'
@@ -110,6 +111,7 @@ class RegisterForm extends Component {
                     name="passwordConfirm"
                     type="password"
                 />
+                <Link to = "`/`">
                 <div class="registerButton"
                     onClick={this.registerClick}
                     style={{
@@ -117,7 +119,8 @@ class RegisterForm extends Component {
                         color: this.state.textColor,
                         cursor: this.state.cursor
                     }}>
-                    회원가입</div>
+                        회원가입</div>
+                </Link>
             </div>
         );
     }

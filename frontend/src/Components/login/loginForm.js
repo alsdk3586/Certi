@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import InputForm from './inputForm';
 import LoginService from './loginService.js'
 import '../css/login/style.scss';
@@ -91,6 +92,7 @@ class LoginForm extends Component {
                     value={this.state.userPassword}
                     onChange={this.handleChange}
                 />
+                <Link to = "`/`">
                 <div
                     class="loginButton"
                     onClick={this.loginClicked}
@@ -99,7 +101,8 @@ class LoginForm extends Component {
                         color: this.state.textColor,
                         cursor: this.state.cursor
                     }}>
-                    로그인</div>
+                        로그인</div>
+                </Link>
             </div>
         );
     }
