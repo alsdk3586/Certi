@@ -20,8 +20,8 @@ import java.util.Map;
 @Api(tags = {"3. Board"})
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/board")
 @CrossOrigin("*")
+@RequestMapping("/board")
 public class BoardController {
 
     @Autowired
