@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import LoginService from './login/loginService';
 
 const Header = styled.header`
   color: #707070;
@@ -59,6 +60,8 @@ export default withRouter(({ location : { pathname }}) => (
         <Slink to="/user">회원</Slink></Item>
       <Item current={pathname === '/login'}>
         <Slink to="/login">로그인</Slink></Item>
+      <Item current={pathname === '/logout'} onClick={LoginService.logout}>
+        <Slink to="/logout">로그아웃</Slink></Item>
     </List>
   </Header>
 ));

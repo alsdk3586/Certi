@@ -62,7 +62,7 @@ class ChatMessageBox extends Component {
     console.log("Subscribing to the public topic")
 
     // Registering user to server as a public chat user
-    stompClient.send("/app/chat/message", {}, JSON.stringify({ sender: this.state.username, type: 'JOIN' }))
+    stompClient.send("/app/addUser", {}, JSON.stringify({ sender: this.state.username, type: 'JOIN' }))
 
   }
 
