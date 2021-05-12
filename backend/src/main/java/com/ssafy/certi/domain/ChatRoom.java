@@ -13,9 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChatRoom {
+
     @Id
-//    @GeneratedValue
-//    @Column(name = "certificate_code")
     private String certificateCode;
     private LocalDateTime localDateTime;
 
@@ -28,11 +27,10 @@ public class ChatRoom {
     }
 
     //채팅방 생성
-
-//    public static ChatRoom createRoom(String certificateCode){
-//        return ChatRoom.builder()
-//                .certificateCode(certificateCode)
-//                .build();
-//    }
+    public static ChatRoom createRoom(String certificateCode){
+        return ChatRoom.builder()
+                .certificateCode(certificateCode)
+                .build();
+    }
 
 }

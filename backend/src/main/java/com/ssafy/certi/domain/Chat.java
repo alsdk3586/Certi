@@ -1,40 +1,37 @@
 package com.ssafy.certi.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Chat {
 
     @Id
-//    @GeneratedValue
-//    @Column(name = "certificate_code")
+//    @OneToOne(mappedBy = "certificate_code", fetch = FetchType.EAGER)
     private String certificateCode;
 
+    // 메시지 보낸 유저 식별번호
+    @JsonProperty("message_sender_id")
     private int messageSenderId;
 
+    // 보낸 메세지
+    @JsonProperty("message")
     private String message;
-    private int messageReading;
-    private LocalDateTime messageCreate;
 
-    @Builder
-    public Chat(String certificateCode,int messageSenderId,String message){
-        this.certificateCode=certificateCode;
-        this.messageSenderId=messageSenderId;
-        this.message=message;
-        this.messageCreate= LocalDateTime.now();
-    }
+    // ?
+    @JsonProperty("message_reading")
+    private int messageReading;
+
+    // 메세지 전송 시각
+    @JsonProperty("message_create")
+    private LocalDateTime messageCreate;
 
     /**
      * 채팅 생성
