@@ -12,7 +12,7 @@ export default function CustomModal(props) {
   const [acceptanceRateDoc, setDoc] = useState(null);
   const [acceptanceRatePrac, setPrac] = useState(null);
   const [acceptanceRateResult, setResult] = useState(null);
-  useEffect(() => {
+  
     axios.get(`http://localhost:8080/certificate/statistics/${code}`)
     .then((res)=> {
       const data = res.data;
@@ -36,7 +36,6 @@ export default function CustomModal(props) {
       setResult(acceptRate.acceptanceRateResult);
     })
     .catch((err)=> {console.log(err)})
-  });
 
   return (
     <>
