@@ -17,9 +17,9 @@ public class Chat {
 //    @OneToOne(mappedBy = "certificate_code", fetch = FetchType.EAGER)
     private String certificateCode;
 
-    // 메시지 보낸 유저 식별번호
+    // 메시지 보낸 유저
     @JsonProperty("message_sender_id")
-    private int messageSenderId;
+    private String messageSenderId;
 
     // 보낸 메세지
     @JsonProperty("message")
@@ -32,19 +32,5 @@ public class Chat {
     // 메세지 전송 시각
     @JsonProperty("message_create")
     private LocalDateTime messageCreate;
-
-    /**
-     * 채팅 생성
-     * @param certificateCode 채팅 방
-     * @param messageSenderId 보낸이
-     * @param message 내용
-     * @return Chat Entity
-     */
-    public static Chat createChat(String certificateCode, int messageSenderId, String message) {
-        return Chat.builder().certificateCode(certificateCode)
-                .messageSenderId(messageSenderId)
-                .message(message)
-                .build();
-    }
 
 }
