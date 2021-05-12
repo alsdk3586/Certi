@@ -9,7 +9,6 @@ import axios from "axios";
 
 export default function CalendarApp () {
   const [events, setEvent] = useState([]);
-  
   const [modalShow, setModalShow] = useState(false);
   let [eventData, setEventData] = useState({});
   
@@ -18,7 +17,7 @@ export default function CalendarApp () {
     .then((res)=> {
       const data = res.data;
       let dataLists = [];
-      if (dataLists.length === 0) {
+      if (events.length === 0) {
         data.forEach(elem => {
           let docRegStart = {
             title: elem.certificateCode.certificateClassificationCode,
@@ -88,13 +87,9 @@ export default function CalendarApp () {
       })
       .catch((err) => {console.log(err)})
   })
-  setTimeout(() => {
-    console.log('events: ', events)
-    // setEvent([...dataLists])
-  }, 5000);
 
   function getEvent(arg) {
-    setEventData(eventData = arg.event._def.extendedProps.data);
+    setEventData(eventData = arg.event._def.extendedProps);
     modalOpen();
   }
 
@@ -117,7 +112,7 @@ export default function CalendarApp () {
             eventClick={getEvent}
             events={events}
             eventDisplay="list-item"
-            dayMaxEventRows={3}
+            dayMaxEventRows={8}
           />
         </Col>
         <Col md={3}>
