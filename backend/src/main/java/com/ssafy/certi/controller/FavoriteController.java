@@ -23,6 +23,7 @@ import java.util.Map;
 @Api(tags = "4. FavoriteList")
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/favorite")
 public class FavoriteController {
 

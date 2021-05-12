@@ -22,6 +22,7 @@ import java.util.Map;
 @Api(tags = {"2. Certificate"})
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/certificate")
 public class CertificateController {
 
