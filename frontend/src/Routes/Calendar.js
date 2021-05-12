@@ -3,7 +3,7 @@ import FullCalendar  from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 import CustomModal from '../Components/CustomModal';
-import SidebarChat from '../Components/SidebarChat';
+import SidebarTab from '../Components/SidebarTab';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from "axios";
 
@@ -103,7 +103,7 @@ export default function CalendarApp () {
   return (
     <>
       <Row>
-        <Col md={9}>  
+        <Col md={10}>  
           <FullCalendar
             plugins={[ dayGridPlugin, interactionPlugin ]}
             locale="ko"
@@ -112,11 +112,11 @@ export default function CalendarApp () {
             eventClick={getEvent}
             events={events}
             eventDisplay="list-item"
-            dayMaxEventRows={8}
+            dayMaxEventRows={12}
           />
         </Col>
-        <Col md={3}>
-          <SidebarChat width={300} height={500} />
+        <Col md={2}>
+          <SidebarTab width={300} height={500} />
         </Col>
       </Row>
       <CustomModal 
