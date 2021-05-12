@@ -1,8 +1,11 @@
 package com.ssafy.certi.controller;
 
+import com.ssafy.certi.domain.Chat;
 import com.ssafy.certi.dto.ChatMessage;
+import com.ssafy.certi.repository.ChatRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -27,12 +30,31 @@ public class ChatController {
 //        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getCertificateCode(), message);
 //    }
 
+    private final ChatRepository chatRepository;
+
     @ApiOperation(value = "채팅")
     @MessageMapping("/sendMessage")
     @SendTo("/topic/pubic")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
+    public ChatMessage sendMessage(
+            @ApiParam(value = "certificateCode, messageSenderId, message, messageCreate", required = true)
+            @Payload ChatMessage chatMessage) {
+            chatRepository.save(Chat.builder()
+                    .certificateCode("2290")
+                    .messageSenderId(chatMessage.getSender())
+                    .messageCreate(chatMessage.getDateTime())
+                    .message(chatMessage.getContent())
+                    .build()
+            );
+            return chatMessage;
     }
+
+//    @ApiOperation(value = "채팅")
+//    @MessageMapping("/sendMessage")
+//    @SendTo("/topic/pubic")
+//    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+//
+//        return chatMessage;
+//    }
 
     @MessageMapping("/addUser")
     @SendTo("/topic/pubic")
