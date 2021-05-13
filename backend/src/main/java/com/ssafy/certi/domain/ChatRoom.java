@@ -19,18 +19,14 @@ public class ChatRoom {
     private LocalDateTime localDateTime;
 
 
-    //어떤 필드에 어떤 값을 넣어야할지 명확하게 구분하기 위해 생성자 말고 Builder를 사용함
-    @Builder
-    public ChatRoom(String certificateCode,LocalDateTime localDateTime){
-        this.certificateCode = certificateCode;
-        this.localDateTime=localDateTime;
-    }
-
     //채팅방 생성
+    @Builder
     public static ChatRoom createRoom(String certificateCode){
-        return ChatRoom.builder()
-                .certificateCode(certificateCode)
-                .build();
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.certificateCode = certificateCode;
+        chatRoom.localDateTime = LocalDateTime.now();
+
+        return chatRoom;
     }
 
 }
