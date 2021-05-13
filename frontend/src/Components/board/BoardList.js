@@ -19,6 +19,12 @@ export default function BoardList(props) {
     console.log(res);
     setData(res);
   };
+
+  const searchFill = async (search) => {
+    const res = await boardApi.getSearchBoard(search);
+    setData(res);
+  };
+
   useEffect(() => {
     switch (props.name) {
       case "all":
@@ -29,6 +35,9 @@ export default function BoardList(props) {
         break;
       case "free":
         categoryFill("free");
+        break;
+      default:
+        searchFill(props.name);
     }
   }, [props.name]);
 

@@ -11,13 +11,18 @@ export const boardApi = {
     return response.data;
   },
   async getDetailBoard(boardId) {
-    const response = await request.get(`board/${boardId}`);
+    const response = await request.get(`board/detail/${boardId}`);
     //console.log(response);
     return response.data;
   },
 
   async getCategoryBoard(category) {
     const response = await request.get(`board/category/${category}`);
+    return response.data;
+  },
+
+  async getSearchBoard(search) {
+    const response = await request.get(`board/search/${search}`);
     return response.data;
   },
 
