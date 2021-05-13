@@ -45,23 +45,18 @@ public class ChatController {
                     .message(chatMessage.getContent())
                     .build()
             );
+            messagingTemplate.convertAndSend("/sub/chat/room/" + chatMessage.getRoomCode(), chatMessage);
             return chatMessage;
     }
-
-//    @ApiOperation(value = "채팅")
-//    @MessageMapping("/sendMessage")
-//    @SendTo("/topic/pubic")
-//    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-//
-//        return chatMessage;
-//    }
 
     @MessageMapping("/addUser")
     @SendTo("/topic/pubic")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
-                               SimpMessageHeaderAccessor headerAccessor) {
+                               SimpMessageHeaderAccessor headerAccessor,
+                               String certificateCode) {
         // Add user in web socket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        headerAccessor.getSessionAttributes().put("roomcode", certificateCode);
         return chatMessage;
     }
 }
