@@ -87,6 +87,7 @@ public class CertificateController {
     public ResponseEntity<List<Statistics>> certificateStatisticsDetail(@PathVariable String certificateCode) {
         try {
             List<Statistics> result=statisticsRepository.findByCertificateCodeCertificateCode(certificateCode);
+            System.out.println(result);
             return new ResponseEntity<>(result, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정

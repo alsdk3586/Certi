@@ -21,18 +21,18 @@ public class Statistics {
     @JoinColumn(name = "certificate_code")
     private Certificate certificateCode;
 
-    @Column(name = "statistic_age_code")
-    private int statisticAgeCode;
-
     @Column(name = "statistic_age")
     private String statisticAge;
-
-    @Column(name = "statistic_gender_code")
-    private String statisticGenderCode;
 
     @Column(name = "statistic_gender")
     private String statisticGender;
 
     @Column(name = "statistic_get_number")
-    private String statisticGetNumber;
+    private int statisticGetNumber;
+
+    @Column(name = "total_number_men")
+    private int totalNumberMen;
+
+    @Column(name = "total_number_women")
+    private int totalNumberWomen;
 }

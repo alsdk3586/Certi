@@ -25,12 +25,7 @@ public class Chat {
     @JsonProperty("message")
     private String message;
 
-    // ?
-    @JsonProperty("message_reading")
-    private int messageReading;
-
     // 메세지 전송 시각
     @JsonProperty("message_create")
     private LocalDateTime messageCreate;
-
 }
