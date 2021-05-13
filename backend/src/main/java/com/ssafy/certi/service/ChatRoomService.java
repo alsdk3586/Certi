@@ -1,19 +1,29 @@
 package com.ssafy.certi.service;
 
-import com.ssafy.certi.dto.ChatRoomDto;
+import com.ssafy.certi.domain.ChatRoom;
 import com.ssafy.certi.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class ChatRoomService {
     private ChatRoomRepository chatRoomRepository;
 
-    @Transactional
-    public String save(ChatRoomDto requestDto){
-        return chatRoomRepository.save(requestDto.toEntity()).getCertificateCode();
+    private Map<String, ChatRoom> chatRoomMap;
+
+    @PostConstruct
+    private void init(){
+        chatRoomMap = new LinkedHashMap<>();
+    }
+
+    public List<ChatRoom> findAllRoom(){
+        List chatRooms = new ArrayList<>(chatRoomMap.values());
+        Collections.reverse(chatRooms);
+        return chatRooms;
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/chat")
+@CrossOrigin("*")
 public class ChatRoomController {
 
     private final ChatRoomRepository chatRoomRepository;
