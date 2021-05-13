@@ -49,7 +49,7 @@ public class ChatRoomController {
 
     // 채팅방 입장 화면
     @ApiOperation(value = "채팅방 입장 화면")
-    @GetMapping("/room/enter/{certificateCode}")
+    @GetMapping("/enter/{certificateCode}")
     public String roomDetail(Model model, @PathVariable String certificateCode) {
         model.addAttribute("certificateCode", certificateCode);
         return "/chat/enterRoom";
@@ -58,7 +58,7 @@ public class ChatRoomController {
 
     // 특정 채팅방 조회
     @ApiOperation(value = "특정 채팅방 조회", notes = "certificateCode로 조회. 성공시 certificateCode 반환")
-    @GetMapping("/room/{certificateCode}")
+    @GetMapping("/{certificateCode}")
     @ResponseBody
     public ResponseEntity<String> roomInfo(@PathVariable String certificateCode, @RequestBody Map<String, String> chatRoom) {
         try{

@@ -30,8 +30,18 @@ class ChatRooms extends Component {
         return (
             <div class="row">
                 <div class="col-md-12">
-                        <h3>채팅방 리스트</h3>
-                        <div></div>
+                        <tbody>
+          {ChatRoomList &&
+            ChatRoomList.map((room) => (
+              <tr key={room.certificateCode}>
+                <td>
+                  <Link to={`/ChatBox/${room.certificateCode}`}>
+                    {room.certificateCode}
+                  </Link>
+                </td>
+              </tr>
+            ))}
+        </tbody>
                 </div>
             </div>
         );
