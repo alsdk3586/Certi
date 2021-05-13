@@ -9,8 +9,9 @@ import {
   FormControl,
 } from "react-bootstrap";
 import "../css/css.scss";
+import { Route, Router, withRouter } from "react-router";
 
-export default function DetailBoard() {
+export default function CreateBoard({ history }) {
   const [category, setCategory] = useState("Category");
 
   async function add() {
@@ -23,6 +24,7 @@ export default function DetailBoard() {
     data.boardTitle = document.getElementById("title").value;
     data.boardContent = document.getElementById("content").value;
     const res = await boardApi.addBoard(data);
+    if (res == true) history.push(`/board`);
   }
 
   return (
@@ -34,8 +36,8 @@ export default function DetailBoard() {
             title={category}
             onSelect={(eventKey) => setCategory(eventKey)}
           >
-            <Dropdown.Item eventKey="STUDY">공부 게시판</Dropdown.Item>
-            <Dropdown.Item eventKey="FREE">자유 게시판</Dropdown.Item>
+            <Dropdown.Item eventKey="study">공부 게시판</Dropdown.Item>
+            <Dropdown.Item eventKey="free">자유 게시판</Dropdown.Item>
             {/* <Dropdown.Divider /> */}
           </DropdownButton>
           <FormControl id="title" placeholder="제목을 입력해주세요" />

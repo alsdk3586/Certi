@@ -1,4 +1,12 @@
-import { Navbar, Form, Button, FormControl, Tabs, Tab } from "react-bootstrap";
+import {
+  Navbar,
+  Form,
+  Button,
+  FormControl,
+  Pagination,
+  Tabs,
+  Tab,
+} from "react-bootstrap";
 import React, { useState } from "react";
 
 import "../Components/css/css.scss";

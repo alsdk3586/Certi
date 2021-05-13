@@ -27,6 +27,13 @@ export const boardApi = {
   },
 
   async addBoard(data) {
-    console.log(data);
+    //console.log(data);
+    const response = await request.post(`board/create`, data, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      },
+    });
+    //console.log(response);
+    return response.data;
   },
 };
