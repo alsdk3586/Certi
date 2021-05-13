@@ -10,7 +10,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findAll();
     Board findByBoardId(Integer boardId);
     List<Board> findByBoardTitle(String Title);
-
+    
     void deleteByBoardId(Integer boardId);
 
 }

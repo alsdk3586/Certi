@@ -43,7 +43,7 @@ public class BoardController {
 
             boardRepository.save(Board.builder()
             .userId(person)
-            .boardCategory(Integer.parseInt(board.get("boardCategory")))
+            .boardCategory(board.get("boardCategory"))
             .boardTitle(board.get("boardTitle"))
             .boardContent(board.get("boardContent"))
             .boardWriter(person.getUsername())
@@ -152,7 +152,7 @@ public class BoardController {
             Board board=boardRepository.findByBoardId(boardId);
             if(person.getUserId()==board.getUserId().getUserId()){
                 // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"));
+                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"),newBoard.get("boardCategory"));
                 if(newBoard.get("boardFile")!=null){
                     board.updateFile(newBoard.get("boardFile"));
                 }
