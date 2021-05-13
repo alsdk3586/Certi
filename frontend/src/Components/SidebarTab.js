@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import ChatMessageBox from './aside/ChatMessageBox/ChatMessageBox';
+import SideTabs from './SideTabs';
 import Sidebar from "react-sidebar";
 
-class SidebarChat extends Component {
+class SidebarTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ class SidebarChat extends Component {
     return (
       <>
         <Sidebar
-          sidebar={<ChatMessageBox />}
+          sidebar={<SideTabs />}
           // open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           styles={{ sidebar: { background: "white", right: 0, width: "100%" } }}
@@ -35,4 +35,4 @@ class SidebarChat extends Component {
     }
 };
 
-export default SidebarChat;
+export default SidebarTab;

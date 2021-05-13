@@ -13,6 +13,7 @@ import Board from "../Routes/Board";
 import Certi from "../Routes/Certi";
 import User from "../Routes/User";
 import ChatBox from "../Components/aside/ChatMessageBox/ChatMessageBox";
+import ChatRooms from "../Components/aside/ChatMessageBox/ChatRooms";
 import Login from "../Routes/Login";
 import Register from "../Routes/Register";
 import DetailBoard from "../Components/board/DetailBoard";
@@ -26,10 +27,14 @@ export default () => (
         <Route path="/calendar" exact component={CalendarApp} />
         <Route path="/board" exact component={Board} />
         <Route path="/certi" exact component={Certi} />
-        <Route path="/user" exact component={User} />
-        <Route path="/ChatBox" exact component={ChatBox} />
+        {/* <Route path="/user" exact component={User} /> */}
+        {/* <Route path="/ChatBox" exact component={ChatBox} /> */}
+        <Route path="/ChatRooms" exact component={ChatRooms} />
+        <Route path="/ChatBox/:roomcode" component={ChatBox} />
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
+        <AuthenticatedRoute path="/user" component={User} />
+        <AuthenticatedRoute path="/logout" component={Home} />
         <Route path="/detailBoard/:no" component={DetailBoard} />
         <Route path="/createBoard" component={createBoard} />
         <Redirect from="*" to="/" />

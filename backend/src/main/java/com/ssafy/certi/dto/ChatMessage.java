@@ -13,23 +13,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ChatMessage {
-    private String certificateCode;
-    private int messageSenderId;
-    private String message;
-    private int messageReading;
-    private LocalDateTime messageCreate;
-
     private MessageType type;
+    private String roomcode;
     private String content;
     private String sender;
     private String receiver;
-    private LocalDateTime dateTime=LocalDateTime.now();;
+    private LocalDateTime dateTime=LocalDateTime.now();
 
     public enum MessageType {
         CHAT,
         JOIN,
         LEAVE,
         TYPING
+    }
+
+    public String getRoomCode() {
+        return roomcode;
+    }
+
+    public void setRoomCode(String roomcode) {
+        this.roomcode = roomcode;
     }
 
     public MessageType getType() {

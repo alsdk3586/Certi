@@ -13,7 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Statistics {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "statistic_id")
     private int statisticId;
 
@@ -21,18 +22,30 @@ public class Statistics {
     @JoinColumn(name = "certificate_code")
     private Certificate certificateCode;
 
-    @Column(name = "statistic_age_code")
-    private int statisticAgeCode;
+    @Column(name = "teen")
+    private int teen;
 
-    @Column(name = "statistic_age")
-    private String statisticAge;
+    @Column(name = "twenty")
+    private int twenty;
 
-    @Column(name = "statistic_gender_code")
-    private String statisticGenderCode;
+    @Column(name = "thirty")
+    private int thirty;
 
-    @Column(name = "statistic_gender")
-    private String statisticGender;
+    @Column(name = "fourty")
+    private int fourty;
 
-    @Column(name = "statistic_get_number")
-    private String statisticGetNumber;
+    @Column(name = "fifty")
+    private int fifty;
+
+    @Column(name = "sixty")
+    private int sixty;
+
+    @Column(name = "seventy")
+    private int seventy;
+
+    @Column(name = "statistic_man")
+    private int man;
+
+    @Column(name = "statistic_women")
+    private int women;
 }

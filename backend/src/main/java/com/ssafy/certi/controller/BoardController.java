@@ -1,10 +1,8 @@
 package com.ssafy.certi.controller;
 
-import ch.qos.logback.core.util.StringCollectionUtil;
 import com.ssafy.certi.domain.Board;
 import com.ssafy.certi.domain.User;
 import com.ssafy.certi.repository.BoardRepository;
-import com.ssafy.certi.repository.UserRepository;
 import com.ssafy.certi.security.JwtTokenProvider;
 import com.ssafy.certi.service.UserService;
 import io.swagger.annotations.*;
@@ -18,13 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
-import static org.springframework.data.repository.init.ResourceReader.Type.JSON;
 
 @Api(tags = {"3. Board"})
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/board")
 public class BoardController {
 

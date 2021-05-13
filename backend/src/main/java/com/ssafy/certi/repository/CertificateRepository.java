@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CertificateRepository extends JpaRepository<Certificate, String> {
     List<Certificate> findByCertificateClassificationCodeContainingIgnoreCase(String certificateclassificationcode);
+    Certificate findByCertificateCode(String CertificateCode);
 }

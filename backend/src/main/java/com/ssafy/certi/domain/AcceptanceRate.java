@@ -21,6 +21,9 @@ public class AcceptanceRate {
     @JoinColumn(name = "certificate_code")
     private Certificate certificateCode;
 
+    @Column(name="acceptance_levelofeducation")
+    private String acceptanceLevelOfEducation;
+
     @Column(name="acceptance_rate_result")
     private double acceptanceRateResult;
 
