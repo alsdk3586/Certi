@@ -8,12 +8,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 public class Chat {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int chatId;
+
 //    @OneToOne(mappedBy = "certificate_code", fetch = FetchType.EAGER)
     private String certificateCode;
 

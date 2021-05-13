@@ -1,6 +1,5 @@
 package com.ssafy.certi.dto;
 
-import com.ssafy.certi.domain.ChatRoom;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,15 +26,5 @@ public class ChatRoomDto {
         this.certificateCode=certificateCode;
         this.localDateTime=localDateTime;
     }
-
-    //SAVE - 생성
-    public ChatRoom toEntity(){
-        return ChatRoom.builder()
-                .certificateCode(certificateCode)
-                .localDateTime(localDateTime)
-                .build();
-    }
-
-
 
 }
