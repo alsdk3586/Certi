@@ -32,5 +32,4 @@ public class Chat {
     // 메세지 전송 시각
     @JsonProperty("message_create")
     private LocalDateTime messageCreate;
-
 }
