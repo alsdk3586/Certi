@@ -62,21 +62,21 @@ public class FavoriteController {
         }
     }
 
-//    @ApiOperation(value="즐겨찾기 조회", notes = "")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "등록 성공"),
-//            @ApiResponse(code = 400, message = "잘못된 접근"),
-//            @ApiResponse(code = 500, message = "서버 에러")
-//    })
-//    @GetMapping("/")
-//    public ResponseEntity<List<FavoriteList>> favoriteListAll(HttpServletRequest request) {
-//        try {
-//            User person = userService.findByToken(JwtTokenProvider.resolveToken(request));
-//            List<FavoriteList> favoritelist = favoriteListRepository.findByUserId(person.getUserId());
-//            return new ResponseEntity<>(favoritelist, HttpStatus.OK);
-//        } catch (IllegalStateException e) {
-//            List<FavoriteList> box = null;
-//            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @ApiOperation(value="즐겨찾기 조회", notes = "")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "등록 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("/")
+    public ResponseEntity<List<FavoriteList>> favoriteListAll(HttpServletRequest request) {
+        try {
+            User person = userService.findByToken(JwtTokenProvider.resolveToken(request));
+            List<FavoriteList> favoritelist = favoriteListRepository.findByUserIdUserId(person.getUserId());
+            return new ResponseEntity<>(favoritelist, HttpStatus.OK);
+        } catch (IllegalStateException e) {
+            List<FavoriteList> box = null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

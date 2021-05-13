@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FavoriteListRepository extends JpaRepository<FavoriteList, Long> {
-    List<FavoriteList> findByUserId(Integer userid);
+    List<FavoriteList> findByUserIdUserId(Integer userid);
 }
