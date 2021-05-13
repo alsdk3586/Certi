@@ -1,44 +1,75 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
-class LineChart extends Component {
-  constructor(props) {
-    super(props);
+function LineChart(props) {
+  const [series, setSeries] = useState([
+    {
+      name: "응시자 수",
+      data: [50, 49, 60, 70, 91]
+    }
+  ]);
+  const [options, setOptions] = useState({
+    chart: {
+      id: "basic-bar"
+    },
+    xaxis: {
+      categories: [2017, 2018, 2019, 2020, 2121]
+    }
+  });
+  const [width, setWidth] = useState();
 
-    this.state = {
-      options: {
-        chart: {
-          id: "basic-bar"
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-        }
-      },
-      series: [
-        {
-          name: "series-1",
-          data: [30, 40, 45, 50, 49, 60, 70, 91]
-        }
-      ]
-    };
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+
+  const handleResize = () => {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
   }
+  
+  const handleResizeWidth = () => {
+    if (window.innerWidth > 1200) {
+      setWidth(1000)
+    } else if(window.innerWidth < 1200 && window.innerWidth > 993) {
+      setWidth(700)
+    } else {
+      setWidth(500)
+    }
+  }
+  
+  useEffect(() => {
+    if (window.innerWidth > 1200) {
+      setWidth(1000)
+    } else if(window.innerWidth < 1200 && window.innerWidth > 993) {
+      setWidth(700)
+    } else {
+      setWidth(500)
+    }
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResizeWidth);
+    return () => { // cleanup 
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResizeWidth);
+    }  
+  }, []);
 
-  render() {
-    return (
-      <div className="app">
-        <div className="row">
-          <div className="mixed-chart">
-          <Chart
-            options={this.state.options}
-            series={this.state.series}
-            type="line"
-            width="500"
+  return (
+    <>
+      <div className="row">
+        <div className="mixed-chart">
+        <Chart
+            options={options}
+            series={series}
+            type="area"
+            width={width}
           />
-          </div>
         </div>
       </div>
-    );
-  }
+    </>
+  );
 }
 
 export default LineChart;
