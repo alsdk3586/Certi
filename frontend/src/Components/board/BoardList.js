@@ -37,6 +37,7 @@ export default function BoardList(props) {
         categoryFill("free");
         break;
       default:
+        console.log("search");
         searchFill(props.name);
     }
   }, [props.name]);
@@ -46,7 +47,8 @@ export default function BoardList(props) {
       <Table id="boardListTable" responsive hover>
         <thead>
           <tr>
-            <th>번호</th>
+            {/* <th>번호</th> */}
+            <th>카테고리</th>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일시</th>
@@ -57,7 +59,8 @@ export default function BoardList(props) {
           {data &&
             data.map((article) => (
               <tr key={article.boardId}>
-                <td>{article.boardId}</td>
+                {/* <td>{article.boardId}</td> */}
+                <td>[{article.boardCategory}]</td>
                 <td>
                   <Link to={`/detailboard/${article.boardId}`}>
                     {article.boardTitle}
