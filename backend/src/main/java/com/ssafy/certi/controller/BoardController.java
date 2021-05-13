@@ -78,6 +78,28 @@ public class BoardController {
         }
     }
 
+
+    @ApiOperation(value = "게시판 전체 리스트", notes = "성공 시, true 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "등록 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("/{category}")
+    public ResponseEntity<List<Board>> boardCategoryList(@PathVariable String category) {
+
+        try {
+            List<Board> boardList=boardRepository.findByBoardCategory(category);
+            return new ResponseEntity<>(boardList, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            List<Board> box = null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
     @ApiOperation(value = "게시판 조회", notes = "성공 시, true 반환")
     @GetMapping("/{boardId}")
     public ResponseEntity<Board> boardDetail(@PathVariable Integer boardId) {
