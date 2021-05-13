@@ -56,6 +56,8 @@ export default withRouter(({ location : { pathname }}) => (
         <Slink to="/board">게시판</Slink></Item>
       <Item current={pathname === '/certi'}>
         <Slink to="/certi">자격증</Slink></Item>
+      <Item current={pathname === '/ChatRooms'}>
+        <Slink to="/ChatRooms">채팅방리스트</Slink></Item>
       <Item current={pathname === '/user'}>
         <Slink to="/user">회원</Slink></Item>
       <Item current={pathname === '/login'}>

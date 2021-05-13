@@ -19,6 +19,7 @@ class ChatMessageBox extends Component {
     this.state =
       {
         username: '',
+        roomcode: '',
         channelConnected: false,
         chatMessage: '',
         roomNotification: [],
@@ -31,7 +32,7 @@ class ChatMessageBox extends Component {
       };
   }
 
-  connect = (userName) => {
+  connect = (userName, roomcode) => {
 
     if (userName) {
 
@@ -47,6 +48,7 @@ class ChatMessageBox extends Component {
 
       this.setState({
         username: userName,
+        roomcode: roomcode,
       })
     }
   }
@@ -58,11 +60,16 @@ class ChatMessageBox extends Component {
     })
 
     // Subscribing to the public topic
-    stompClient.subscribe('/topic/pubic', this.onMessageReceived);
+    stompClient.subscribe('/topic/pubic', this.onMessageReceived); // SERVER @SendTo
     console.log("Subscribing to the public topic")
 
     // Registering user to server as a public chat user
-    stompClient.send("/app/addUser", {}, JSON.stringify({ sender: this.state.username, type: 'JOIN' }))
+    stompClient.send("/app/addUser", {},
+      JSON.stringify({
+        sender: this.state.username,
+        roomcode: this.state.roomcode,
+        type: 'JOIN'
+      })) // SERVER @MessageMapping
 
   }
 
@@ -71,12 +78,15 @@ class ChatMessageBox extends Component {
     if (stompClient) {
       var chatMessage = {
         sender: this.state.username,
+        roomcode: this.state.roomcode,
         content: type === 'TYPING' ? value : value,
         type: type
 
       };
-      // send public message
-      stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
+      
+      if (type === 'CHAT') { // send public message
+        stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage)); // SERVER @MessageMapping 채팅 DB에 저장 
+      }
     }
   }
 
@@ -86,7 +96,7 @@ class ChatMessageBox extends Component {
 
     if (message.type === 'JOIN') {
 
-      this.state.roomNotification.push({ 'sender': message.sender + " ~ joined", 'status': 'online', 'dateTime': message.dateTime })
+      this.state.roomNotification.push({ 'sender': message.sender + " ~ joined", 'status': 'online', 'dateTime': message.dateTime, 'roomcode': message.roomcode })
       this.setState({
         roomNotification: this.state.roomNotification,
         bellRing: true
@@ -99,6 +109,7 @@ class ChatMessageBox extends Component {
           notification.status = "offline";
           notification.sender = message.sender + " ~ left";
           notification.dateTime = message.dateTime;
+          notification.roomcode = message.roomcode;
         }
       })
       this.setState({
@@ -131,7 +142,8 @@ class ChatMessageBox extends Component {
       this.state.broadcastMessage.push({
         message: message.content,
         sender: message.sender,
-        dateTime: message.dateTime
+        dateTime: message.dateTime,
+        roomcode: message.roomcode
       })
       this.setState({
         broadcastMessage: this.state.broadcastMessage,
@@ -215,6 +227,7 @@ class ChatMessageBox extends Component {
                           {msg.message}
                         </div>
                         <div><h3>{msg.dateTime}</h3></div>
+                        <div><h3>{msg.roomcode}</h3></div>
                       </li>
                       :
                       <li className="others">
@@ -230,6 +243,7 @@ class ChatMessageBox extends Component {
                           {msg.message}
                         </div>
                         <div><h3>{msg.dateTime}</h3></div>
+                        <div><h3>{msg.roomcode}</h3></div>
                       </li>
                   )}
                 </ul>
