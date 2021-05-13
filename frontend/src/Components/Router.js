@@ -18,6 +18,7 @@ import Login from "../Routes/Login";
 import Register from "../Routes/Register";
 import DetailBoard from "../Components/board/DetailBoard";
 import createBoard from "../Components/board/CreateBoard";
+import AuthenticatedRoute from "../Components/login/AuthenticatedRoute";
 export default () => (
   <Router>
     <>
