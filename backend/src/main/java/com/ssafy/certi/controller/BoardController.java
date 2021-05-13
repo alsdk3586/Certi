@@ -101,7 +101,7 @@ public class BoardController {
 
 
     @ApiOperation(value = "게시판 조회", notes = "성공 시, true 반환")
-    @GetMapping("/{boardId}")
+    @GetMapping("/detail/{boardId}")
     public ResponseEntity<Board> boardDetail(@PathVariable Integer boardId) {
 
         try {
