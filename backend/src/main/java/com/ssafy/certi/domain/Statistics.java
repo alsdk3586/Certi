@@ -22,18 +22,30 @@ public class Statistics {
     @JoinColumn(name = "certificate_code")
     private Certificate certificateCode;
 
-    @Column(name = "statistic_age")
-    private String statisticAge;
+    @Column(name = "teen")
+    private int teen;
 
-    @Column(name = "statistic_gender")
-    private String statisticGender;
+    @Column(name = "twenty")
+    private int twenty;
 
-    @Column(name = "statistic_get_number")
-    private int statisticGetNumber;
+    @Column(name = "thirty")
+    private int thirty;
 
-    @Column(name = "total_number_men")
-    private int totalNumberMen;
+    @Column(name = "fourty")
+    private int fourty;
 
-    @Column(name = "total_number_women")
-    private int totalNumberWomen;
+    @Column(name = "fifty")
+    private int fifty;
+
+    @Column(name = "sixty")
+    private int sixty;
+
+    @Column(name = "seventy")
+    private int seventy;
+
+    @Column(name = "statistic_man")
+    private int man;
+
+    @Column(name = "statistic_women")
+    private int women;
 }
