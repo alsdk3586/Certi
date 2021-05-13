@@ -1,53 +1,60 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Table, Container } from 'react-bootstrap';
+import { Modal, Button, Table, Container, Row, Col } from 'react-bootstrap';
 import LineChart from './LineChart';
 import PieChart from './PieChart';
 import ColumnChart from './ColumnChart';
 import axios from 'axios';
+import BtnStar from './BtnStar';
 
 export default function CustomModal(props) {
   const eventData = props.data;
   const code = props.data.code;
   const [stats, setStats] = useState();
+  const [title, setTitle] = useState('');
   const [acceptanceRateDoc, setDoc] = useState(null);
   const [acceptanceRatePrac, setPrac] = useState(null);
   const [acceptanceRateResult, setResult] = useState(null);
   
+  useEffect(() => {
     axios.get(`http://localhost:8080/certificate/statistics/${code}`)
     .then((res)=> {
       const data = res.data;
-      data.forEach(elem => {
-        let stat = {
-          statisticAge: elem.statisticAge,
-          statisticGender: elem.statisticGender,
-          statisticNumber: elem.scheduleDocRegStartDt,
-        }
+      let stat = {  
+        statisticAge: data.statisticAge,
+        statisticGender: data.statisticGender,
+        statisticNumber: data.statisticGetNumber,
       }
-      );
+      setStats(stat)
     })
     .catch((err) => {
       console.log(err)
     })
+  }, [eventData])
+  
+  useEffect(() => {
     axios.get(`http://localhost:8080/certificate/acceptancerate/${code}`)
     .then((res)=> {
       const acceptRate = res.data[res.data.length-1];
       setDoc(acceptRate.acceptanceRateDoc);
       setPrac(acceptRate.acceptanceRatePrac);
       setResult(acceptRate.acceptanceRateResult);
+      setTitle(acceptRate.certificateCode.certificateClassificationCode);
     })
     .catch((err)=> {console.log(err)})
+  }, [eventData])
 
   return (
     <>
       <Modal
         {...props}
-        size="lg"
+        size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          {eventData.code}
+          {title}
+          <BtnStar isFilled={true}/>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -70,9 +77,19 @@ export default function CustomModal(props) {
             </Table>
           </Container>
           {/* Chart */}
-          <PieChart />
-          <ColumnChart />
-          <LineChart />
+          <Container>
+            <Row className="d-flex justify-content-around">
+              <Col lg={6} md={12} className="d-flex justify-content-center">
+                <PieChart series={stats}/>
+              </Col>
+              <Col lg={6} md={12} className="d-flex justify-content-center">
+                <ColumnChart />
+              </Col>
+              <Col lg={12} className="d-flex justify-content-center">
+                <LineChart />
+              </Col>
+            </Row>
+          </Container>
 
         </Modal.Body>
         <Modal.Footer>
