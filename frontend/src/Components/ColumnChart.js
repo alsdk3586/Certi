@@ -2,15 +2,9 @@ import React, { Component, useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 function ColumnChart(props) {
-  const [series, setSeries] = useState([
-    {
-      name: '합격비율',
-      data: [10.1, 24.0, 8.6, 3.2, 1.4, 0.8,]
-    }]
-  );
   const [options, setOptions] = useState({
     chart: {
-      height: 400,
+      height: 500,
       type: 'bar',
     },
     plotOptions: {
@@ -24,7 +18,7 @@ function ColumnChart(props) {
     dataLabels: {
       enabled: true,
       formatter: function (val) {
-        return val + "%";
+        return val + "명";
       },
       offsetY: -25,
       style: {
@@ -65,9 +59,9 @@ function ColumnChart(props) {
         show: false,
       },
       labels: {
-        show: false,
+        show: true,
         formatter: function (val) {
-          return val + "%";
+          return val + "명";
         }
       }
     },
@@ -117,8 +111,9 @@ function ColumnChart(props) {
       <div className="row">
         <div className="mixed-chart">
         <Chart
+           {...props}
             options={options}
-            series={series}
+            // series={series}
             type="bar"
             width={width}
           />

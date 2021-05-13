@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 function LineChart(props) {
-  const [series, setSeries] = useState([
-    {
-      name: "응시자 수",
-      data: [50, 49, 60, 70, 91]
-    }
-  ]);
+  // const [series, setSeries] = useState([
+  //   {
+  //     name: "합격률",
+  //     data: [50, 49, 60, 70, 91]
+  //   }
+  // ]);
   const [options, setOptions] = useState({
     chart: {
       id: "basic-bar"
     },
     xaxis: {
-      categories: [2017, 2018, 2019, 2020, 2121]
+      categories: ['고졸이하', '전문대재', '전문대졸', '대재', '대졸', '미상']
     }
   });
   const [width, setWidth] = useState();
@@ -61,8 +61,9 @@ function LineChart(props) {
       <div className="row">
         <div className="mixed-chart">
         <Chart
+            {...props}
             options={options}
-            series={series}
+            // series={series}
             type="area"
             width={width}
           />
