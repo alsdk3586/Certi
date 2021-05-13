@@ -2,9 +2,11 @@ import { Navbar, Form, Button, FormControl, Tabs, Tab } from "react-bootstrap";
 import React, { useState } from "react";
 
 import "../Components/css/css.scss";
-import BoardList from "../Components/BoardList";
+import BoardList from "../Components/board/BoardList";
 
 import { boardApi } from "../utils/axios";
+import { FaPencilAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Board() {
   const [key, setKey] = useState("all");
@@ -30,14 +32,16 @@ export default function Board() {
             <BoardList name={key} data={data} />
           </Tab.Content>
         </div>
-
+        <div id="boardCreateBtn">
+          <div>
+            <Link to={`/createBoard`}>
+              <FaPencilAlt />
+            </Link>
+          </div>
+        </div>
         <div id="boardSearch">
           <Form inline>
-            <FormControl
-              type="text"
-              placeholder="Search"
-              className=" mr-sm-2"
-            />
+            <FormControl type="text" placeholder="Search" className=" mr-m-2" />
             <Button type="submit">Submit</Button>
           </Form>
         </div>

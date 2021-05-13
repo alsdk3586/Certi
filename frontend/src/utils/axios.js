@@ -15,4 +15,8 @@ export const boardApi = {
     //console.log(response);
     return response.data;
   },
+
+  async addBoard(data) {
+    console.log(data);
+  },
 };

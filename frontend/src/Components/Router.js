@@ -15,7 +15,8 @@ import User from "../Routes/User";
 import ChatBox from "../Components/aside/ChatMessageBox/ChatMessageBox";
 import Login from "../Routes/Login";
 import Register from "../Routes/Register";
-import DetailBoard from "../Components/DetailBoard";
+import DetailBoard from "../Components/board/DetailBoard";
+import createBoard from "../Components/board/CreateBoard";
 export default () => (
   <Router>
     <>
@@ -30,6 +31,7 @@ export default () => (
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
         <Route path="/detailBoard/:no" component={DetailBoard} />
+        <Route path="/createBoard" component={createBoard} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

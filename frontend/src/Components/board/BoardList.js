@@ -1,8 +1,9 @@
 import { Table } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
-import { boardApi } from "../utils/axios";
-import "../Components/css/css.scss";
+import { boardApi } from "../../utils/axios";
+import "../css/css.scss";
 import { Link } from "react-router-dom";
+
 export default function BoardList(props) {
   const [data, setData] = useState(props.data);
 
