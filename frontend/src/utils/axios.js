@@ -16,6 +16,11 @@ export const boardApi = {
     return response.data;
   },
 
+  async getCategoryBoard(category) {
+    const response = await request.get(`board/category/${category}`);
+    return response.data;
+  },
+
   async addBoard(data) {
     console.log(data);
   },

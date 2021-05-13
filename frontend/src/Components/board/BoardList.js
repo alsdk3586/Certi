@@ -7,22 +7,28 @@ import { Link } from "react-router-dom";
 export default function BoardList(props) {
   const [data, setData] = useState(props.data);
 
-  const fill = async () => {
+  const allFill = async () => {
     const res = await boardApi.getAllBoard();
     console.log(res);
     setData(res);
     console.log(data);
   };
+
+  const categoryFill = async (category) => {
+    const res = await boardApi.getCategoryBoard(category);
+    console.log(res);
+    setData(res);
+  };
   useEffect(() => {
     switch (props.name) {
       case "all":
-        fill();
+        allFill();
         break;
       case "study":
-        setData();
+        categoryFill("study");
         break;
       case "free":
-        setData();
+        categoryFill("free");
     }
   }, [props.name]);
 
