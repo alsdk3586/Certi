@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ChatMessageBox from './aside/ChatMessageBox/ChatMessageBox';
 import SideTabs from './SideTabs';
 import Sidebar from "react-sidebar";
 
