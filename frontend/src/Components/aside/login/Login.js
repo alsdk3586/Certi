@@ -8,19 +8,18 @@ export default class Login extends Component
         super(props);
         this.state =
           {
-            username: '',
-            roomcode: ''
+            username: ''
           };
       }
 
     handleUserNameChange = (event) => {
         this.setState({
-          [event.target.name]: event.target.value,
+          username: event.target.value,
         });
       };
 
     handleConnectPublicly = () => {
-        this.props.connect(this.state.username, this.state.roomcode)
+        this.props.connect(this.state.username, false)
       }
     
     render(){

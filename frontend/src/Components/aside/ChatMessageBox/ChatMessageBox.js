@@ -60,7 +60,7 @@ class ChatMessageBox extends Component {
     })
 
     // Subscribing to the public topic
-    stompClient.subscribe('/topic/pubic/{certificateCode}', this.onMessageReceived); // SERVER @SendTo
+    stompClient.subscribe('/topic/pubic', this.onMessageReceived); // SERVER @SendTo
     console.log("Subscribing to the public topic")
     console.log("**roomcode  " + this.state.roomcode)
 
