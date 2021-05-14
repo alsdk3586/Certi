@@ -2,33 +2,32 @@ import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 function PieChart(props) {
-  const [series, setSeries] = useState([50, 50]);
   const [options, setOptions] = useState({
     chart: {
       type: 'pie',
+      height: 400,
     },
     labels: ['남', '여']
   });
-  const [width, setWidth] = useState();
 
+  const [width, setWidth] = useState();
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
-    height: window.innerHeight
   });
 
   const handleResize = () => {
     setWindowSize({
       width: window.innerWidth,
-      height: window.innerHeight
     });
   }
+
   const handleResizeWidth = () => {
     if (window.innerWidth > 1200) {
-      setWidth(500)
+      setWidth(400)
     } else if(window.innerWidth < 1200 && window.innerWidth > 993) {
       setWidth(350)
     } else {
-      setWidth(450)
+      setWidth(350)
     }
   }
   
@@ -53,8 +52,9 @@ function PieChart(props) {
       <div className="row">
         <div className="mixed-chart">
           <Chart
+            {...props}
             options={options}
-            series={series}
+            // series={series}
             type="pie"
             width={width}
           />

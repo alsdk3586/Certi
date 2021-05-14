@@ -20,6 +20,13 @@
     right: 0;
 }
 
+#boardCreateBtn{
+    position: absolute;
+    top: 0;
+    right: 280px;
+    margin: 10px;
+}
+
 #boardList{
     flex:1;
     padding-top: 10px;
@@ -55,4 +62,20 @@
     background-color: $primary-white;
     flex:1;
     justify-content: center;
+}
+
+#createBoardContainer{
+    padding: 30px;
+    flex:1;
+}
+
+#createBoardContainer > div{
+    width: 90%;
+    margin: auto;
+    flex:1;
+}
+
+textarea {
+    width: 100%;
+    height: 900px;
 }

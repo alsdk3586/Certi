@@ -1,14 +1,31 @@
-import { Navbar, Form, Button, FormControl, Tabs, Tab } from "react-bootstrap";
+import {
+  Navbar,
+  Form,
+  Button,
+  FormControl,
+  Pagination,
+  Tabs,
+  Tab,
+} from "react-bootstrap";
 import React, { useState } from "react";
 
 import "../Components/css/css.scss";
-import BoardList from "../Components/BoardList";
+import BoardList from "../Components/board/BoardList";
 
 import { boardApi } from "../utils/axios";
+import { FaPencilAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Board() {
   const [key, setKey] = useState("all");
   const [data, setData] = useState();
+
+  function search() {
+    setKey(document.getElementById("searchContent").value);
+    console.log(data);
+    console.log(document.getElementById("searchContent").value);
+  }
+
   return (
     <div id="boardContainer">
       <Navbar id="boardNavBar">
@@ -17,6 +34,7 @@ export default function Board() {
             id="controlled-tab-example"
             activeKey={key}
             onSelect={async (k) => {
+              document.getElementById("searchContent").value = "";
               const res = await boardApi.getAllBoard();
               setData(res);
               setKey(k);
@@ -30,15 +48,22 @@ export default function Board() {
             <BoardList name={key} data={data} />
           </Tab.Content>
         </div>
-
+        <div id="boardCreateBtn">
+          <div>
+            <Link to={`/createBoard`}>
+              <FaPencilAlt />
+            </Link>
+          </div>
+        </div>
         <div id="boardSearch">
           <Form inline>
             <FormControl
               type="text"
+              id="searchContent"
               placeholder="Search"
-              className=" mr-sm-2"
+              className=" mr-m-2"
             />
-            <Button type="submit">Submit</Button>
+            <Button onClick={search}>Submit</Button>
           </Form>
         </div>
       </Navbar>
