@@ -37,14 +37,14 @@ public class ChatRoomController {
     }
 
     // 채팅방 생성
-    @ApiOperation(value = "채팅방 생성", notes = "certificateCode 필요")
-    @PostMapping("/createRoom")
-    @ResponseBody
-    public ChatRoom createRoom(@RequestParam String certificateCode) {
-        return chatRoomRepository.save(ChatRoom.builder()
-        .certificateCode(certificateCode)
-        .build());
-    }
+//    @ApiOperation(value = "채팅방 생성", notes = "certificateCode 필요")
+//    @PostMapping("/createRoom")
+//    @ResponseBody
+//    public ChatRoom createRoom(@RequestParam String certificateCode) {
+//        return chatRoomRepository.save(ChatRoom.builder()
+//        .certificateCode(certificateCode)
+//        .build());
+//    }
 
 
     // 채팅방 입장 화면
