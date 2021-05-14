@@ -14,7 +14,6 @@ export default function CalendarApp () {
   const [events, setEvent] = useState([]);          // 전체 자격증 데이터
   const [eventsData, setEventsData] = useState([]); // 검색을 위한 전체 자격증 데이터 클로닝
   const [userInput, setUserInput] = useState('');   // 검색 userInput값
-
   const [modalShow, setModalShow] = useState(false);
   let [eventData, setEventData] = useState({});   // 클릭 시 개별 자격증 데이터
 
