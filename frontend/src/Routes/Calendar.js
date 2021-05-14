@@ -17,7 +17,7 @@ export default function CalendarApp () {
 
   const [modalShow, setModalShow] = useState(false);
   let [eventData, setEventData] = useState({});   // 클릭 시 개별 자격증 데이터
-  
+
   useEffect(() => {
     axios.get('http://localhost:8080/certificate/schedule')
     .then((res)=> {
@@ -94,7 +94,7 @@ export default function CalendarApp () {
   }, [])
 
   function getEvent(arg) {
-    setEventData(eventData = arg.event._def.extendedProps);
+    setEventData(arg.event._def.extendedProps);
     modalOpen();
   }
   function modalOpen(){
@@ -119,11 +119,14 @@ export default function CalendarApp () {
   return (
     <>
       <Row>
-        <Col md={10}>  
-        <SearchBox
-          handleChange={searchUser}
-        />
-        <Button variant="outline-success" onClick={filterUser}>검색</Button>
+        <Col md={10}>
+          <div className="search-box">
+            <SearchBox
+              handleChange={searchUser}
+            />
+            <Button variant="outline-success" onClick={filterUser} className="d-flex" 
+            style={{ marginBottom: "10px"}}>검색</Button>
+          </div>
           <FullCalendar
             plugins={[ dayGridPlugin, interactionPlugin ]}
             locale="ko"
