@@ -16,8 +16,9 @@ import ChatBox from "../Components/aside/ChatMessageBox/ChatMessageBox";
 import ChatRooms from "../Components/aside/ChatMessageBox/ChatRooms";
 import Login from "../Routes/Login";
 import Register from "../Routes/Register";
-import DetailBoard from "../Components/DetailBoard";
-import AuthenticatedRoute from '../Components/login/AuthenticatedRoute'
+import DetailBoard from "../Components/board/DetailBoard";
+import createBoard from "../Components/board/CreateBoard";
+import AuthenticatedRoute from "../Components/login/AuthenticatedRoute";
 export default () => (
   <Router>
     <>
@@ -31,11 +32,12 @@ export default () => (
         {/* <Route path="/ChatBox" exact component={ChatBox} /> */}
         <Route path="/ChatRooms" exact component={ChatRooms} />
         <Route path="/ChatBox/:roomcode" component={ChatBox} />
-        <Route path="/login" exact component = {Login} />
+        <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Register} />
         <AuthenticatedRoute path="/user" component={User} />
-        <AuthenticatedRoute path="/logout" component={Home}/>
+        <AuthenticatedRoute path="/logout" component={Home} />
         <Route path="/detailBoard/:no" component={DetailBoard} />
+        <Route path="/createBoard" component={createBoard} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

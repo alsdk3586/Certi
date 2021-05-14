@@ -9,22 +9,35 @@ import BtnStar from './BtnStar';
 export default function CustomModal(props) {
   const eventData = props.data;
   const code = props.data.code;
-  const [stats, setStats] = useState();
+  const [genderStats, setGenderStats] = useState([]);
+  const [ageStats, setAgeStats] = useState([]);
   const [title, setTitle] = useState('');
-  const [acceptanceRateDoc, setDoc] = useState(null);
-  const [acceptanceRatePrac, setPrac] = useState(null);
-  const [acceptanceRateResult, setResult] = useState(null);
-  
+  // const [acceptanceRateDoc, setDoc] = useState(null);
+  // const [acceptanceRatePrac, setPrac] = useState(null);
+  // const [acceptanceRateResult, setResult] = useState(null);
+  const [passRt, setPassRt] = useState([]);
+
   useEffect(() => {
     axios.get(`http://localhost:8080/certificate/statistics/${code}`)
     .then((res)=> {
-      const data = res.data;
-      let stat = {  
-        statisticAge: data.statisticAge,
-        statisticGender: data.statisticGender,
-        statisticNumber: data.statisticGetNumber,
-      }
-      setStats(stat)
+      const data = res.data[0];
+      let gStat = [ 
+        data.man,
+        data.women
+      ]
+      let aStat = [{
+        name: "합격자 수",
+        data: [
+          data.teen,
+          data.twenty,
+          data.thirty,
+          data.fourty,
+          data.fifty,
+          data.sixty
+        ]
+      }]
+      setGenderStats([...gStat])
+      setAgeStats([...aStat])
     })
     .catch((err) => {
       console.log(err)
@@ -34,11 +47,32 @@ export default function CustomModal(props) {
   useEffect(() => {
     axios.get(`http://localhost:8080/certificate/acceptancerate/${code}`)
     .then((res)=> {
-      const acceptRate = res.data[res.data.length-1];
-      setDoc(acceptRate.acceptanceRateDoc);
-      setPrac(acceptRate.acceptanceRatePrac);
-      setResult(acceptRate.acceptanceRateResult);
-      setTitle(acceptRate.certificateCode.certificateClassificationCode);
+      const acceptRate = res.data;
+      const passRate = [];
+      const docPassRate = [];
+      const pracPassRate = [];
+      // setDoc(acceptRate.acceptanceRateDoc);
+      // setPrac(acceptRate.acceptanceRatePrac);
+      // setResult(acceptRate.acceptanceRateResult);
+      setTitle(acceptRate[0].certificateCode.certificateClassificationCode);
+      acceptRate.map(elem => {
+        passRate.push(elem.acceptanceRateResult)
+        docPassRate.push(elem.acceptanceRateDoc)
+        pracPassRate.push(elem.acceptanceRatePrac)
+      });
+      let pass = {
+        name: '합격률',
+        data: passRate,
+      }
+      let doc = {
+        name: '필기 합격률',
+        data: docPassRate,
+      }
+      let prac = {
+        name: '실기 합격률',
+        data: pracPassRate,
+      }
+      setPassRt([pass, doc, prac])
     })
     .catch((err)=> {console.log(err)})
   }, [eventData])
@@ -52,14 +86,14 @@ export default function CustomModal(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title id="contained-modal-title-vcenter" style={{ marginRight: "15px"}}>
           {title}
-          <BtnStar isFilled={true}/>
           </Modal.Title>
+          <BtnStar isFilled={true} />
         </Modal.Header>
         <Modal.Body>
           <Container >
-            <Table border size="md">
+            {/* <Table border size="md">
               <tbody>
                 <tr>
                   <td>필기합격률</td>
@@ -74,19 +108,19 @@ export default function CustomModal(props) {
                   <td>{acceptanceRateResult}%</td>
                 </tr>
               </tbody>
-            </Table>
+            </Table> */}
           </Container>
           {/* Chart */}
           <Container>
             <Row className="d-flex justify-content-around">
-              <Col lg={6} md={12} className="d-flex justify-content-center">
-                <PieChart series={stats}/>
+              <Col lg={5} md={12} className="d-flex justify-content-center">
+                <PieChart series={genderStats} />
               </Col>
-              <Col lg={6} md={12} className="d-flex justify-content-center">
-                <ColumnChart />
+              <Col lg={7} md={12} className="d-flex justify-content-center">
+                <ColumnChart series={ageStats} />
               </Col>
               <Col lg={12} className="d-flex justify-content-center">
-                <LineChart />
+                <LineChart series={passRt}/>
               </Col>
             </Row>
           </Container>

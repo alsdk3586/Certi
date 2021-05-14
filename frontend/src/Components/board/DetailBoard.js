@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../Components/css/css.scss";
-import { boardApi } from "../utils/axios";
+import "../css/css.scss";
+import { boardApi } from "../../utils/axios";
 import { FiEye, FiCalendar } from "react-icons/fi";
 import { BiDislike, BiLike } from "react-icons/bi";
 function Detail({ data }) {
