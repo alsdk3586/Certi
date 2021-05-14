@@ -43,7 +43,7 @@ public class BoardController {
 
             boardRepository.save(Board.builder()
             .userId(person)
-            .boardCategory(Integer.parseInt(board.get("boardCategory")))
+            .boardCategory(board.get("boardCategory"))
             .boardTitle(board.get("boardTitle"))
             .boardContent(board.get("boardContent"))
             .boardWriter(person.getUsername())
@@ -78,8 +78,30 @@ public class BoardController {
         }
     }
 
+
+    @ApiOperation(value = "게시판 카테고리별 조회", notes = "성공 시, true 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "등록 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Board>> boardCategoryList(@PathVariable String category) {
+
+        try {
+            List<Board> boardList=boardRepository.findByBoardCategory(category);
+            return new ResponseEntity<>(boardList, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            List<Board> box = null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
     @ApiOperation(value = "게시판 조회", notes = "성공 시, true 반환")
-    @GetMapping("/{boardId}")
+    @GetMapping("/detail/{boardId}")
     public ResponseEntity<Board> boardDetail(@PathVariable Integer boardId) {
 
         try {
@@ -152,7 +174,7 @@ public class BoardController {
             Board board=boardRepository.findByBoardId(boardId);
             if(person.getUserId()==board.getUserId().getUserId()){
                 // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"));
+                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"),newBoard.get("boardCategory"));
                 if(newBoard.get("boardFile")!=null){
                     board.updateFile(newBoard.get("boardFile"));
                 }

@@ -26,7 +26,7 @@ public class Board {
     private User userId;
 
     @Column(name = "board_category")
-    private Integer boardCategory;
+    private String boardCategory;
 
     @Column(name = "board_title")
     private String boardTitle;
@@ -50,9 +50,10 @@ public class Board {
     @Column(name = "board_flag")
     private Boolean boardFlag;
 
-    public void updateBoardContent(String title, String content){
+    public void updateBoardContent(String title, String content, String category){
         this.boardTitle=title;
         this.boardContent=content;
+        this.boardCategory=category;
         this.boardCreate=LocalDate.now();
     }
     public void updateFile(String file){
