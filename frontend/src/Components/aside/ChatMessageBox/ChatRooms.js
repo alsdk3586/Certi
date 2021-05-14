@@ -33,10 +33,10 @@ class ChatRooms extends Component {
                         <tbody>
           {ChatRoomList &&
             ChatRoomList.map((room) => (
-              <tr key={room.certificateCode}>
+              <tr key={room.certificateCode.certificateCode}>
                 <td>
-                  <Link to={`/ChatBox/${room.certificateCode}`}>
-                    {room.certificateCode}
+                  <Link to={`/ChatBox/${room.certificateCode.certificateCode}`}>
+                    {room.certificateCode.certificateClassificationCode}
                   </Link>
                 </td>
               </tr>
