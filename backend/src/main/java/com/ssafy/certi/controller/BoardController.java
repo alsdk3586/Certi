@@ -1,8 +1,11 @@
 package com.ssafy.certi.controller;
 
 import com.ssafy.certi.domain.Board;
+import com.ssafy.certi.domain.Comment;
 import com.ssafy.certi.domain.User;
+import com.ssafy.certi.dto.DetailBoard;
 import com.ssafy.certi.repository.BoardRepository;
+import com.ssafy.certi.repository.CommentRepository;
 import com.ssafy.certi.security.JwtTokenProvider;
 import com.ssafy.certi.service.UserService;
 import io.swagger.annotations.*;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Api(tags = {"3. Board"})
 @RestController
@@ -26,6 +30,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Autowired
     UserService userService;
@@ -102,15 +109,22 @@ public class BoardController {
 
     @ApiOperation(value = "게시판 조회", notes = "성공 시, true 반환")
     @GetMapping("/detail/{boardId}")
-    public ResponseEntity<Board> boardDetail(@PathVariable Integer boardId) {
+    public ResponseEntity<DetailBoard> boardDetail(@PathVariable Integer boardId) {
 
         try {
             Board board=boardRepository.findByBoardId(boardId);
             board.show(); //hit up
-            return new ResponseEntity<>(board, HttpStatus.OK);
+
+            DetailBoard detailBaord = new DetailBoard();
+            detailBaord.setBoard(board);
+
+            Optional<List<Comment>> comment=commentRepository.findAllByBoard(board);
+            detailBaord.setComment(comment);
+
+            return new ResponseEntity<>(detailBaord, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
-            Board box=null;
+            DetailBoard box=null;
             return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
