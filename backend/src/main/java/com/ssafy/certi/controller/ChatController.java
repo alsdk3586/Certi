@@ -9,47 +9,35 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = {"4. Chat Message"})
 @RestController
 @RequiredArgsConstructor
 public class ChatController {
-
-    private final SimpMessageSendingOperations messagingTemplate;
-
-//    @ApiOperation(value = "채팅")
-//    @MessageMapping("/sendMessage") //  websocket으로 들어오는 메세지 발행 처리.
-//    @SendTo("/topic/pubic")
-//    public void message(ChatMessage message) {
-//        if (ChatMessage.MessageType.JOIN.equals(message.getType()))
-//            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
-//        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getCertificateCode(), message);
-//    }
-
     private final ChatRepository chatRepository;
     private final ChatRoomRepository chatRoomRepository;
 
     @ApiOperation(value = "채팅")
-    @MessageMapping("/sendMessage") // 클라이언트에서 /sendMessage로 메세지를 전달하면 sendMessage 메소드가 실행됨
-//    @SendTo("/topic/pubic") // 그리고 /topic/pubic 쪽으로 결과를 return 시킴.
+    @MessageMapping("/sendMessage/{certificateCode}") // 클라이언트에서 /sendMessage로 메세지를 전달하면 sendMessage 메소드가 실행됨
+    @SendTo("/topic/pubic/{certificateCode}") // 그리고 /topic/pubic 쪽으로 결과를 return 시킴.
     public ChatMessage sendMessage(
             @ApiParam(value = "messageSenderId, message, messageCreate", required = true)
-            @Payload ChatMessage chatMessage) {
+            @Payload ChatMessage chatMessage,
+            @DestinationVariable String certificateCode) {
             ChatRoom chatRoom = chatRoomRepository.findByCertificateCode(chatMessage.getRoomCode());
             chatRepository.save(Chat.builder()
-                    .certificateCode(chatMessage.getRoomCode())
+                    .certificateCode(certificateCode)
                     .messageSenderId(chatMessage.getSender())
                     .messageCreate(chatMessage.getDateTime())
                     .message(chatMessage.getContent())
                     .build()
             );
-            messagingTemplate.convertAndSend("/topic/pubic/" + chatMessage.getRoomCode(), chatMessage);
             return chatMessage;
     }
 
@@ -61,7 +49,7 @@ public class ChatController {
         ChatRoom chatRoom = chatRoomRepository.findByCertificateCode(certificateCode);
         // Add user in web socket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        headerAccessor.getSessionAttributes().put("roomcode", chatMessage.getRoomCode());
+//        headerAccessor.getSessionAttributes().put("roomcode", chatMessage.getRoomCode());
         return chatMessage;
     }
 }
