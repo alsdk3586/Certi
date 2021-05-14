@@ -20,6 +20,7 @@ public class ChatMessage {
     private String receiver;
     private LocalDateTime dateTime=LocalDateTime.now();
 
+
     public enum MessageType {
         CHAT,
         JOIN,

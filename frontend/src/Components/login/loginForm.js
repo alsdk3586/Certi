@@ -59,7 +59,9 @@ class LoginForm extends Component {
                 token: response.data.token,
                 loginSuccess: true
             });
-            LoginService.registerSuccessfulLoginForJwt(this.state.userEmail, this.state.token)
+            // console.log("loginClicked token: " + response.data.token)
+            // console.log("loginClicked email: " + this.state.userEmail)
+            LoginService.registerSuccessfulLoginForJwt(this.state.userEmail, response.data.token)
             
             if (this.state.loginSuccess === true) { // 로그인 성공 시 페이지 이동
                 this.props.history.push(`/`)

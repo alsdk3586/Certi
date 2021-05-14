@@ -60,8 +60,9 @@ class ChatMessageBox extends Component {
     })
 
     // Subscribing to the public topic
-    stompClient.subscribe('/topic/pubic', this.onMessageReceived); // SERVER @SendTo
+    stompClient.subscribe('/topic/pubic/{roomcode}', this.onMessageReceived); // SERVER @SendTo
     console.log("Subscribing to the public topic")
+    console.log("**roomcode  " + this.state.roomcode)
 
     // Registering user to server as a public chat user
     stompClient.send("/app/addUser", {},
@@ -86,6 +87,7 @@ class ChatMessageBox extends Component {
       
       if (type === 'CHAT') { // send public message
         stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage)); // SERVER @MessageMapping 채팅 DB에 저장 
+        console.log("**chat  " + chatMessage.roomcode)
       }
     }
   }
@@ -93,6 +95,7 @@ class ChatMessageBox extends Component {
   onMessageReceived = (payload) => {
 
     var message = JSON.parse(payload.body);
+    console.log("**onMessageReceived  " + message.roomcode)
 
     if (message.type === 'JOIN') {
 
