@@ -41,7 +41,7 @@ public class CommentController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
     @PostMapping("/create")
-    public ResponseEntity<String> boardPostAdd(@ApiParam(value = "boardId, commentContent", required = true) @RequestBody Map<String, String> comment, HttpServletRequest request) {
+    public ResponseEntity<String> ccommentAdd(@ApiParam(value = "boardId, commentContent", required = true) @RequestBody Map<String, String> comment, HttpServletRequest request) {
         try {
             User person=userService.findByToken(JwtTokenProvider.resolveToken(request));
             Board board=boardRepository.findByBoardId(Integer.parseInt(comment.get("boardId")));
@@ -57,7 +57,4 @@ public class CommentController {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
 }
