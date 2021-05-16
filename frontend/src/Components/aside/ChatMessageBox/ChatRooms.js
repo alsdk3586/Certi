@@ -14,10 +14,11 @@ class ChatRooms extends Component {
 
     getList = async() => {
         axios.get('http://localhost:8080/chat/rooms')
-            .then(({ data }) => {
+            .then((res) => {
                 this.setState({
-                    ChatRoomList: data
+                    ChatRoomList: res.data
                 });
+                console.log(res.data)
             })
             .catch(e => {
                 console.error(e);
