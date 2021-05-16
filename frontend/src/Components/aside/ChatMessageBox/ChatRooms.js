@@ -4,10 +4,6 @@ import axios from 'axios'
 import Button from '@material-ui/core/Button';
 
 class ChatRooms extends Component {
-    // state = {
-    //     ChatRoomList: [],
-    // };
-
     constructor(props) {
         super(props);
         this.state =
@@ -33,7 +29,6 @@ class ChatRooms extends Component {
     }
 
     handleConnectPublicly = () => {
-        // this.props.connect(this.state.username, false)
         this.props.connect(localStorage.getItem('authenticatedUser'), false)
       }
     
@@ -48,10 +43,10 @@ class ChatRooms extends Component {
               <tr key={room.certificateCode.certificateCode}>
                 <td>
                   <Link to={`/ChatBox/${room.certificateCode.certificateCode}`}>
-                  {/* <Button variant="contained" color="primary" onClick={this.handleConnectPublicly} > */}
+                  <Button variant="contained" color="primary" >
                     {room.certificateCode.certificateClassificationCode}
                   
-                    {/* </Button> */}
+                    </Button>
                     </Link>
                 </td>
               </tr>
