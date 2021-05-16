@@ -14,6 +14,10 @@ export const commentApi = {
     });
    // console.log(response);
     return response.data;
+  },
+  async getComment(boardId) {
+    const response = await request.get(`comment/${boardId}`);
+    return response.data;
   }
 }
 export const boardApi = {

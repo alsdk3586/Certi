@@ -3,9 +3,10 @@ import "../css/css.scss";
 import { boardApi,commentApi } from "../../utils/axios";
 import { FiEye, FiCalendar } from "react-icons/fi";
 import { Form, Button } from "react-bootstrap";
+import Comment from "./Comment";
 function Detail({ data }) {
-  console.log("detail----");
-  console.log(data);
+  // console.log("detail----");
+  // console.log(data);
   return (
     <div style={{ flex: 1 }}>
       <hr style={{ height: 3 }}></hr>
@@ -43,31 +44,10 @@ function Detail({ data }) {
   );
 }
 
-function Comment({ comment }) {
-  // console.log("comment--");
-  // console.log(comment);
-  return (
-    <div>
-      {comment.map(el => (
-        <div>
-          <div>{el.commentContent}</div>
-          <div>{el.commentCreate && el.commentCreate.map((e) =>
-            (<div>{e}.</div>)
-            )}
-          </div>
-          <div>{el.userId.user_nickname}</div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 export default function DetailBoard({ match }) {
   const { no } = match.params;
   const [board, setBoard] = useState({});
   const [comment, setComment] = useState([]);
-  // let board = {};
-  // let comment = [];
 
   useEffect(async () => {
     const fill = async () => {
@@ -75,19 +55,13 @@ export default function DetailBoard({ match }) {
       console.log(res);
       setBoard(res.board);
       setComment(res.comment);
-      // board = res.board;
-      // comment = res.comment;
     };
     
     await fill();
-    console.log("userEffect---");
-    console.log(comment);
-    console.log("useEffect end");
   }, []);
 
 
   async function createComment() {
-    console.log(document.getElementById("content").value);
     let data = new Object();
     data.boardId = no;
     data.commentContent = document.getElementById("content").value;
@@ -101,9 +75,6 @@ export default function DetailBoard({ match }) {
     }
   }
   
-
-  console.log("function---");
-  console.log(comment);
   return (
     <div id="detailBoard">
       <Detail data={board} />
@@ -113,7 +84,7 @@ export default function DetailBoard({ match }) {
         </Form.Group>
         <Button variant="outline-primary" onClick={ createComment}>Primary</Button>
       </div>
-      <Comment comment={comment}/>
+      <Comment no={no}/>
       {/* <div>
         {
           comment.map((el) => {

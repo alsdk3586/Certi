@@ -65,7 +65,7 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 조회", notes = "성공 시, true 반환")
     @GetMapping("/{boardId}")
-    public ResponseEntity<DetailBoard> boardDetail(@PathVariable Integer boardId) {
+    public ResponseEntity<Optional<List<Comment>>> commentList(@PathVariable Integer boardId) {
 
         try {
             Board board=boardRepository.findByBoardId(boardId);
@@ -76,7 +76,7 @@ public class CommentController {
             return new ResponseEntity<>(comment, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
-            DetailBoard box=null;
+            Optional<List<Comment>> box=null;
             return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
