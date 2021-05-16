@@ -11,9 +11,14 @@ export default class Login extends Component
           };
       }
 
-    handleConnectPublicly = () => {
+  handleConnectPublicly = () => {
+      if (localStorage.getItem('authenticatedUser') == null) {
+        alert("로그인 먼저 해주세요 :)");
+      }
+      else {
         this.props.connect(localStorage.getItem('authenticatedUser'), false)
       }
+    }
     
     render(){
         return(
