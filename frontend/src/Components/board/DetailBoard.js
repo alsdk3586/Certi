@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../css/css.scss";
-import { boardApi } from "../../utils/axios";
+import { boardApi,commentApi } from "../../utils/axios";
 import { FiEye, FiCalendar } from "react-icons/fi";
-import { BiDislike, BiLike } from "react-icons/bi";
+import { Form, Button } from "react-bootstrap";
 function Detail({ data }) {
   console.log("detail----");
   console.log(data);
@@ -85,11 +85,34 @@ export default function DetailBoard({ match }) {
     console.log("useEffect end");
   }, []);
 
+
+  async function createComment() {
+    console.log(document.getElementById("content").value);
+    let data = new Object();
+    data.boardId = no;
+    data.commentContent = document.getElementById("content").value;
+    let res=commentApi.addComment(data);
+    if (res == false)
+      alert("댓글 등록에 실패하였습니다.");
+    else {
+      const res = await boardApi.getDetailBoard(no);
+      setComment(res.comment);
+      console.log(comment);
+    }
+  }
+  
+
   console.log("function---");
   console.log(comment);
   return (
     <div id="detailBoard">
       <Detail data={board} />
+      <div>
+        <Form.Group controlId="exampleForm.ControlTextarea1">
+          <Form.Control id="content" as="textarea" />
+        </Form.Group>
+        <Button variant="outline-primary" onClick={ createComment}>Primary</Button>
+      </div>
       <Comment comment={comment}/>
       {/* <div>
         {

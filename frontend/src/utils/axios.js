@@ -4,6 +4,18 @@ const request = axios.create({
   baseURL: "http://localhost:8080/",
 });
 
+
+export const commentApi = {
+  async addComment(data) {
+    const response = await request.post(`comment/create`,data, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      },
+    });
+   // console.log(response);
+    return response.data;
+  }
+}
 export const boardApi = {
   async getAllBoard() {
     const response = await request.get(`board/`);
@@ -36,4 +48,5 @@ export const boardApi = {
     //console.log(response);
     return response.data;
   },
+
 };
