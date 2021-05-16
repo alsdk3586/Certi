@@ -8,8 +8,6 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import axios from "axios";
 import SearchBox from '../Components/SearchBox';
 
-const API = "https://jsonplaceholder.typicode.com/users";
-
 export default function CalendarApp () {
   const [events, setEvent] = useState([]);          // 전체 자격증 데이터
   const [eventsData, setEventsData] = useState([]); // 검색을 위한 전체 자격증 데이터 클로닝
