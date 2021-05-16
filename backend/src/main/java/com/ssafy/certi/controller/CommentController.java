@@ -3,6 +3,7 @@ package com.ssafy.certi.controller;
 import com.ssafy.certi.domain.Board;
 import com.ssafy.certi.domain.Comment;
 import com.ssafy.certi.domain.User;
+import com.ssafy.certi.dto.DetailBoard;
 import com.ssafy.certi.repository.BoardRepository;
 import com.ssafy.certi.repository.CommentRepository;
 import com.ssafy.certi.security.JwtTokenProvider;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Api(tags = {"6. Comment"})
 @RestController
@@ -55,6 +58,26 @@ public class CommentController {
 
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
+    @ApiOperation(value = "댓글 조회", notes = "성공 시, true 반환")
+    @GetMapping("/{boardId}")
+    public ResponseEntity<DetailBoard> boardDetail(@PathVariable Integer boardId) {
+
+        try {
+            Board board=boardRepository.findByBoardId(boardId);
+            board.show(); //hit up
+
+            Optional<List<Comment>> comment=commentRepository.findAllByBoard(board);
+
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            DetailBoard box=null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
         }
     }
 }
