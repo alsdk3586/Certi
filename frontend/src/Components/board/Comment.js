@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { commentApi } from "../../utils/axios";
 export default function Comment({no }) {
-  console.log("123");
   const [comment, setComment] = useState([]);
   useEffect(async () => {
     const fill = async () => {
@@ -12,7 +11,6 @@ export default function Comment({no }) {
     };
     await fill();
   }, [comment]);
-  
   return (
   <div>
     {comment&&comment.map(el => (
