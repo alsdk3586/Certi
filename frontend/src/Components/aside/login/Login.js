@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Login.css'
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 export default class Login extends Component
 {
@@ -12,11 +12,11 @@ export default class Login extends Component
           };
       }
 
-    handleUserNameChange = (event) => {
-        this.setState({
-          username: event.target.value,
-        });
-      };
+    // handleUserNameChange = (event) => {
+    //     this.setState({
+    //       username: event.target.value,
+    //     });
+    //   };
 
     handleConnectPublicly = () => {
         // this.props.connect(this.state.username, false)
@@ -26,14 +26,14 @@ export default class Login extends Component
     render(){
         return(
             <div className="component-Login">
-             <TextField
+             {/* <TextField
                 id="user"
                 label="Type your username"
                 placeholder="Username"
                 onChange={this.handleUserNameChange}
                 margin="normal"
               />
-              <br />
+              <br /> */}
               <Button variant="contained" color="primary" onClick={this.handleConnectPublicly} >
                 Start Chatting
              </Button>

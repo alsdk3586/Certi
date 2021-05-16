@@ -48,10 +48,10 @@ class ChatRooms extends Component {
               <tr key={room.certificateCode.certificateCode}>
                 <td>
                   <Link to={`/ChatBox/${room.certificateCode.certificateCode}`}>
-                  <Button variant="contained" color="primary" onClick={this.handleConnectPublicly} >
+                  {/* <Button variant="contained" color="primary" onClick={this.handleConnectPublicly} > */}
                     {room.certificateCode.certificateClassificationCode}
                   
-                    </Button>
+                    {/* </Button> */}
                     </Link>
                 </td>
               </tr>

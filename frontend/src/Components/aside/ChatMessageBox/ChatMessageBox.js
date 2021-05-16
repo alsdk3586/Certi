@@ -4,6 +4,7 @@ import Aside from '../aside/Aside'
 import Footer from '../footer/Footer'
 import Paper from '@material-ui/core/Paper';
 import ChatRooms from './ChatRooms';
+import Login from '../login/Login';
 
 import './ChatMessageBox.css';
 import userImage from '../userImage.png';
@@ -220,7 +221,6 @@ class ChatMessageBox extends Component {
                           {msg.message}
                         </div>
                         <div><h3>{msg.dateTime}</h3></div>
-                        <div><h3>{msg.roomcode}</h3></div>
                       </li>
                       :
                       <li className="others">
@@ -248,8 +248,8 @@ class ChatMessageBox extends Component {
 
 
           ) : (
-            // <Login connect={this.connect} />
-            <ChatRooms connect={this.connect} />
+            <Login connect={this.connect} />
+            // <ChatRooms connect={this.connect} />
 
           )
         }
