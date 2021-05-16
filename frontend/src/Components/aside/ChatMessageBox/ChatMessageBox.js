@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 
 import Aside from '../aside/Aside'
-import Login from '../login/Login'
 import Footer from '../footer/Footer'
 import Paper from '@material-ui/core/Paper';
+import ChatRooms from './ChatRooms';
 
-// Styling
 import './ChatMessageBox.css';
-// Default user image
 import userImage from '../userImage.png';
-// import backToTop from './backToTop.png';
 
 var stompClient = null;
 class ChatMessageBox extends Component {
@@ -32,7 +29,7 @@ class ChatMessageBox extends Component {
       };
   }
 
-  connect = (userName, roomcode) => {
+  connect = (userName) => {
 
     if (userName) {
 
@@ -47,8 +44,7 @@ class ChatMessageBox extends Component {
       stompClient.connect({}, this.onConnected, this.onError);
 
       this.setState({
-        username: userName,
-        roomcode: roomcode,
+        username: userName
       })
     }
   }
@@ -62,13 +58,11 @@ class ChatMessageBox extends Component {
     // Subscribing to the public topic
     stompClient.subscribe('/topic/pubic', this.onMessageReceived); // SERVER @SendTo
     console.log("Subscribing to the public topic")
-    console.log("**roomcode  " + this.state.roomcode)
 
     // Registering user to server as a public chat user
     stompClient.send("/app/addUser", {},
       JSON.stringify({
         sender: this.state.username,
-        roomcode: this.state.roomcode,
         type: 'JOIN'
       })) // SERVER @MessageMapping
 
@@ -79,7 +73,6 @@ class ChatMessageBox extends Component {
     if (stompClient) {
       var chatMessage = {
         sender: this.state.username,
-        roomcode: this.state.roomcode,
         content: type === 'TYPING' ? value : value,
         type: type
 
@@ -87,7 +80,6 @@ class ChatMessageBox extends Component {
       
       if (type === 'CHAT') { // send public message
         stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage)); // SERVER @MessageMapping 채팅 DB에 저장 
-        console.log("**chat  " + chatMessage.roomcode)
       }
     }
   }
@@ -95,7 +87,6 @@ class ChatMessageBox extends Component {
   onMessageReceived = (payload) => {
 
     var message = JSON.parse(payload.body);
-    console.log("**onMessageReceived  " + message.roomcode)
 
     if (message.type === 'JOIN') {
 
@@ -112,7 +103,6 @@ class ChatMessageBox extends Component {
           notification.status = "offline";
           notification.sender = message.sender + " ~ left";
           notification.dateTime = message.dateTime;
-          notification.roomcode = message.roomcode;
         }
       })
       this.setState({
@@ -258,7 +248,8 @@ class ChatMessageBox extends Component {
 
 
           ) : (
-            <Login connect={this.connect} />
+            // <Login connect={this.connect} />
+            <ChatRooms connect={this.connect} />
 
           )
         }

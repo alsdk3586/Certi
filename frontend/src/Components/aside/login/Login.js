@@ -19,7 +19,8 @@ export default class Login extends Component
       };
 
     handleConnectPublicly = () => {
-        this.props.connect(this.state.username, false)
+        // this.props.connect(this.state.username, false)
+        this.props.connect(localStorage.getItem('authenticatedUser'), false)
       }
     
     render(){

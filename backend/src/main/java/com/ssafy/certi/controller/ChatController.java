@@ -29,8 +29,9 @@ public class ChatController {
             @ApiParam(value = "messageSenderId, message, messageCreate", required = true)
             @Payload ChatMessage chatMessage) {
             ChatRoom chatRoom = chatRoomRepository.findByCertificateCode(chatMessage.getRoomCode());
+            System.out.println("보낸 채팅: " + chatMessage);
             chatRepository.save(Chat.builder()
-                    .certificateCode(chatMessage.getRoomCode())
+                    .certificateCode("2290")
                     .messageSenderId(chatMessage.getSender())
                     .messageCreate(chatMessage.getDateTime())
                     .message(chatMessage.getContent())
