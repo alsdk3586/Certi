@@ -13,7 +13,6 @@ class ChatRooms extends Component {
                 this.setState({
                     ChatRoomList: res.data
                 });
-                console.log(res.data)
             })
             .catch(e => {
                 console.error(e);
@@ -27,7 +26,6 @@ class ChatRooms extends Component {
     
     render() {
         const { ChatRoomList } = this.state;
-        console.log(ChatRoomList)
         return (
             <div class="row">
                 <div class="col-md-12">

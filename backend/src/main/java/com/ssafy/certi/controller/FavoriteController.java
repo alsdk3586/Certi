@@ -1,7 +1,6 @@
 package com.ssafy.certi.controller;
 
 
-import com.ssafy.certi.domain.Board;
 import com.ssafy.certi.domain.Certificate;
 import com.ssafy.certi.domain.FavoriteList;
 import com.ssafy.certi.domain.User;
@@ -12,12 +11,9 @@ import com.ssafy.certi.service.UserService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -63,7 +59,6 @@ public class FavoriteController {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @ApiOperation(value="즐겨찾기 조회", notes = "")
     @ApiResponses({
