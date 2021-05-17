@@ -9,14 +9,11 @@ export default function BoardList(props) {
 
   const allFill = async () => {
     const res = await boardApi.getAllBoard();
-    console.log(res);
     setData(res);
-    console.log(data);
   };
 
   const categoryFill = async (category) => {
     const res = await boardApi.getCategoryBoard(category);
-    console.log(res);
     setData(res);
   };
 

@@ -61,7 +61,7 @@ export default function CreateBoard({ history, location }) {
           variant="outline-warning"
           onClick={add}
         >
-          Warning
+          추가
         </Button>
       </div>
     </div>

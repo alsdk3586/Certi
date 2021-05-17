@@ -73,7 +73,7 @@ export default function CreateBoard({ history,match }) {
           variant="outline-warning"
           onClick={motify}
         >
-          Warning
+          수정
         </Button>
       </div>
     </div>

@@ -6,9 +6,6 @@ import { Form, Button } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 function Detail({ data,isWriter }) {
-  // console.log("detail----");
-  // console.log(data);
-  // console.log(isWriter);
   return (
     <div style={{ flex: 1 }}>
       <hr style={{ height: 3 }}></hr>
@@ -60,7 +57,6 @@ export default function DetailBoard({ match }) {
   useEffect(async () => {
     const fill = async () => {
       const res = await boardApi.getDetailBoard(no);
-      console.log(res);
       setBoard(res.board);
       setComment(res.comment);
       if (localStorage.getItem('authenticatedUser') === res.board.boardWriter) {
@@ -81,7 +77,6 @@ export default function DetailBoard({ match }) {
     else {
       const res = await commentApi.getComment(no);
       setComment(res);
-      console.log(comment);
     }
   }
 
