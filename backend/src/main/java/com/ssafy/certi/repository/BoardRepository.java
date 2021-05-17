@@ -9,7 +9,7 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findAll();
     Board findByBoardId(Integer boardId);
-    List<Board> findByBoardTitle(String Title);
+    List<Board> findByBoardTitleContaining(String Title);
 
     List<Board> findByBoardCategory(String category);
     void deleteByBoardId(Integer boardId);
