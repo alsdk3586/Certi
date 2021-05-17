@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
 import Aside from '../aside/Aside'
-import Login from '../login/Login'
 import Footer from '../footer/Footer'
 import Paper from '@material-ui/core/Paper';
+import ChatRooms from './ChatRooms';
+import Login from '../login/Login';
 
-// Styling
 import './ChatMessageBox.css';
-// Default user image
 import userImage from '../userImage.png';
-// import backToTop from './backToTop.png';
 
 var stompClient = null;
 class ChatMessageBox extends Component {
@@ -32,7 +30,7 @@ class ChatMessageBox extends Component {
       };
   }
 
-  connect = (userName, roomcode) => {
+  connect = (userName) => {
 
     if (userName) {
 
@@ -47,8 +45,7 @@ class ChatMessageBox extends Component {
       stompClient.connect({}, this.onConnected, this.onError);
 
       this.setState({
-        username: userName,
-        roomcode: roomcode,
+        username: userName
       })
     }
   }
@@ -67,7 +64,6 @@ class ChatMessageBox extends Component {
     stompClient.send("/app/addUser", {},
       JSON.stringify({
         sender: this.state.username,
-        roomcode: this.state.roomcode,
         type: 'JOIN'
       })) // SERVER @MessageMapping
 
@@ -78,7 +74,6 @@ class ChatMessageBox extends Component {
     if (stompClient) {
       var chatMessage = {
         sender: this.state.username,
-        roomcode: this.state.roomcode,
         content: type === 'TYPING' ? value : value,
         type: type
 
@@ -109,7 +104,6 @@ class ChatMessageBox extends Component {
           notification.status = "offline";
           notification.sender = message.sender + " ~ left";
           notification.dateTime = message.dateTime;
-          notification.roomcode = message.roomcode;
         }
       })
       this.setState({
@@ -227,7 +221,6 @@ class ChatMessageBox extends Component {
                           {msg.message}
                         </div>
                         <div><h3>{msg.dateTime}</h3></div>
-                        <div><h3>{msg.roomcode}</h3></div>
                       </li>
                       :
                       <li className="others">
@@ -256,6 +249,7 @@ class ChatMessageBox extends Component {
 
           ) : (
             <Login connect={this.connect} />
+            // <ChatRooms connect={this.connect} />
 
           )
         }
