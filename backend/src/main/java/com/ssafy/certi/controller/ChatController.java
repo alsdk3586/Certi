@@ -1,7 +1,6 @@
 package com.ssafy.certi.controller;
 
 import com.ssafy.certi.domain.Chat;
-import com.ssafy.certi.domain.ChatRoom;
 import com.ssafy.certi.dto.ChatMessage;
 import com.ssafy.certi.repository.ChatRepository;
 import com.ssafy.certi.repository.ChatRoomRepository;
@@ -28,10 +27,10 @@ public class ChatController {
     public ChatMessage sendMessage(
             @ApiParam(value = "messageSenderId, message, messageCreate", required = true)
             @Payload ChatMessage chatMessage) {
-            ChatRoom chatRoom = chatRoomRepository.findByCertificateCode(chatMessage.getRoomCode());
+//            ChatRoom chatRoom = chatRoomRepository.findByCertificateCode(chatMessage.getRoomcode());
             System.out.println("보낸 채팅: " + chatMessage);
             chatRepository.save(Chat.builder()
-                    .certificateCode("2290")
+                    .certificateCode(chatMessage.getRoomcode())
                     .messageSenderId(chatMessage.getSender())
                     .messageCreate(chatMessage.getDateTime())
                     .message(chatMessage.getContent())
