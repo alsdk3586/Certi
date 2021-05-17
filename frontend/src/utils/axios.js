@@ -28,7 +28,7 @@ export const commentApi = {
     const response = await request.get(`comment/${boardId}`);
     return response.data;
   }
-};
+}
 
 export const boardApi = {
   async getAllBoard() {
@@ -62,5 +62,7 @@ export const boardApi = {
     //console.log(response);
     return response.data;
   },
-
+  async updateBoard(data) {
+    
+  }
 };
