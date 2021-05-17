@@ -164,7 +164,7 @@ public class BoardController {
     public ResponseEntity<List<Board>> boardSearchTitle(@PathVariable String boardTitle) {
 
         try {
-            List<Board> result=boardRepository.findByBoardTitle(boardTitle);
+            List<Board> result=boardRepository.findByBoardTitleContaining(boardTitle);
             return new ResponseEntity<>(result, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
