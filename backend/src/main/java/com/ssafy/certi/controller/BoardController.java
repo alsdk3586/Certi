@@ -105,15 +105,16 @@ public class BoardController {
         }
     }
 
-
-
     @ApiOperation(value = "게시판 조회", notes = "성공 시, true 반환")
     @GetMapping("/detail/{boardId}")
     public ResponseEntity<DetailBoard> boardDetail(@PathVariable Integer boardId) {
 
         try {
             Board board=boardRepository.findByBoardId(boardId);
-            board.show(); //hit up
+            System.out.println(board.getBoardHit());
+            board.setBoardHit(board.getBoardHit()+1);
+            System.out.println(board.getBoardHit());
+            boardRepository.save(board);
 
             DetailBoard detailBaord = new DetailBoard();
             detailBaord.setBoard(board);
@@ -144,7 +145,7 @@ public class BoardController {
             Board board=boardRepository.findByBoardId(boardId);
             if(person.getUserId()==board.getUserId().getUserId()){
                // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-                board.delete();
+                board.setBoardFlag(false);
                 boardRepository.save(board);
             }
             return new ResponseEntity<>(board, HttpStatus.OK);
@@ -188,11 +189,11 @@ public class BoardController {
             Board board=boardRepository.findByBoardId(boardId);
             if(person.getUserId()==board.getUserId().getUserId()){
                 // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"),newBoard.get("boardCategory"));
-                if(newBoard.get("boardFile")!=null){
-                    board.updateFile(newBoard.get("boardFile"));
-                }
-                boardRepository.save(board);
+//                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"),newBoard.get("boardCategory"));
+//                if(newBoard.get("boardFile")!=null){
+//                    board.updateFile(newBoard.get("boardFile"));
+//                }
+//                boardRepository.save(board);
             }
             return new ResponseEntity<>(board, HttpStatus.OK);
         } catch (IllegalStateException e) { // exception return 하게 수정

@@ -1,9 +1,6 @@
 package com.ssafy.certi.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,6 +8,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -50,23 +48,6 @@ public class Board {
     @Column(name = "board_flag")
     private Boolean boardFlag;
 
-    public void updateBoardContent(String title, String content, String category){
-        this.boardTitle=title;
-        this.boardContent=content;
-        this.boardCategory=category;
-        this.boardCreate=LocalDate.now();
-    }
-    public void updateFile(String file){
-        this.boardFile=file;
-        this.boardCreate=LocalDate.now();
-    }
-    public void show(){
-        this.boardHit=this.boardHit+1;
-    }
-
-    public void delete(){
-        this.boardFlag=false;
-    }
 
 }
 
