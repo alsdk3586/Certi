@@ -28,11 +28,11 @@ public class ChatMessage {
         TYPING
     }
 
-    public String getRoomCode() {
+    public String getRoomcode() {
         return roomcode;
     }
 
-    public void setRoomCode(String roomcode) {
+    public void setRoomcode(String roomcode) {
         this.roomcode = roomcode;
     }
 
