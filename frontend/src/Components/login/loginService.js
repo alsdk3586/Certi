@@ -10,15 +10,12 @@ class LoginService {
     }
 
     executeService() {
-        console.log("=== execute Service ===")
         return axios.get('http://localhost:8080/');        
     }
 
     // 로그인 성공 시 userEmail을 autenticatedUser로 localStorage에 저장
     // jwtToken을 생성해 setupAxiosInterceptors에 저장
     registerSuccessfulLoginForJwt(userEmail, token) {
-        // console.log("=== login success ===")
-        console.log(token);
         localStorage.setItem('token', token);
         localStorage.setItem('authenticatedUser', userEmail);
         this.setupAxiosInterceptors();
@@ -36,7 +33,6 @@ class LoginService {
                 if (token) {
                     config.headers['Authorization'] = 'Bearer ' + token;
                 }
-                // config.headers['Content-Type'] = 'application/json';
                 return config;
             },
             error => {
@@ -53,7 +49,6 @@ class LoginService {
     isUserLoggedIn() {
         const token = localStorage.getItem('token');
         console.log("=== UserloggedInCheck ===");
-        // console.log(token);
 
         if (token) {
             return true;
@@ -63,7 +58,6 @@ class LoginService {
     }
 
     getLoggedInUserName() {
-        //let user = sessionStorage.getItem('authenticatedUser')
         let user = localStorage.getItem('authenticatedUser');
         if(user === null) return '';
         return user;
