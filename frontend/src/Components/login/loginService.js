@@ -17,7 +17,8 @@ class LoginService {
     // 로그인 성공 시 userEmail을 autenticatedUser로 localStorage에 저장
     // jwtToken을 생성해 setupAxiosInterceptors에 저장
     registerSuccessfulLoginForJwt(userEmail, token) {
-        console.log("=== login success ===")
+        // console.log("=== login success ===")
+        console.log(token);
         localStorage.setItem('token', token);
         localStorage.setItem('authenticatedUser', userEmail);
         this.setupAxiosInterceptors();
@@ -44,6 +45,7 @@ class LoginService {
     }
 
     logout() {
+        console.log(localStorage.getItem('token'));
         localStorage.removeItem("authenticatedUser");
         localStorage.removeItem("token");
     }
@@ -51,7 +53,7 @@ class LoginService {
     isUserLoggedIn() {
         const token = localStorage.getItem('token');
         console.log("=== UserloggedInCheck ===");
-        console.log(token);
+        // console.log(token);
 
         if (token) {
             return true;

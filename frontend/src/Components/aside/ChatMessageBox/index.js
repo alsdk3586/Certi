@@ -1,1 +1,3 @@
-export { default } from './ChatMessageBox';
+import ChatRooms from './ChatRooms'
+
+export default ChatRooms;
