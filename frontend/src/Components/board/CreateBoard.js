@@ -11,7 +11,7 @@ import {
 import "../css/css.scss";
 import { Route, Router, withRouter } from "react-router";
 
-export default function CreateBoard({ history }) {
+export default function CreateBoard({ history, location }) {
   const [category, setCategory] = useState("Category");
 
   async function add() {
@@ -26,6 +26,12 @@ export default function CreateBoard({ history }) {
     const res = await boardApi.addBoard(data);
     if (res == true) history.push(`/board`);
   }
+
+  if (localStorage.getItem('authenticatedUser') === null) {
+    alert("로그인이 필요합니다.");
+    history.push('/login');
+  }
+    
 
   return (
     <div id="createBoardContainer">
