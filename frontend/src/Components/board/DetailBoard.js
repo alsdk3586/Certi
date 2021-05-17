@@ -3,7 +3,6 @@ import "../css/css.scss";
 import { boardApi,commentApi } from "../../utils/axios";
 import { FiEye, FiCalendar } from "react-icons/fi";
 import { Form, Button } from "react-bootstrap";
-import Comment from "./Comment";
 function Detail({ data }) {
   // console.log("detail----");
   // console.log(data);
@@ -65,12 +64,12 @@ export default function DetailBoard({ match }) {
     let data = new Object();
     data.boardId = no;
     data.commentContent = document.getElementById("content").value;
-    let res=commentApi.addComment(data);
+    let res=await commentApi.addComment(data);
     if (res == false)
       alert("댓글 등록에 실패하였습니다.");
     else {
-      const res = await boardApi.getDetailBoard(no);
-      setComment(res.comment);
+      const res = await commentApi.getComment(no);
+      setComment(res);
       console.log(comment);
     }
   }
@@ -82,15 +81,20 @@ export default function DetailBoard({ match }) {
         <Form.Group controlId="exampleForm.ControlTextarea1">
           <Form.Control id="content" as="textarea" />
         </Form.Group>
-        <Button variant="outline-primary" onClick={ createComment}>Primary</Button>
+        <Button variant="outline-primary" onClick={createComment}>Primary</Button>
       </div>
-      <Comment no={no}/>
-      {/* <div>
-        {
-          comment.map((el) => {
-          <div>123{el.commentContent}</div>
-        })}
-      </div> */}
+      <div>
+        {comment&&comment.map(el => (
+          <div>
+            <div>{el.commentContent}</div>
+            <div>{el.commentCreate && el.commentCreate.map((e) =>
+              (<div>{e}.</div>)
+              )}
+            </div>
+            <div>{el.userId.user_nickname}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
