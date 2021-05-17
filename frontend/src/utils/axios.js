@@ -3,7 +3,16 @@ import axios, { AxiosInstance } from "axios";
 const request = axios.create({
   baseURL: "http://localhost:8080/",
 });
-
+export const favoriteApi = {
+  async favoritelist() {
+    const response = await request.get('favorite/', {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  }
+};
 
 export const commentApi = {
   async addComment(data) {
@@ -20,6 +29,7 @@ export const commentApi = {
     return response.data;
   }
 }
+
 export const boardApi = {
   async getAllBoard() {
     const response = await request.get(`board/`);
@@ -52,5 +62,7 @@ export const boardApi = {
     //console.log(response);
     return response.data;
   },
-
+  async updateBoard(data) {
+    
+  }
 };
