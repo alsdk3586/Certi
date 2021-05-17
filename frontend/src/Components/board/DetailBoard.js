@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../css/css.scss";
-import { boardApi } from "../../utils/axios";
+import { boardApi,commentApi } from "../../utils/axios";
 import { FiEye, FiCalendar } from "react-icons/fi";
-import { BiDislike, BiLike } from "react-icons/bi";
+import { Form, Button } from "react-bootstrap";
 function Detail({ data }) {
-  console.log(data);
+  // console.log("detail----");
+  // console.log(data);
   return (
     <div style={{ flex: 1 }}>
       <hr style={{ height: 3 }}></hr>
@@ -44,21 +45,56 @@ function Detail({ data }) {
 
 export default function DetailBoard({ match }) {
   const { no } = match.params;
-  const [data, setData] = useState({});
-
-  const fill = async () => {
-    const res = await boardApi.getDetailBoard(no);
-    console.log(res);
-    setData(res);
-  };
+  const [board, setBoard] = useState({});
+  const [comment, setComment] = useState([]);
 
   useEffect(async () => {
+    const fill = async () => {
+      const res = await boardApi.getDetailBoard(no);
+      console.log(res);
+      setBoard(res.board);
+      setComment(res.comment);
+    };
+    
     await fill();
   }, []);
 
+
+  async function createComment() {
+    let data = new Object();
+    data.boardId = no;
+    data.commentContent = document.getElementById("content").value;
+    let res=await commentApi.addComment(data);
+    if (res == false)
+      alert("댓글 등록에 실패하였습니다.");
+    else {
+      const res = await commentApi.getComment(no);
+      setComment(res);
+      console.log(comment);
+    }
+  }
+  
   return (
     <div id="detailBoard">
-      <Detail data={data} />
+      <Detail data={board} />
+      <div>
+        <Form.Group controlId="exampleForm.ControlTextarea1">
+          <Form.Control id="content" as="textarea" />
+        </Form.Group>
+        <Button variant="outline-primary" onClick={createComment}>Primary</Button>
+      </div>
+      <div>
+        {comment&&comment.map(el => (
+          <div>
+            <div>{el.commentContent}</div>
+            <div>{el.commentCreate && el.commentCreate.map((e) =>
+              (<div>{e}.</div>)
+              )}
+            </div>
+            <div>{el.userId.user_nickname}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
