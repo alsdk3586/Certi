@@ -4,13 +4,26 @@ const request = axios.create({
   baseURL: "http://localhost:8080/",
 });
 export const favoriteApi = {
-  async favoritelist() {
+  async getFavoritelist() {
     const response = await request.get('favorite/', {
       headers: {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
-      },
+      }
     });
     return response.data;
+  },
+  async addFavorite(certificateCode) {
+    // preventDefault();
+    if (certificateCode !== null) {
+      const response = await request.post(`favorite/create/${certificateCode}`, certificateCode, {
+        headers: {
+          "X-AUTH-TOKEN": localStorage.getItem("token"),
+         }
+        });
+        return response.data;
+    } else {
+      return 'ERROR: the code is null'
+    }
   }
 };
 

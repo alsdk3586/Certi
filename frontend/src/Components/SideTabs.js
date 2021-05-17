@@ -1,54 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Tabs, Tab, ListGroup } from 'react-bootstrap';
 import ChatRooms from './aside/ChatMessageBox/ChatRooms';
-import axios from 'axios';
 import { favoriteApi } from "../utils/axios";
 
 export default function SideTabs () {
   const [key, setKey] = useState('chat');
   const [favoriteList, setFavorite] = useState([]);
-  const [JWTtoken, setJWTtoken] = useState(
-    localStorage.token ? localStorage.token: '')
   useEffect (() => {
-    const res = favoriteApi.favoritelist();
+    const res = favoriteApi.getFavoritelist();
     console.log("useEffect function 작동")
-    console.log(res)
-  })
-
-  // useEffect(() => {
-    // const API = process.env.REACT_APP_API_URL;
-    // let instance = axios.create({ 
-    //     baseURL: API,
-    //     timeout: 1000,
-    //     headers: { 
-    //       'content-type': 'application/json;charset=UTF-8',
-    //       'Access-Control-Allow-Origin': '*' 
-    //     }, 
-    //     withCredentials: true, 
-    //   }
-    // );
-    // instance.defaults.headers.common['Authorization'] = `${JWTtoken}`;
-    // // 즐겨찾기 목록 GET
-    // instance.get(`favorite/`,{ crossdomain: true })
-    // .then((res) => {
-    //   console.log('즐겨찾기: ', res.data);
-    // })
-    // .catch((err) => {console.log('AXIOS 에러',err)})
-  //   axios.get(API+'/favorite', {
-  //     headers: {
-  //       'Access-Control-Allow-Origin': '*',
-  //     },
-  //     proxy: {
-  //       host: API,
-  //       port: 8080
-  //     }
-  //   }).then((res) => {
-  //     console.log('SUCCESS ===>', res.data)
-  //     setFavorite(res.data);
-  //   }).catch((err) => {
-
-  //   })
-  // }, [])
+    res.then((res2) => {
+      console.log(res2)
+      // setFavorite(res2)
+    })
+  }, [favoriteList])
 
   if (favoriteList.length === 0) {
     return (
