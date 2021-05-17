@@ -61,5 +61,14 @@ export const boardApi = {
   async motifyBoard(data) {
     const response = await request.put(`board/motify/${data.boardId}`, data);
     return response.status;
+  },
+
+  async deleteBoard(boardId) {
+    const response = await request.delete(`board/delete/${boardId}`, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      },
+    });
+    console.log(response);
   }
 };

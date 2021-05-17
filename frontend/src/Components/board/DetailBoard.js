@@ -5,7 +5,13 @@ import { FiEye, FiCalendar } from "react-icons/fi";
 import { Form, Button } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
-function Detail({ data,isWriter }) {
+function Detail({ data, isWriter, history }) {
+  async function deleteB() {
+    console.log(data.boardId);
+    const res = await boardApi.deleteBoard(data.boardId);
+    alert("삭제 성공");
+    document.location.href = "/board";
+  }
   return (
     <div style={{ flex: 1 }}>
       <hr style={{ height: 3 }}></hr>
@@ -36,6 +42,7 @@ function Detail({ data,isWriter }) {
       <div>{isWriter ?
         <div>
           <div><Link to={`/motifyBoard/${data.boardId}`}>수정</Link></div>
+          <div><Link onClick={deleteB}>삭제</Link></div>
         </div>
         : <div></div>}</div>
       <div>
