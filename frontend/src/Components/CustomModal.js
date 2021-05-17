@@ -5,6 +5,7 @@ import PieChart from './PieChart';
 import ColumnChart from './ColumnChart';
 import axios from 'axios';
 import BtnStar from './BtnStar';
+import { favoriteApi } from "../utils/axios";
 
 export default function CustomModal(props) {
   const eventData = props.data;
@@ -77,6 +78,11 @@ export default function CustomModal(props) {
     .catch((err)=> {console.log(err)})
   }, [eventData])
 
+  async function createFavorite(code){
+    const favorite = await favoriteApi.addFavorite(code);
+    // favorite.then((res) => {console.log('post성공: ',res)})
+  }
+
   return (
     <>
       <Modal
@@ -86,10 +92,12 @@ export default function CustomModal(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" style={{ marginRight: "15px"}}>
+          <Modal.Title id="contained-modal-title-vcenter" 
+          style={{ marginRight: "15px"}}
+          >
           {title}
           </Modal.Title>
-          <BtnStar isFilled={true} />
+          <BtnStar isFilled={true} onClick={createFavorite(code)} />
         </Modal.Header>
         <Modal.Body>
           <Container >
