@@ -19,6 +19,7 @@ import Register from "../Routes/Register";
 import DetailBoard from "../Components/board/DetailBoard";
 import createBoard from "../Components/board/CreateBoard";
 import AuthenticatedRoute from "../Components/login/AuthenticatedRoute";
+import motifyBoard from "../Components/board/MotifyBoard";
 export default () => (
   <Router>
     <>
@@ -38,6 +39,7 @@ export default () => (
         <AuthenticatedRoute path="/logout" component={Home} />
         <Route path="/detailBoard/:no" component={DetailBoard} />
         <Route path="/createBoard" component={createBoard} />
+        <Route path="/motifyBoard/:no" component={motifyBoard} />
         <Redirect from="*" to="/" />
       </Switch>
     </>

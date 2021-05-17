@@ -3,9 +3,12 @@ import "../css/css.scss";
 import { boardApi,commentApi } from "../../utils/axios";
 import { FiEye, FiCalendar } from "react-icons/fi";
 import { Form, Button } from "react-bootstrap";
-function Detail({ data }) {
+
+import { Link } from "react-router-dom";
+function Detail({ data,isWriter }) {
   // console.log("detail----");
   // console.log(data);
+  // console.log(isWriter);
   return (
     <div style={{ flex: 1 }}>
       <hr style={{ height: 3 }}></hr>
@@ -33,6 +36,11 @@ function Detail({ data }) {
         </div>
       </div>
       <hr></hr>
+      <div>{isWriter ?
+        <div>
+          <div><Link to={`/motifyBoard/${data.boardId}`}>수정</Link></div>
+        </div>
+        : <div></div>}</div>
       <div>
         <div id="detailBoardContent">{data.boardContent}</div>
         {/* <BiDislike />
@@ -47,6 +55,7 @@ export default function DetailBoard({ match }) {
   const { no } = match.params;
   const [board, setBoard] = useState({});
   const [comment, setComment] = useState([]);
+  const [writer, setWriter] = useState(0);
 
   useEffect(async () => {
     const fill = async () => {
@@ -54,8 +63,10 @@ export default function DetailBoard({ match }) {
       console.log(res);
       setBoard(res.board);
       setComment(res.comment);
+      if (localStorage.getItem('authenticatedUser') === res.board.boardWriter) {
+        setWriter(1);
+      }
     };
-    
     await fill();
   }, []);
 
@@ -73,10 +84,12 @@ export default function DetailBoard({ match }) {
       console.log(comment);
     }
   }
-  
+
+
+
   return (
     <div id="detailBoard">
-      <Detail data={board} />
+      <Detail data={board} isWriter={writer} />
       <div>
         <Form.Group controlId="exampleForm.ControlTextarea1">
           <Form.Control id="content" as="textarea" />
