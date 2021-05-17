@@ -76,7 +76,7 @@ public class BoardController {
     public ResponseEntity<List<Board>> boardAllList() {
 
         try {
-            List<Board> boardList=boardRepository.findAll();
+            List<Board> boardList=boardRepository.findByBoardFlag(true);
             return new ResponseEntity<>(boardList, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
