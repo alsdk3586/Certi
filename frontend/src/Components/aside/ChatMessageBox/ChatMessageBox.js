@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 import Aside from '../aside/Aside'
 import Footer from '../footer/Footer'
-import Paper from '@material-ui/core/Paper';
-import Login from '../login/Login';
+import Paper from '@material-ui/core/Paper'
+import Login from '../login/Login'
+import axios from 'axios'
 
-import './ChatMessageBox.css';
-import userImage from '../userImage.png';
+import './ChatMessageBox.css'
+import userImage from '../userImage.png'
 
 var stompClient = null;
 class ChatMessageBox extends Component {
@@ -25,10 +26,23 @@ class ChatMessageBox extends Component {
         bottom: false,
         curTime: '',
         openNotifications: false,
-        bellRing: false
+        bellRing: false,
+        chatHistory: []
       };
   }
 
+  getChatHistory = async() => {
+    axios.get('http://localhost:8080/chat/rooms')
+        .then((res) => {
+            this.setState({
+              chatHistory: res.data
+            });
+        })
+        .catch(e => {
+            console.error(e);
+        });
+  };
+  
   connect = (userName) => {
 
     if (userName) {
@@ -175,6 +189,8 @@ class ChatMessageBox extends Component {
   }
 
   componentDidMount() {
+    this.getChatHistory();
+
     this.setState({
       curTime: new Date().toLocaleString()
     })
@@ -188,7 +204,7 @@ class ChatMessageBox extends Component {
 
   }
   render() {
-
+    const { chatHistory } = this.state.chatHistory;
     return (
       <div>
         {this.state.channelConnected ?
@@ -205,6 +221,7 @@ class ChatMessageBox extends Component {
               <Paper elevation={5}>
                 <ul id="chat" ref="messageBox">
                   {/* {this.state.broadcastMessage.length ?
+                  // 여기에 기존 채팅 불러오는 코드 추가 하기
                   [<div id="history"><div id="old" onClick={this.fetchHostory}>Older</div><hr /><div id="today">Today</div></div>] : ""} */}
                   {this.state.broadcastMessage.map((msg, i) =>
                     this.state.username === msg.sender ?
