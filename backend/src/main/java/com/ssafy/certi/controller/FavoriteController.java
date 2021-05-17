@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +52,28 @@ public class FavoriteController {
         try {
             User person = userService.findByToken(JwtTokenProvider.resolveToken(request));
             Certificate certificate = certificateRepository.findByCertificateCode(certificateCode);
+            // certificateCode null 값일 시 즐겨찾기에 추가 X
+            if (certificate == null) {
+//                throw new IllegalArgumentException("해당 자격증 코드는 null 값으로 즐겨찾기 추가 불가능");
+                return new ResponseEntity<>("this certificate doenst have certificateInformation", HttpStatus.BAD_REQUEST);
+            }
+            // 해당 유저 즐겨찾기 목록에 이미 존재하는 certificatecode인지 검사.
+            List<FavoriteList> favoritelist = favoriteListRepository.findByUserIdUserId(person.getUserId());
+
+            ArrayList list = new ArrayList();
+            for (int i = 0; i < favoritelist.size(); i++) {
+                Object target = favoritelist.get(i).getCertificateCode();
+                if (target != null) {
+                    String finalTarget = favoritelist.get(i).getCertificateCode().getCertificateCode().toString();
+                    list.add(finalTarget);
+                }
+            };
+            // 이미 존재할 경우 추가 X
+            if (list.contains(certificateCode)) {
+//                throw new IllegalArgumentException("이미 즐겨찾기 목록에 존재합니다.");
+                return new ResponseEntity<>("This certificate already exists in your favoritelist", HttpStatus.BAD_REQUEST);
+            }
+            // 추가
             favoriteListRepository.save(FavoriteList.builder()
                 .userId(person)
                 .certificateCode(certificate)
