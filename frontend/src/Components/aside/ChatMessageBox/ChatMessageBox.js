@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Aside from '../aside/Aside'
 import Footer from '../footer/Footer'
 import Paper from '@material-ui/core/Paper';
-import ChatRooms from './ChatRooms';
 import Login from '../login/Login';
 
 import './ChatMessageBox.css';
@@ -17,7 +16,7 @@ class ChatMessageBox extends Component {
     this.state =
       {
         username: '',
-        roomcode: '',
+        roomcode: props.match.params.roomcode,
         channelConnected: false,
         chatMessage: '',
         roomNotification: [],
@@ -43,9 +42,9 @@ class ChatMessageBox extends Component {
       stompClient = Stomp.over(SockJS);
 
       stompClient.connect({}, this.onConnected, this.onError);
-
       this.setState({
-        username: userName
+        username: userName,
+        roomcode: this.state.roomcode
       })
     }
   }
@@ -58,13 +57,13 @@ class ChatMessageBox extends Component {
 
     // Subscribing to the public topic
     stompClient.subscribe('/topic/pubic', this.onMessageReceived); // SERVER @SendTo
-    console.log("Subscribing to the public topic")
 
     // Registering user to server as a public chat user
     stompClient.send("/app/addUser", {},
       JSON.stringify({
         sender: this.state.username,
-        type: 'JOIN'
+        type: 'JOIN',
+        roomcode: this.state.roomcode,
       })) // SERVER @MessageMapping
 
   }
@@ -74,6 +73,7 @@ class ChatMessageBox extends Component {
     if (stompClient) {
       var chatMessage = {
         sender: this.state.username,
+        roomcode: this.state.roomcode,
         content: type === 'TYPING' ? value : value,
         type: type
 
@@ -86,7 +86,6 @@ class ChatMessageBox extends Component {
   }
 
   onMessageReceived = (payload) => {
-
     var message = JSON.parse(payload.body);
 
     if (message.type === 'JOIN') {
@@ -104,6 +103,7 @@ class ChatMessageBox extends Component {
           notification.status = "offline";
           notification.sender = message.sender + " ~ left";
           notification.dateTime = message.dateTime;
+          notification.roomcode = message.roomcode;
         }
       })
       this.setState({
@@ -236,7 +236,6 @@ class ChatMessageBox extends Component {
                           {msg.message}
                         </div>
                         <div><h3>{msg.dateTime}</h3></div>
-                        <div><h3>{msg.roomcode}</h3></div>
                       </li>
                   )}
                 </ul>

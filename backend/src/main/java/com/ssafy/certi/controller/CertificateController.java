@@ -8,12 +8,10 @@ import com.ssafy.certi.repository.StatisticsRepository;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +32,25 @@ public class CertificateController {
     private AcceptanceRateRepository acceptanceRateRepository;
     @Autowired
     private StatisticsRepository statisticsRepository;
+
+    @ApiOperation(value = "자격증 전체 리스트", notes = "성공 시, true 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "등록 성공"),
+            @ApiResponse(code = 400, message = "잘못된 접근"),
+            @ApiResponse(code = 500, message = "서버 에러")
+    })
+    @GetMapping("/list")
+    public ResponseEntity<List<Certificate>> certificateAllList() {
+
+        try {
+            List<Certificate> certificateList=certificateRepository.findAll();
+            return new ResponseEntity<>(certificateList, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            List<Certificate> box = null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     // 메인 캘린더 자격증 일정 정보
     @ApiOperation(value = "캘린더 자격증 일정", notes = "캘린더 메인페이지 일정 등록을 위한 데이터 반환")
