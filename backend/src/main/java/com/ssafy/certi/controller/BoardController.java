@@ -111,9 +111,7 @@ public class BoardController {
 
         try {
             Board board=boardRepository.findByBoardId(boardId);
-            System.out.println(board.getBoardHit());
             board.setBoardHit(board.getBoardHit()+1);
-            System.out.println(board.getBoardHit());
             boardRepository.save(board);
 
             DetailBoard detailBaord = new DetailBoard();

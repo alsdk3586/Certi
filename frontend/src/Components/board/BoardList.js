@@ -68,7 +68,7 @@ export default function BoardList(props) {
                 </td>
                 <td>{article.boardWriter}</td>
                 <td>{article.boardCreate}</td>
-                <td>{article.hit}</td>
+                <td>{article.boardHit}</td>
               </tr>
             ))}
         </tbody>
