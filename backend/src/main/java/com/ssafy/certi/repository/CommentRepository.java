@@ -1,8 +1,12 @@
 package com.ssafy.certi.repository;
 
+import com.ssafy.certi.domain.Board;
 import com.ssafy.certi.domain.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+import java.util.List;
+import java.util.Optional;
 
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+    Optional<List<Comment>> findAllByBoard(Board board);
 }
