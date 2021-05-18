@@ -8,15 +8,24 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Optional;
 
 @Api(tags = {"4. Chat Message"})
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ChatController {
     private final ChatRepository chatRepository;
     private final ChatRoomRepository chatRoomRepository;
@@ -38,6 +47,21 @@ public class ChatController {
             );
             return chatMessage;
     }
+
+    @ApiOperation(value = "기존 채팅 조회", notes = "성공 시, true 반환")
+    @GetMapping("/chatHistory/{roomcode}")
+    public ResponseEntity<Optional<List<Chat>>> chatHistory(@PathVariable String roomcode) {
+        try {
+            Optional<List<Chat>> history= chatRepository.findAllByCertificateCode(roomcode);
+
+            return new ResponseEntity<>(history, HttpStatus.OK);
+
+        } catch (IllegalStateException e) { // exception return 하게 수정
+            Optional<List<Chat>> box=null;
+            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
     @MessageMapping("/addUser")
     @SendTo("/topic/pubic")

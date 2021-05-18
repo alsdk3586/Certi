@@ -1,12 +1,10 @@
 package com.ssafy.certi.domain;
 
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -20,21 +18,4 @@ public class ChatRoom {
     @ManyToOne
     @JoinColumn(name = "certificate_code")
     private Certificate certificateCode;
-
-    // 날짜 자동생성.
-//    @PrePersist
-//    public void createdAt() {
-//        this.createdAt = LocalDateTime.now();
-//    }
-
-    //채팅방 생성
-//    @Builder
-//    public static ChatRoom createRoom(String certificateCode){
-//        ChatRoom chatRoom = new ChatRoom();
-//        chatRoom.certificateCode = certificateCode;
-//        chatRoom.localDateTime = LocalDateTime.now();
-//
-//        return chatRoom;
-//    }
-
 }
