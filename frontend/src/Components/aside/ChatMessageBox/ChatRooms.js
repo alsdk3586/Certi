@@ -43,10 +43,10 @@ class ChatRooms extends Component {
               <tr key={room.certificateCode.certificateCode}>
                 <td>
                   <Link to={`/ChatBox/${room.certificateCode.certificateCode}`} target="_blank">
-                  <Button variant="contained" color="primary" >
+                  <ul variant="contained" color="primary" style={{ fontSize: "15px" }}>
                     {room.certificateCode.certificateClassificationCode}
                   
-                    </Button>
+                    </ul>
                     </Link>
                 </td>
               </tr>

@@ -45,6 +45,8 @@ const Slink = styled(Link)`
   }
 `;
 
+const isUserLoggedIn = LoginService.isUserLoggedIn();
+
 export default withRouter(({ location : { pathname }}) => (
   <Header>
     <List>
@@ -58,12 +60,10 @@ export default withRouter(({ location : { pathname }}) => (
         <Slink to="/certi">자격증</Slink></Item>
       <Item current={pathname === '/ChatRooms'}>
         <Slink to="/ChatRooms">채팅방리스트</Slink></Item>
-      <Item current={pathname === '/user'}>
-        <Slink to="/user">회원</Slink></Item>
       <Item current={pathname === '/login'}>
-        <Slink to="/login">로그인</Slink></Item>
+        {!isUserLoggedIn && <Slink to="/login">로그인</Slink>}</Item>
       <Item current={pathname === '/logout'} onClick={LoginService.logout}>
-        <Slink to="/logout">로그아웃</Slink></Item>
+        {isUserLoggedIn && <Slink to="/logout">로그아웃</Slink>}</Item>
     </List>
   </Header>
 ));
