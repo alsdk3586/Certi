@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, ListGroup } from 'react-bootstrap';
-import ChatRooms from './aside/ChatMessageBox/ChatRooms';
-import { favoriteApi } from "../utils/axios";
+import { Tabs, Tab, ListGroup } from "react-bootstrap";
+import ChatRooms from "./aside/ChatMessageBox/ChatRooms";
 
-export default function SideTabs () {
-  const [key, setKey] = useState('chat');
-  const [favoriteList, setFavorite] = useState([]);
-  useEffect (() => {
-    const res = favoriteApi.getFavoritelist();
-    console.log("useEffect function 작동")
-    res.then((res2) => {
-      console.log(res2)
-      // setFavorite(res2)
-    })
-  }, [favoriteList])
+export default function SideTabs({ data }) {
+  const [key, setKey] = useState("chat");
+  const [favoriteList, setFavoriteList] = useState([]);
+  console.log(data);
 
-  if (favoriteList.length === 0) {
+  console.log(favoriteList);
+
+  if (data.length === 0) {
+    console.log("11111111111111111");
     return (
       <Tabs
         id="controlled-tab-example"
@@ -34,6 +29,7 @@ export default function SideTabs () {
       </Tabs>
     );
   } else {
+    console.log("222222222222222");
     return (
       <Tabs
         id="controlled-tab-example"
@@ -45,13 +41,16 @@ export default function SideTabs () {
           {/* <ChatRooms /> */}
         </Tab>
         <Tab eventKey="favorite" title="즐겨찾기">
+          {/* {favoriteList.length} */}
           <ListGroup variant="flush">
-            {favoriteList.map((elem)=> (
-            <ListGroup.Item>{elem}</ListGroup.Item>
+            {data.map((elem, i) => (
+              <ListGroup.Item key={i}>
+                {elem.certificateCode.certificateClassificationCode}
+              </ListGroup.Item>
             ))}
           </ListGroup>
         </Tab>
       </Tabs>
     );
-  }  
+  }
 }

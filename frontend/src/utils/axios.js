@@ -13,7 +13,6 @@ export const favoriteApi = {
     return response.data;
   },
   async addFavorite(certificateCode) {
-    // preventDefault();
     if (certificateCode !== null) {
       const response = await request.post(`favorite/create/${certificateCode}`, certificateCode, {
         headers: {
@@ -26,7 +25,15 @@ export const favoriteApi = {
     }
   }
 };
-
+export const certiApi = {
+  async getCertiList() {
+    const response = await request.get(`certificate/list`, {
+    });
+    // const returnData = response.data.then((res) => {
+    // })
+    return response.data;
+  }
+}
 export const commentApi = {
   async addComment(data) {
     const response = await request.post(`comment/create`,data, {

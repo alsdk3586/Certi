@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import SideTabs from './SideTabs';
+import SideTabs from "./SideTabs";
 import Sidebar from "react-sidebar";
 
 class SidebarTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sidebarOpen: true
+      sidebarOpen: true,
     };
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
   }
@@ -14,10 +14,11 @@ class SidebarTab extends Component {
     this.setState({ sidebarOpen: open });
   }
   render() {
+    // console.log("props: ", this.props.data);
     return (
       <>
         <Sidebar
-          sidebar={<SideTabs />}
+          sidebar={<SideTabs data={this.props.data} />}
           // open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           styles={{ sidebar: { background: "white", right: 0, width: "100%" } }}
@@ -31,8 +32,8 @@ class SidebarTab extends Component {
           </button> */}
         </Sidebar>
       </>
-      )
-    }
-};
+    );
+  }
+}
 
 export default SidebarTab;

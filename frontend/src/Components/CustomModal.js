@@ -6,6 +6,7 @@ import ColumnChart from './ColumnChart';
 import axios from 'axios';
 import BtnStar from './BtnStar';
 import { favoriteApi } from "../utils/axios";
+import Loader from './Loader';
 
 export default function CustomModal(props) {
   const eventData = props.data;
