@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginService from './login/loginService';
+import { SmallLogo } from '../assets/index';
+import '../Components/css/login/style.scss';
 
 const Header = styled.header`
   color: #707070;
@@ -50,16 +52,10 @@ const isUserLoggedIn = LoginService.isUserLoggedIn();
 export default withRouter(({ location : { pathname }}) => (
   <Header>
     <List>
-      <Item current={pathname === '/'}>
-        <Slink to="/">자격증닷컴</Slink></Item>
       <Item current={pathname === '/calendar'}>
-        <Slink to="/calendar">캘린더</Slink></Item>
+        <Slink to="/calendar"><SmallLogo/></Slink></Item>
       <Item current={pathname === '/board'}>
         <Slink to="/board">게시판</Slink></Item>
-      <Item current={pathname === '/certi'}>
-        <Slink to="/certi">자격증</Slink></Item>
-      <Item current={pathname === '/ChatRooms'}>
-        <Slink to="/ChatRooms">채팅방리스트</Slink></Item>
       <Item current={pathname === '/login'}>
         {!isUserLoggedIn && <Slink to="/login">로그인</Slink>}</Item>
       <Item current={pathname === '/logout'} onClick={LoginService.logout}>
