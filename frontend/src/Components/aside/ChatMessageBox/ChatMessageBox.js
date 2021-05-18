@@ -32,15 +32,17 @@ class ChatMessageBox extends Component {
   }
 
   getChatHistory = async() => {
-    axios.get('http://localhost:8080/chat/rooms')
-        .then((res) => {
+    axios.get(`http://localhost:8080/chatHistory/${this.state.roomcode}`)
+      .then((res) => {
             this.setState({
               chatHistory: res.data
             });
+        console.log(res.data[0].message)
         })
         .catch(e => {
             console.error(e);
         });
+    
   };
   
   connect = (userName) => {
@@ -218,11 +220,23 @@ class ChatMessageBox extends Component {
                   broadcastMessage={this.state.broadcastMessage} />
               {/* 채팅창 메인 */}
               </Paper>
+
               <Paper elevation={5}>
-                <ul id="chat" ref="messageBox">
-                  {/* {this.state.broadcastMessage.length ?
-                  // 여기에 기존 채팅 불러오는 코드 추가 하기
-                  [<div id="history"><div id="old" onClick={this.fetchHostory}>Older</div><hr /><div id="today">Today</div></div>] : ""} */}
+              {/* 뭐라도 좀 나와봐 */}
+              {chatHistory && chatHistory.map((chat) => 
+                        <h3>
+                          뭐라도 좀 나와봐
+                          {chat.message}
+                        </h3>
+                  )}                  
+              </Paper>
+              <br /> <br />
+              <br /> <br />
+              <br /> <br />              
+
+              <div>
+              <Paper elevation={5}>
+                <ul id="chat" ref="messageBox">      
                   {this.state.broadcastMessage.map((msg, i) =>
                     this.state.username === msg.sender ?
                       <li className="you" key={i}>
@@ -242,7 +256,6 @@ class ChatMessageBox extends Component {
                       :
                       <li className="others">
                         <div className="entete">
-                          {/* <span className="status blue"></span> */}
                           <span> </span>
                           <img src={userImage} alt="Default-User" className="avatar" />
                           <span> </span>
@@ -256,17 +269,15 @@ class ChatMessageBox extends Component {
                       </li>
                   )}
                 </ul>
-
+                </Paper>
                 {/* 메시지 입력 */}
                 <Footer sendMessage={this.sendMessage} privateMessage={false} />
-              </Paper>
+              </div>
             </div>
 
 
           ) : (
             <Login connect={this.connect} />
-            // <ChatRooms connect={this.connect} />
-
           )
         }
       </div>
