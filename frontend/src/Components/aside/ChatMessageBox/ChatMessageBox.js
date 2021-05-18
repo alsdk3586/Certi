@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 import Aside from '../aside/Aside'
 import Footer from '../footer/Footer'
-import Paper from '@material-ui/core/Paper';
-import Login from '../login/Login';
+import Paper from '@material-ui/core/Paper'
+import Login from '../login/Login'
+import axios from 'axios'
 
-import './ChatMessageBox.css';
-import userImage from '../userImage.png';
+import './ChatMessageBox.css'
+import userImage from '../userImage.png'
 
 var stompClient = null;
 class ChatMessageBox extends Component {
@@ -25,10 +26,25 @@ class ChatMessageBox extends Component {
         bottom: false,
         curTime: '',
         openNotifications: false,
-        bellRing: false
+        bellRing: false,
+        chatHistory: []
       };
   }
 
+  getChatHistory = async() => {
+    axios.get(`http://localhost:8080/chatHistory/${this.state.roomcode}`)
+      .then((res) => {
+            this.setState({
+              chatHistory: res.data
+            });
+        console.log(res.data[0].message)
+        })
+        .catch(e => {
+            console.error(e);
+        });
+    
+  };
+  
   connect = (userName) => {
 
     if (userName) {
@@ -175,6 +191,8 @@ class ChatMessageBox extends Component {
   }
 
   componentDidMount() {
+    this.getChatHistory();
+
     this.setState({
       curTime: new Date().toLocaleString()
     })
@@ -188,7 +206,7 @@ class ChatMessageBox extends Component {
 
   }
   render() {
-
+    const { chatHistory } = this.state;
     return (
       <div>
         {this.state.channelConnected ?
@@ -202,10 +220,22 @@ class ChatMessageBox extends Component {
                   broadcastMessage={this.state.broadcastMessage} />
               {/* 채팅창 메인 */}
               </Paper>
-              <Paper elevation={5}>
-                <ul id="chat" ref="messageBox">
-                  {/* {this.state.broadcastMessage.length ?
-                  [<div id="history"><div id="old" onClick={this.fetchHostory}>Older</div><hr /><div id="today">Today</div></div>] : ""} */}
+
+              <div style={{ marginLeft: "100px" }}>
+                {/* 채팅 히스토리 */}
+                <Paper elevation={5}>
+                  {chatHistory && chatHistory.map((chat) => 
+                                  <div className="message">
+                                    {chat.message}
+                                  </div>
+                  )}
+                </Paper>
+              </div>
+              
+
+              <div>
+                <Paper elevation={5}>
+                  <ul id="chat" ref="messageBox">  
                   {this.state.broadcastMessage.map((msg, i) =>
                     this.state.username === msg.sender ?
                       <li className="you" key={i}>
@@ -225,7 +255,6 @@ class ChatMessageBox extends Component {
                       :
                       <li className="others">
                         <div className="entete">
-                          {/* <span className="status blue"></span> */}
                           <span> </span>
                           <img src={userImage} alt="Default-User" className="avatar" />
                           <span> </span>
@@ -239,17 +268,15 @@ class ChatMessageBox extends Component {
                       </li>
                   )}
                 </ul>
-
+                </Paper>
                 {/* 메시지 입력 */}
                 <Footer sendMessage={this.sendMessage} privateMessage={false} />
-              </Paper>
+              </div>
             </div>
 
 
           ) : (
             <Login connect={this.connect} />
-            // <ChatRooms connect={this.connect} />
-
           )
         }
       </div>
