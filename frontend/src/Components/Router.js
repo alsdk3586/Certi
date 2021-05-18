@@ -23,7 +23,7 @@ import motifyBoard from "../Components/board/MotifyBoard";
 export default () => (
   <Router>
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/calendar" exact component={CalendarApp} />
