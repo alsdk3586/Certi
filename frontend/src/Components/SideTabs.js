@@ -43,11 +43,11 @@ export default function SideTabs({ data }) {
         <Tab eventKey="favorite" title="즐겨찾기">
           {/* {favoriteList.length} */}
           <ListGroup variant="flush">
-            {favoriteList.map((elem, i) => {
+            {data.map((elem, i) => (
               <ListGroup.Item key={i}>
                 {elem.certificateCode.certificateClassificationCode}
-              </ListGroup.Item>;
-            })}
+              </ListGroup.Item>
+            ))}
           </ListGroup>
         </Tab>
       </Tabs>
