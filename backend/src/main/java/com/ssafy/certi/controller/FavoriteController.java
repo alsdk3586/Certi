@@ -40,18 +40,17 @@ public class FavoriteController {
     private Map<String, String> favoriteList;
     private HttpServletRequest request;
 
-
     @ApiOperation(value="즐겨찾기 추가", notes = "")
     @ApiResponses({
             @ApiResponse(code = 200, message = "등록 성공"),
             @ApiResponse(code = 400, message = "잘못된 접근"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    @PostMapping("/create/{certificateCode}")
-    public ResponseEntity<String> favoritePostAdd(@PathVariable String certificateCode, HttpServletRequest request) {
+    @PostMapping("/create")
+    public ResponseEntity<String> favoritePostAdd(@ApiParam(value = "certificateCode,a", required = true) @RequestBody Map<String, String> certificatecode, HttpServletRequest request) {
         try {
             User person = userService.findByToken(JwtTokenProvider.resolveToken(request));
-            Certificate certificate = certificateRepository.findByCertificateCode(certificateCode);
+            Certificate certificate = certificateRepository.findByCertificateCode(certificatecode.get("certificateCode"));
             // certificateCode null 값일 시 즐겨찾기에 추가 X
             if (certificate == null) {
 //                throw new IllegalArgumentException("해당 자격증 코드는 null 값으로 즐겨찾기 추가 불가능");
@@ -69,16 +68,16 @@ public class FavoriteController {
                 }
             };
             // 이미 존재할 경우 추가 X
-            if (list.contains(certificateCode)) {
+            if (list.contains(certificatecode.get("certificateCode"))) {
 //                throw new IllegalArgumentException("이미 즐겨찾기 목록에 존재합니다.");
                 return new ResponseEntity<>("This certificate already exists in your favoritelist", HttpStatus.BAD_REQUEST);
+            } else {
+                favoriteListRepository.save(FavoriteList.builder()
+                        .userId(person)
+                        .certificateCode(certificate)
+                        .build());
+                return new ResponseEntity<>("true", HttpStatus.OK);
             }
-            // 추가
-            favoriteListRepository.save(FavoriteList.builder()
-                .userId(person)
-                .certificateCode(certificate)
-                .build());
-            return new ResponseEntity<>("true", HttpStatus.OK);
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }

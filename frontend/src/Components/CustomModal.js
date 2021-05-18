@@ -10,8 +10,9 @@ import Loader from './Loader';
 
 export default function CustomModal(props) {
   const eventData = props.data;
-  const code = props.data.code;
-  const [genderStats, setGenderStats] = useState([]);
+  // const code = props.data.code;
+  const [code, setCode] = useState(props.data.code);
+;  const [genderStats, setGenderStats] = useState([]);
   const [ageStats, setAgeStats] = useState([]);
   const [title, setTitle] = useState('');
   // const [acceptanceRateDoc, setDoc] = useState(null);
@@ -77,11 +78,13 @@ export default function CustomModal(props) {
       setPassRt([pass, doc, prac])
     })
     .catch((err)=> {console.log(err)})
-  }, [eventData])
+  }, [])
 
-  async function createFavorite(code){
+  async function createFavorite(){
+    console.log("!!!!!!!!!!!!1");
+    console.log(code)
     const favorite = await favoriteApi.addFavorite(code);
-    // favorite.then((res) => {console.log('post성공: ',res)})
+    
   }
 
   return (
@@ -98,7 +101,7 @@ export default function CustomModal(props) {
           >
           {title}
           </Modal.Title>
-          <BtnStar isFilled={true} onClick={createFavorite(code)} />
+          <Button isFilled={true} onClick={createFavorite} />
         </Modal.Header>
         <Modal.Body>
           <Container >
