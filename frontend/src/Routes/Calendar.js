@@ -9,6 +9,7 @@ import axios from "axios";
 import Loader from '../Components/Loader';
 import SearchBox from '../Components/SearchBox';
 import { favoriteApi } from "../utils/axios";
+import { Link } from "react-router-dom"
 
 export default function CalendarApp () {
   const [events, setEvent] = useState([]);          // 전체 자격증 데이터
@@ -136,8 +137,11 @@ export default function CalendarApp () {
     <>
       {events.length !== 0 ?
       <Row>
-        <Col md={10}>
-          <div className="search-box">
+          <Col md={10}>
+            <div className="search-box">
+              <Link to = "/board">
+                게시판
+              </Link>
             <SearchBox
               handleChange={searchUser}
             />

@@ -1,5 +1,6 @@
 // export default () => "Home";
 import './style.min.css';
+import { Link } from "react-router-dom"
 
 export default () => {
   return (
@@ -26,10 +27,9 @@ export default () => {
             <p class="main__content__mission">
               이제 자격증 일정 관리는 자격증닷컴과 함께하세요.
             </p>
-            <a href="//#region "
-              target="_blank" rel="noopener noreferrer" class="button">
-              가입하기
-            </a>
+            <Link to ='/login' class="button">
+              로그인하기
+            </Link>
           </div>
         </div>
       </div>

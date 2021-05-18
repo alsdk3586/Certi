@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import './Login.css'
 import Button from '@material-ui/core/Button';
 export default class Login extends Component
@@ -7,25 +7,31 @@ export default class Login extends Component
         super(props);
         this.state =
           {
-            username: ''
+            roomcode: props.roomcode
           };
       }
 
   handleConnectPublicly = () => {
-      if (localStorage.getItem('authenticatedUser') == null) {
-        alert("로그인 먼저 해주세요 :)");
-      }
-      else {
         this.props.connect(localStorage.getItem('authenticatedUser'), false)
-      }
-    }
+      
+  }
+  
+  componentDidMount() {
+    this.handleConnectPublicly();
+    // document.location.href = `/ChatBox/${this.state.roomcode}`
+  };
+
+  componentDidUpdate() {
+    console.log(this.state.roomcode);
+    console.log(this.props)
+  }
     
     render(){
         return(
             <div className="component-Login">
-              <Button variant="contained" color="primary" onClick={this.handleConnectPublicly} >
+              {/* <Button variant="contained" color="primary" onClick={this.handleConnectPublicly} >
                 Start Chatting
-             </Button>
+             </Button> */}
 
             </div>
         )
