@@ -5,6 +5,7 @@ import Footer from '../footer/Footer'
 import Paper from '@material-ui/core/Paper'
 import Login from '../login/Login'
 import axios from 'axios'
+import ChatRooms from './ChatRooms'
 
 import './ChatMessageBox.css'
 import userImage from '../userImage.png'
@@ -37,7 +38,6 @@ class ChatMessageBox extends Component {
             this.setState({
               chatHistory: res.data
             });
-        console.log(res.data[0].message)
         })
         .catch(e => {
             console.error(e);
@@ -276,7 +276,7 @@ class ChatMessageBox extends Component {
 
 
           ) : (
-            <Login connect={this.connect} />
+            <Login connect={this.connect} roomcode={this.state.roomcode} />
           )
         }
       </div>
