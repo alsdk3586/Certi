@@ -13,12 +13,16 @@ export const favoriteApi = {
     return response.data;
   },
   async addFavorite(certificateCode) {
+    console.log("----");
     if (certificateCode !== null) {
-      const response = await request.post(`favorite/create/${certificateCode}`, certificateCode, {
+      let data=new Object();
+      data.certificateCode=certificateCode;
+      const response = await request.post(`favorite/create`, data, {
         headers: {
           "X-AUTH-TOKEN": localStorage.getItem("token"),
          }
         });
+        console.log("00000");
         return response.data;
     } else {
       return 'ERROR: the code is null'
