@@ -17,7 +17,7 @@ const Header = styled.header`
   font-size: 16px;
   background-color: white;
   z-index: 10;
-  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.5);
+  // box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.5);
   `;
 const List = styled.ul`
   display: flex;
@@ -29,7 +29,7 @@ const Item = styled.li`
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;
-  border-bottom: 4px solid ${props => (props.current ? "#fcbe32" : "transparent")}; 
+  // border-bottom: 4px solid ${props => (props.current ? "#fcbe32" : "transparent")}; 
   transition: border-bottom 0.3s ease-in-out;
   
   `;
