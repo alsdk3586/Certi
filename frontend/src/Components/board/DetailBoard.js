@@ -18,8 +18,9 @@ function Detail({ data, isWriter, history }) {
       <div id="detailBoardTop">
         <div style={{ flex: 8.5, float: "left", paddingLeft: "10px" }}>
           <div>
+            <h1 id="detailBoardCategory">[{data.boardCategory}]</h1>
             <h1 id="detailBoardTitle">{data.boardTitle}</h1>
-            <div>{data.boardWriter}</div>
+            <div style={{padding:"10px"}}>{data.boardWriter}</div>
           </div>
         </div>
         <div style={{ flex: 1.5 }}>
@@ -84,6 +85,7 @@ export default function DetailBoard({ match }) {
     else {
       const res = await commentApi.getComment(no);
       setComment(res);
+      document.getElementById("content").value = "";
     }
   }
 
@@ -92,21 +94,26 @@ export default function DetailBoard({ match }) {
   return (
     <div id="detailBoard">
       <Detail data={board} isWriter={writer} />
-      <div>
-        <Form.Group controlId="exampleForm.ControlTextarea1">
-          <Form.Control id="content" as="textarea" />
-        </Form.Group>
-        <Button variant="outline-primary" onClick={createComment}>Primary</Button>
+      <div id="detailCommentInput">
+        <Form.Control id="content" as="textarea" />
+        <Button variant="outline-primary" style={{height:"100%", width:"10%"}} onClick={createComment}>Primary</Button>
       </div>
-      <div>
+      <div id="detailCommentList">
         {comment&&comment.map(el => (
-          <div>
-            <div>{el.commentContent}</div>
-            <div>{el.commentCreate && el.commentCreate.map((e) =>
-              (<div>{e}.</div>)
-              )}
+          <div id="detailComment">
+            <div>
+              <div style={{float:"left"}}>
+                <div style={{ fontWeight: "bold",float:"left" }}>{el.userId.user_nickname}</div>
+                <div style={{ float: "left", width:"100%", fontSize:'10px' }}>
+                  {el.commentCreate && el.commentCreate.map((e) =>
+                  (<div  style={{float:"left"}}>{e}.</div>)
+                  )}
+                </div>
+              </div>
             </div>
-            <div>{el.userId.user_nickname}</div>
+            <div>
+              <div id="detailCommentContent">{el.commentContent}</div>
+            </div>
           </div>
         ))}
       </div>
