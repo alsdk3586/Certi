@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SideTabs from './SideTabs';
+import SideTabs from "./SideTabs";
 import Sidebar from "react-sidebar";
 
 class SidebarTab extends Component {
@@ -14,7 +14,7 @@ class SidebarTab extends Component {
     this.setState({ sidebarOpen: open });
   }
   render() {
-    // console.log('props: ', this.props.data);
+    // console.log("props: ", this.props.data);
     return (
       <>
         <Sidebar
@@ -32,8 +32,8 @@ class SidebarTab extends Component {
           </button> */}
         </Sidebar>
       </>
-      )
-    }
-};
+    );
+  }
+}
 
 export default SidebarTab;

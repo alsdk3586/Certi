@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, ListGroup } from 'react-bootstrap';
-import ChatRooms from './aside/ChatMessageBox/ChatRooms';
+import { Tabs, Tab, ListGroup } from "react-bootstrap";
+import ChatRooms from "./aside/ChatMessageBox/ChatRooms";
 
-export default function SideTabs (props) {
-  const [key, setKey] = useState('chat');
-  const [favoriteList,setFavoriteList]= useState([]);
-  
-  if (favoriteList.length === 0) {
+export default function SideTabs({ data }) {
+  const [key, setKey] = useState("chat");
+  const [favoriteList, setFavoriteList] = useState([]);
+  console.log(data);
+
+  console.log(favoriteList);
+
+  if (data.length === 0) {
+    console.log("11111111111111111");
     return (
       <Tabs
         id="controlled-tab-example"
@@ -25,6 +29,7 @@ export default function SideTabs (props) {
       </Tabs>
     );
   } else {
+    console.log("222222222222222");
     return (
       <Tabs
         id="controlled-tab-example"
@@ -39,11 +44,13 @@ export default function SideTabs (props) {
           {/* {favoriteList.length} */}
           <ListGroup variant="flush">
             {favoriteList.map((elem, i) => {
-              <ListGroup.Item key={i}>{elem.certificateCode.certificateClassificationCode}</ListGroup.Item>
+              <ListGroup.Item key={i}>
+                {elem.certificateCode.certificateClassificationCode}
+              </ListGroup.Item>;
             })}
           </ListGroup>
         </Tab>
       </Tabs>
     );
-  }  
+  }
 }
