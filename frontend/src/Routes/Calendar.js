@@ -7,6 +7,7 @@ import SidebarTab from '../Components/SidebarTab';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import axios from "axios";
 import SearchBox from '../Components/SearchBox';
+import { favoriteApi } from "../utils/axios";
 
 export default function CalendarApp () {
   const [events, setEvent] = useState([]);          // 전체 자격증 데이터
@@ -15,6 +16,7 @@ export default function CalendarApp () {
 
   const [modalShow, setModalShow] = useState(false);
   let [eventData, setEventData] = useState({});   // 클릭 시 개별 자격증 데이터
+  const [favoriteList, setFavoriteList] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:8080/certificate/schedule')
@@ -113,6 +115,21 @@ export default function CalendarApp () {
     });
     setEvent(filterEventsData);
   };
+  // 즐겨찾기 목록
+  useEffect (() => {
+    const res = favoriteApi.getFavoritelist();
+    console.log("useEffect function 작동")
+    res.then((res2) => {
+      // console.log('res2: ',res2)
+      let tmp = [];
+      res2.map((data) => {
+        if (data.certificateCode !== null) {
+          tmp.push(data)
+        }
+      })
+      setFavoriteList(tmp)
+    })
+  }, [])
 
   return (
     <>
@@ -137,7 +154,7 @@ export default function CalendarApp () {
           />
         </Col>
         <Col md={2}>
-          <SidebarTab width={300} height={500} />
+          <SidebarTab width={300} height={500} data={favoriteList}/>
         </Col>
       </Row>
       <CustomModal 

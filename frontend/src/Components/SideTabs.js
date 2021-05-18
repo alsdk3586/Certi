@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Tabs, Tab, ListGroup } from 'react-bootstrap';
 import ChatRooms from './aside/ChatMessageBox/ChatRooms';
-import { favoriteApi } from "../utils/axios";
 
-export default function SideTabs () {
+export default function SideTabs (props) {
   const [key, setKey] = useState('chat');
-  const [favoriteList, setFavorite] = useState([]);
-  useEffect (() => {
-    const res = favoriteApi.getFavoritelist();
-    console.log("useEffect function 작동")
-    res.then((res2) => {
-      console.log(res2)
-      // setFavorite(res2)
-    })
-  }, [favoriteList])
-
+  const [favoriteList,setFavoriteList]= useState([]);
+  
   if (favoriteList.length === 0) {
     return (
       <Tabs
@@ -45,10 +36,11 @@ export default function SideTabs () {
           {/* <ChatRooms /> */}
         </Tab>
         <Tab eventKey="favorite" title="즐겨찾기">
+          {/* {favoriteList.length} */}
           <ListGroup variant="flush">
-            {favoriteList.map((elem)=> (
-            <ListGroup.Item>{elem}</ListGroup.Item>
-            ))}
+            {favoriteList.map((elem, i) => {
+              <ListGroup.Item key={i}>{elem.certificateCode.certificateClassificationCode}</ListGroup.Item>
+            })}
           </ListGroup>
         </Tab>
       </Tabs>
