@@ -206,7 +206,7 @@ class ChatMessageBox extends Component {
 
   }
   render() {
-    const { chatHistory } = this.state.chatHistory;
+    const { chatHistory } = this.state;
     return (
       <div>
         {this.state.channelConnected ?
@@ -221,22 +221,21 @@ class ChatMessageBox extends Component {
               {/* 채팅창 메인 */}
               </Paper>
 
-              <Paper elevation={5}>
-              {/* 뭐라도 좀 나와봐 */}
-              {chatHistory && chatHistory.map((chat) => 
-                        <h3>
-                          뭐라도 좀 나와봐
-                          {chat.message}
-                        </h3>
-                  )}                  
-              </Paper>
-              <br /> <br />
-              <br /> <br />
-              <br /> <br />              
+              <div style={{ marginLeft: "100px" }}>
+                {/* 채팅 히스토리 */}
+                <Paper elevation={5}>
+                  {chatHistory && chatHistory.map((chat) => 
+                                  <div className="message">
+                                    {chat.message}
+                                  </div>
+                  )}
+                </Paper>
+              </div>
+              
 
               <div>
-              <Paper elevation={5}>
-                <ul id="chat" ref="messageBox">      
+                <Paper elevation={5}>
+                  <ul id="chat" ref="messageBox">  
                   {this.state.broadcastMessage.map((msg, i) =>
                     this.state.username === msg.sender ?
                       <li className="you" key={i}>
