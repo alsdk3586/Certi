@@ -72,13 +72,13 @@ public class FavoriteController {
             if (list.contains(certificateCode)) {
 //                throw new IllegalArgumentException("이미 즐겨찾기 목록에 존재합니다.");
                 return new ResponseEntity<>("This certificate already exists in your favoritelist", HttpStatus.BAD_REQUEST);
+            } else {
+                favoriteListRepository.save(FavoriteList.builder()
+                        .userId(person)
+                        .certificateCode(certificate)
+                        .build());
+                return new ResponseEntity<>("true", HttpStatus.OK);
             }
-            // 추가
-            favoriteListRepository.save(FavoriteList.builder()
-                .userId(person)
-                .certificateCode(certificate)
-                .build());
-            return new ResponseEntity<>("true", HttpStatus.OK);
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
