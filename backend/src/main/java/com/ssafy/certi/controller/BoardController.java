@@ -76,7 +76,7 @@ public class BoardController {
     public ResponseEntity<List<Board>> boardAllList() {
 
         try {
-            List<Board> boardList=boardRepository.findAll();
+            List<Board> boardList=boardRepository.findByBoardFlag(true);
             return new ResponseEntity<>(boardList, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
@@ -105,15 +105,14 @@ public class BoardController {
         }
     }
 
-
-
     @ApiOperation(value = "게시판 조회", notes = "성공 시, true 반환")
     @GetMapping("/detail/{boardId}")
     public ResponseEntity<DetailBoard> boardDetail(@PathVariable Integer boardId) {
 
         try {
             Board board=boardRepository.findByBoardId(boardId);
-            board.show(); //hit up
+            board.setBoardHit(board.getBoardHit()+1);
+            boardRepository.save(board);
 
             DetailBoard detailBaord = new DetailBoard();
             detailBaord.setBoard(board);
@@ -144,7 +143,7 @@ public class BoardController {
             Board board=boardRepository.findByBoardId(boardId);
             if(person.getUserId()==board.getUserId().getUserId()){
                // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-                board.delete();
+                board.setBoardFlag(false);
                 boardRepository.save(board);
             }
             return new ResponseEntity<>(board, HttpStatus.OK);
@@ -165,7 +164,7 @@ public class BoardController {
     public ResponseEntity<List<Board>> boardSearchTitle(@PathVariable String boardTitle) {
 
         try {
-            List<Board> result=boardRepository.findByBoardTitle(boardTitle);
+            List<Board> result=boardRepository.findByBoardTitleContaining(boardTitle);
             return new ResponseEntity<>(result, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
@@ -180,20 +179,16 @@ public class BoardController {
             @ApiResponse(code = 400, message = "잘못된 접근"),
             @ApiResponse(code = 500, message = "서버 에러")
     })
-    @PutMapping("/update/{boardId}")
-    public ResponseEntity<Board> boardPostUpdate(@PathVariable Integer boardId,@ApiParam(value = "boardCategory,boardTitle, boardContent, boardFile", required = true) @RequestBody Map<String, String> newBoard, HttpServletRequest request) {
+    @PutMapping("/motify/{boardId}")
+    public ResponseEntity<Board> boardPostUpdate(@PathVariable Integer boardId,@ApiParam(value = "boardCategory,boardTitle, boardContent, boardFile", required = true) @RequestBody Map<String, String> motifyBoard) {
 
         try {
-            User person= userService.findByToken(JwtTokenProvider.resolveToken(request));
             Board board=boardRepository.findByBoardId(boardId);
-            if(person.getUserId()==board.getUserId().getUserId()){
-                // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-                board.updateBoardContent(newBoard.get("boardTitle"),newBoard.get("boardContent"),newBoard.get("boardCategory"));
-                if(newBoard.get("boardFile")!=null){
-                    board.updateFile(newBoard.get("boardFile"));
-                }
-                boardRepository.save(board);
-            }
+            board.setBoardContent(motifyBoard.get("boardContent"));
+            board.setBoardCategory(motifyBoard.get("boardCategory"));
+            board.setBoardTitle(motifyBoard.get("boardTitle"));
+            boardRepository.save(board);
+
             return new ResponseEntity<>(board, HttpStatus.OK);
         } catch (IllegalStateException e) { // exception return 하게 수정
             Board box=null;

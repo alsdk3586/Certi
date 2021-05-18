@@ -34,7 +34,6 @@ export const commentApi = {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
-   // console.log(response);
     return response.data;
   },
   async getComment(boardId) {
@@ -46,7 +45,6 @@ export const commentApi = {
 export const boardApi = {
   async getAllBoard() {
     const response = await request.get(`board/`);
-    //console.log(response);
     return response.data;
   },
   async getDetailBoard(boardId) {
@@ -66,16 +64,24 @@ export const boardApi = {
   },
 
   async addBoard(data) {
-    //console.log(data);
     const response = await request.post(`board/create`, data, {
       headers: {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
-    //console.log(response);
     return response.data;
   },
-  async updateBoard(data) {
-    
+  async motifyBoard(data) {
+    const response = await request.put(`board/motify/${data.boardId}`, data);
+    return response.status;
+  },
+
+  async deleteBoard(boardId) {
+    const response = await request.delete(`board/delete/${boardId}`, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      },
+    });
+    console.log(response);
   }
 };

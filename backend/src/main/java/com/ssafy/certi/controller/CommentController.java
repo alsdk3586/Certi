@@ -69,7 +69,6 @@ public class CommentController {
 
         try {
             Board board=boardRepository.findByBoardId(boardId);
-            board.show(); //hit up
 
             Optional<List<Comment>> comment=commentRepository.findAllByBoard(board);
 

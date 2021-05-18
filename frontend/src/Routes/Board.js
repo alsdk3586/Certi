@@ -22,8 +22,6 @@ export default function Board() {
 
   function search() {
     setKey(document.getElementById("searchContent").value);
-    console.log(data);
-    console.log(document.getElementById("searchContent").value);
   }
 
   return (
