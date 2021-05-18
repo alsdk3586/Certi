@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
 
 class ChatRooms extends Component {
     constructor(props) {
@@ -42,7 +42,7 @@ class ChatRooms extends Component {
             ChatRoomList.map((room) => (
               <tr key={room.certificateCode.certificateCode}>
                 <td>
-                  <Link to={`/ChatBox/${room.certificateCode.certificateCode}`}>
+                  <Link to={`/ChatBox/${room.certificateCode.certificateCode}`} target="_blank">
                   <Button variant="contained" color="primary" >
                     {room.certificateCode.certificateClassificationCode}
                   

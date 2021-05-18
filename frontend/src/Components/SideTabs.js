@@ -19,7 +19,7 @@ export default function SideTabs({ data }) {
         justify
       >
         <Tab eventKey="chat" title="채팅">
-          {/* <ChatRooms /> */}
+          <ChatRooms />
         </Tab>
         <Tab eventKey="favorite" title="즐겨찾기">
           <ListGroup variant="flush">
@@ -38,7 +38,7 @@ export default function SideTabs({ data }) {
         justify
       >
         <Tab eventKey="chat" title="채팅">
-          {/* <ChatRooms /> */}
+          <ChatRooms />
         </Tab>
         <Tab eventKey="favorite" title="즐겨찾기">
           {/* {favoriteList.length} */}

@@ -67,7 +67,7 @@ class LoginForm extends Component {
 
         if (this.state.loginSuccess === true) {
           // 로그인 성공 시 페이지 이동
-          this.props.history.push(`/`);
+          this.props.history.push(`/calendar`);
         } else {
           alert("로그인에 실패하였습니다");
         }
@@ -96,7 +96,7 @@ class LoginForm extends Component {
           value={this.state.userPassword}
           onChange={this.handleChange}
         />
-        <Link to="`/`">
+        <Link to="/calendar">
           <div
             class="loginButton"
             onClick={this.loginClicked}
