@@ -78,6 +78,7 @@ body {
 }
 #chat .message {
   padding: 0px 25px 5px 30px;
+  margin-left: 35px;
   color: #fff;
   line-height: 25px;
   max-width: 90%;
@@ -88,7 +89,7 @@ body {
 }
 #chat .others {
   color: #33dff1;
-  font-size: 20px;
+  font-size: 18px;
   padding: 20px 4px 20px 490px;
 }
 #chat .you .message {
@@ -96,15 +97,15 @@ body {
 }
 #chat .you .sender {
   color: #3f51b5;
-  font-size: 20px;
+  font-size: 15px;
   font-family: -webkit-body;
   padding: 20px 4px 20px 4px;
 }
 #chat .others .sender {
   color: #6fbced;
-  font-size: 20px;
+  font-size: 15px;
   font-family: -webkit-body;
-  padding: 20px 4px 20px 4px;
+  padding: 0px 4px 0px 4px; /* 위 | 오른쪽 | 아래 | 왼쪽 */
 }
 #chat .others .message {
   background-color: #6fbced;
@@ -117,11 +118,11 @@ body {
 }
 #chat .you .triangle {
   border-color: transparent transparent #3f51b5 transparent;
-  margin-left: 15px;
+  margin-left: 45px;
 }
 #chat .others .triangle {
   border-color: transparent transparent #6fbced transparent;
-  margin-left: 15px;
+  margin-left: 45px;
 }
 
 #userImage {
