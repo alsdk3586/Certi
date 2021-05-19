@@ -5,9 +5,6 @@ import LoginService from './loginService'
 class LoginHeader extends Component {
     render() {
         const isUserLoggedIn = LoginService.isUserLoggedIn();
-        
-        console.log("===Headeromponent===");
-        console.log(isUserLoggedIn);
 
         return (
             <header>
