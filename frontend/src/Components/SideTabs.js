@@ -22,12 +22,6 @@ export default function SideTabs({ data }) {
       setModalShow(true)
     }
   }
-  function getEvent(arg) {
-    setTitle(arg.event.title)
-    setDateData(arg.event.startStr)
-    setEventData(arg.event._def.extendedProps);
-    modalOpen();
-  }
 
   if (data.length === 0) {
     return (
@@ -59,7 +53,15 @@ export default function SideTabs({ data }) {
             <ListGroup variant="flush">
               {data.map((elem, i) => (
                 <ListGroup.Item key={i}>
-                  <Button onClick={getEvent}>{elem.certificateCode.certificateClassificationCode}</Button>
+                  <Button onClick={() => {
+                    console.log(elem);
+                    setTitle(elem.certificateCode.certificateClassificationCode)
+                    let a = new Object();
+                    a.code = elem.certificateCode.certificateCode;
+                    setEventData(a);
+                    modalOpen();
+                  }
+                  }>{elem.certificateCode.certificateClassificationCode}</Button>
                 </ListGroup.Item>
               ))}
             </ListGroup>
