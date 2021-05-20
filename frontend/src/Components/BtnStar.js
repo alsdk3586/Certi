@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { BsStar, BsStarFill } from 'react-icons/bs';
 
-export default function BtnStar(props) {
-  const [isFilled, setIsFilled] = useState(false);
+export default function BtnStar({state}) {
+  const [isFilled, setIsFilled] = useState(state);
   function getIsFilled(){
     setIsFilled(!isFilled);
   }

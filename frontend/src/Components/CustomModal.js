@@ -136,11 +136,11 @@ export default function CustomModal(props) {
           </Modal.Title>
           {/* <Button isFilled={true} onClick={createFavorite} /> */}
           <FavoriteButton onClick={createFavorite}>
-            <BtnStar />
-            </FavoriteButton>
-            <Slink to={`/ChatBox/${code}`} >
-              채팅방 참여하기
-            </Slink>
+            <BtnStar state={isFavorite}/>
+          </FavoriteButton>
+          <Slink to={`/ChatBox/${code}`} >
+            채팅방 참여하기
+          </Slink>
         </Modal.Header>
         <Modal.Body>
           <Container >
