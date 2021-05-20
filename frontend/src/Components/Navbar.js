@@ -34,7 +34,6 @@ const Item = styled.li`
   
   `;
 
-
 const Slink = styled(Link)`
   height: 50px;
   display: flex;
@@ -59,7 +58,6 @@ export default withRouter(({ location: { pathname } }) => {
       setdata(<Item current={pathname === '/logout'} onClick={LoginService.logout}><Slink to="/logout">로그아웃</Slink></Item>);
   }, [localStorage.getItem('token')])
 
-  console.log(localStorage.getItem('token'));
   return (
     <Header>
       <List>

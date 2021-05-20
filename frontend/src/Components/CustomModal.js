@@ -1,68 +1,82 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 import { Modal, Button, Table, Container, Row, Col } from 'react-bootstrap';
 import LineChart from './LineChart';
 import PieChart from './PieChart';
 import ColumnChart from './ColumnChart';
 import axios from 'axios';
 import BtnStar from './BtnStar';
-import { favoriteApi } from "../utils/axios";
+import { favoriteApi, statisticsApi } from "../utils/axios";
 import Loader from './Loader';
+import { SmallLogo } from '../assets/index';
+import styled from 'styled-components';
 
 export default function CustomModal(props) {
   const eventData = props.data;
   // const code = props.data.code;
   const [code, setCode] = useState(props.data.code);
-;  const [genderStats, setGenderStats] = useState([]);
+  const [genderStats, setGenderStats] = useState([]);
   const [ageStats, setAgeStats] = useState([]);
-  const [title, setTitle] = useState('');
-  // const [acceptanceRateDoc, setDoc] = useState(null);
-  // const [acceptanceRatePrac, setPrac] = useState(null);
-  // const [acceptanceRateResult, setResult] = useState(null);
+  const [title, setTitle] = useState(props.title);
+  const [dateData, setDateData] = useState(props.date);
   const [passRt, setPassRt] = useState([]);
+  const [noData, setNoData]  = useState(true);
+  const [favoriteList, setFavoriteList] = useState();
+  const [isFavorite, setIsFavorite] = useState();
 
-  useEffect(() => {
-    axios.get(`http://localhost:8080/certificate/statistics/${code}`)
-    .then((res)=> {
-      const data = res.data[0];
+  const FavoriteButton = styled.button`
+    background-color: transparent;
+    border: none;
+    margin: auto 0;
+  `;
+  const Slink = styled(Link)`
+  fontSize: 25px;
+  margin-left: 20px;
+  margin-top: 10px;
+  &:hover {
+    text-decoration-line: none;
+    font-weight: bold;
+    font-size: 110%
+  }
+`;
+
+  useEffect(async () => {
+    const statistics = await statisticsApi.getStatsList(code);
+    if (statistics !== undefined) {
       let gStat = [ 
-        data.man,
-        data.women
+        statistics.man,
+        statistics.women
       ]
       let aStat = [{
         name: "합격자 수",
         data: [
-          data.teen,
-          data.twenty,
-          data.thirty,
-          data.fourty,
-          data.fifty,
-          data.sixty
+          statistics.teen,
+          statistics.twenty,
+          statistics.thirty,
+          statistics.fourty,
+          statistics.fifty,
+          statistics.sixty
         ]
       }]
-      setGenderStats([...gStat])
-      setAgeStats([...aStat])
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+      setGenderStats(gStat)
+      setAgeStats(aStat)
+    } else {
+      setNoData(false)
+    }
+
   }, [eventData])
   
-  useEffect(() => {
-    axios.get(`http://localhost:8080/certificate/acceptancerate/${code}`)
-    .then((res)=> {
-      const acceptRate = res.data;
-      const passRate = [];
-      const docPassRate = [];
-      const pracPassRate = [];
-      // setDoc(acceptRate.acceptanceRateDoc);
-      // setPrac(acceptRate.acceptanceRatePrac);
-      // setResult(acceptRate.acceptanceRateResult);
-      setTitle(acceptRate[0].certificateCode.certificateClassificationCode);
-      acceptRate.map(elem => {
-        passRate.push(elem.acceptanceRateResult)
-        docPassRate.push(elem.acceptanceRateDoc)
+  useEffect(async () => {
+    const passRate = [];
+    const docPassRate = [];
+    const pracPassRate = [];
+    const acceptRate = await statisticsApi.getPassRate(code);
+    if (acceptRate.length !== 0) {
+      acceptRate.map(elem => (
+        passRate.push(elem.acceptanceRateResult),
+        docPassRate.push(elem.acceptanceRateDoc),
         pracPassRate.push(elem.acceptanceRatePrac)
-      });
+      ));
       let pass = {
         name: '합격률',
         data: passRate,
@@ -76,19 +90,38 @@ export default function CustomModal(props) {
         data: pracPassRate,
       }
       setPassRt([pass, doc, prac])
-    })
-    .catch((err)=> {console.log(err)})
+    } else {
+      setNoData(false)
+    }
+  }, [])
+
+  useEffect(async () => {
+    const favoriteListFromApi = favoriteApi.getFavoritelist();
+    setFavoriteList(favoriteListFromApi)
+    // favoriteListFromApi.includes(code) ? setIsFavorite(true) : setIsFavorite(false);
+    setIsFavorite(false)
+    for (let index = 0; index < favoriteListFromApi.length; index++) {
+      const element = favoriteListFromApi[index];
+      if (element.certificateCode.certificateCode === code ) {
+        setIsFavorite(true)
+        break
+      }
+    }
   }, [])
 
   async function createFavorite(){
-    console.log("!!!!!!!!!!!!1");
-    console.log(code)
-    const favorite = await favoriteApi.addFavorite(code);
-    
+    if(isFavorite) {
+      const deleteFavorite = await favoriteApi.deleteFavorite(code);
+      setIsFavorite(!isFavorite)
+    } else {
+      const favorite = await favoriteApi.addFavorite(code);
+      setIsFavorite(!isFavorite)
+    }
   }
 
   return (
     <>
+    {noData ?  
       <Modal
         {...props}
         size="xl"
@@ -99,37 +132,29 @@ export default function CustomModal(props) {
           <Modal.Title id="contained-modal-title-vcenter" 
           style={{ marginRight: "15px"}}
           >
-          {title}
+            {title}
           </Modal.Title>
-          <Button isFilled={true} onClick={createFavorite} />
+          {/* <Button isFilled={true} onClick={createFavorite} /> */}
+          <FavoriteButton onClick={createFavorite}>
+            <BtnStar />
+            </FavoriteButton>
+            <Slink to={`/ChatBox/${code}`} >
+              채팅방 참여하기
+            </Slink>
         </Modal.Header>
         <Modal.Body>
           <Container >
-            {/* <Table border size="md">
-              <tbody>
-                <tr>
-                  <td>필기합격률</td>
-                  <td>{acceptanceRateDoc}%</td>
-                </tr>
-                <tr>
-                  <td>실기합격률</td>
-                  <td>{acceptanceRatePrac}%</td>
-                </tr>
-                <tr>
-                  <td>최종합격률</td>
-                  <td>{acceptanceRateResult}%</td>
-                </tr>
-              </tbody>
-            </Table> */}
+            <span style={{fontSize: "20px", marginRight: "1rem", marginTop: "1rem"}}>일정</span>
+            <span style={{fontSize: "20px", marginleft: "1rem" , marginTop: "1rem"}}>{dateData}</span>
           </Container>
           {/* Chart */}
           <Container>
-            <Row className="d-flex justify-content-around">
-              <Col lg={5} md={12} className="d-flex justify-content-center">
-                <PieChart series={genderStats} />
-              </Col>
+            <Row className="d-flex justify-content-around mt-4">
               <Col lg={7} md={12} className="d-flex justify-content-center">
                 <ColumnChart series={ageStats} />
+              </Col>
+              <Col lg={5} md={12} className="d-flex justify-content-center">
+                <PieChart series={genderStats} />
               </Col>
               <Col lg={12} className="d-flex justify-content-center">
                 <LineChart series={passRt}/>
@@ -142,6 +167,46 @@ export default function CustomModal(props) {
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
+      :
+      <Modal
+        {...props}
+        size="xl"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter" 
+          style={{ marginRight: "15px"}}
+          >
+            {title}
+          </Modal.Title>
+
+          {/* <Button isFilled={true} onClick={createFavorite} /> */}
+          <FavoriteButton onClick={createFavorite} isFilled={isFavorite}>
+            <BtnStar />
+            </FavoriteButton>
+            <Slink to={`/ChatBox/${code}`} >
+              채팅방 참여하기
+            </Slink>
+
+        </Modal.Header>
+        <Modal.Body>
+          {/* Chart */}
+          <Container>
+            <Row className="d-flex justify-content-around">
+              <SmallLogo />
+            </Row>
+            <Row className="d-flex justify-content-center">
+              <p style={{fontSize: "20px"}}> 이 시험에 대한 정보가 없습니다.</p>
+            </Row>
+          </Container>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    }
     </>
   );
 }

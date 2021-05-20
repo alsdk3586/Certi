@@ -34,7 +34,6 @@ export default function BoardList(props) {
         categoryFill("free");
         break;
       default:
-        console.log("search");
         searchFill(props.name);
     }
   }, [props.name]);

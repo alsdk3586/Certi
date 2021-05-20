@@ -7,6 +7,7 @@ import com.ssafy.certi.dto.DetailBoard;
 import com.ssafy.certi.repository.BoardRepository;
 import com.ssafy.certi.repository.CommentRepository;
 import com.ssafy.certi.security.JwtTokenProvider;
+import com.ssafy.certi.service.BoardService;
 import com.ssafy.certi.service.UserService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,8 @@ public class BoardController {
 
     @Autowired
     UserService userService;
+
+    BoardService boardService;
 
     @ApiOperation(value = "게시판 등록", notes = "성공 시, true 반환")
     @ApiResponses({
@@ -76,7 +80,7 @@ public class BoardController {
     public ResponseEntity<List<Board>> boardAllList() {
 
         try {
-            List<Board> boardList=boardRepository.findByBoardFlag(true);
+            List<Board> boardList=boardRepository.findAll();
             return new ResponseEntity<>(boardList, HttpStatus.OK);
 
         } catch (IllegalStateException e) { // exception return 하게 수정
@@ -128,7 +132,7 @@ public class BoardController {
         }
     }
 
-
+    @Transactional
     @ApiOperation(value = "게시판 삭제", notes = "성공 시, true 반환")
     @ApiResponses({
             @ApiResponse(code = 200, message = "등록 성공"),
@@ -136,20 +140,20 @@ public class BoardController {
             @ApiResponse(code = 500, message = "서버 에러")
     })
     @DeleteMapping("/delete/{boardId}")
-    public ResponseEntity<Board> boardPostDelete(@PathVariable Integer boardId, HttpServletRequest request) {
+    public ResponseEntity<String> boardPostDelete(@PathVariable Integer boardId, HttpServletRequest request) {
 
         try {
-            User person= userService.findByToken(JwtTokenProvider.resolveToken(request));
             Board board=boardRepository.findByBoardId(boardId);
-            if(person.getUserId()==board.getUserId().getUserId()){
-               // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
-                board.setBoardFlag(false);
-                boardRepository.save(board);
-            }
-            return new ResponseEntity<>(board, HttpStatus.OK);
+
+            commentRepository.deleteByBoard(board);
+            boardRepository.deleteByBoardId(boardId);
+            // boardRepository.deleteByBoardId(boardId);//게시글 완전 삭제
+            //board.setBoardFlag(false);
+            //boardRepository.save(board);
+
+            return new ResponseEntity<>("true", HttpStatus.OK);
         } catch (IllegalStateException e) { // exception return 하게 수정
-            Board box=null;
-            return new ResponseEntity<>(box, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("false", HttpStatus.BAD_REQUEST);
         }
     }
 

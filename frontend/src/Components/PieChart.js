@@ -3,11 +3,24 @@ import Chart from "react-apexcharts";
 
 function PieChart(props) {
   const [options, setOptions] = useState({
+    title: {
+      text: '성별 합격자 수',
+      align: 'left'
+    },
     chart: {
       type: 'pie',
       height: 400,
     },
-    labels: ['남', '여']
+    labels: ['남', '여'],
+    legend: {
+      markers: {
+        fillColors: ['#4dbaff', '#a7dafa'],
+      },
+      position: 'bottom'
+    },
+    fill: {
+      colors: ['#4dbaff', '#a7dafa']
+    }
   });
 
   const [width, setWidth] = useState();

@@ -2,18 +2,25 @@ import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 function LineChart(props) {
-  // const [series, setSeries] = useState([
-  //   {
-  //     name: "합격률",
-  //     data: [50, 49, 60, 70, 91]
-  //   }
-  // ]);
   const [options, setOptions] = useState({
+    title: {
+      text: '최종학력별 합격자 수',
+      align: 'left'
+    },
     chart: {
-      id: "basic-bar"
+      id: "line"
     },
     xaxis: {
       categories: ['고졸이하', '전문대재', '전문대졸', '대재', '대졸', '미상']
+    },
+    colors: ['#e1eef6', '#fcbe32', '#ff5f2e'],
+    stroke: {
+      curve: 'smooth'
+    },
+    legend: {
+      markers: {
+        fillColors: ['#e1eef6', '#fcbe32', '#ff5f2e'],
+      }
     }
   });
   const [width, setWidth] = useState();
@@ -64,7 +71,7 @@ function LineChart(props) {
             {...props}
             options={options}
             // series={series}
-            type="area"
+            type="line"
             width={width}
           />
         </div>

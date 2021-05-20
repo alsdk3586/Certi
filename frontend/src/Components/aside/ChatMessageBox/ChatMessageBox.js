@@ -32,12 +32,11 @@ class ChatMessageBox extends Component {
   }
 
   getChatHistory = async() => {
-    axios.get(`http://localhost:8080/chatHistory/${this.state.roomcode}`)
+    axios.get(`http://k4a407.p.ssafy.io:8080/chatHistory/${this.state.roomcode}`)
       .then((res) => {
             this.setState({
               chatHistory: res.data
             });
-        console.log(res.data)
         })
         .catch(e => {
             console.error(e);

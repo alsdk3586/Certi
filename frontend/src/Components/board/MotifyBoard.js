@@ -19,7 +19,6 @@ export default function CreateBoard({ history,match }) {
   useEffect(async () => {
       const fill = async () => {
         const res = await boardApi.getDetailBoard(no);
-        console.log(res);
         setBoardContent(res.board.boardContent);
         setBoardTitle(res.board.boardTitle);
         setCategory(res.board.boardCategory);

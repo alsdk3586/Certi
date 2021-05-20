@@ -3,6 +3,10 @@ import Chart from "react-apexcharts";
 
 function ColumnChart(props) {
   const [options, setOptions] = useState({
+    title: {
+      text: '연령별 합격자 수',
+      align: 'left'
+    },
     chart: {
       height: 500,
       type: 'bar',
@@ -26,6 +30,9 @@ function ColumnChart(props) {
         colors: ["#304758"]
       }
     },
+    fill: {
+      colors: ['#fcbe32']
+    },
     xaxis: {
       categories: ['10대', '20대', '30대', '40대', '50대', '60대'],
       position: 'bottom',
@@ -39,8 +46,8 @@ function ColumnChart(props) {
         fill: {
           type: 'gradient',
           gradient: {
-            colorFrom: '#D8E3F0',
-            colorTo: '#BED1E6',
+            colorFrom: '#79a6c7',
+            colorTo: '#79a6c7',
             stops: [0, 100],
             opacityFrom: 0.4,
             opacityTo: 0.5,

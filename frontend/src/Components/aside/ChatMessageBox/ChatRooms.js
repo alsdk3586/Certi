@@ -2,6 +2,28 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
+import ChatImg from '../../../assets/chat.png';
+
+const Slink = styled(Link)`
+  fontSize: 16px; 
+  &:hover {
+    color: black;
+    background-color: gray;
+    text-decoration-line: none;
+    font-weight: bold;
+    font-size: 110%
+  }
+`;
+const Ul = styled.ul`
+  padding-top: 5px;
+  padding-bottom: 5px;
+  &:hover {
+    background-color: #e6dddc;
+    opacity: 0.6;
+    z-index: 10;
+  }
+`;
 
 class ChatRooms extends Component {
     constructor(props) {
@@ -13,7 +35,7 @@ class ChatRooms extends Component {
       }
 
     getList = async() => {
-        axios.get('http://localhost:8080/chat/rooms')
+        axios.get("http://k4a407.p.ssafy.io:8080/chat/rooms")
             .then((res) => {
                 this.setState({
                     ChatRoomList: res.data
@@ -42,12 +64,17 @@ class ChatRooms extends Component {
             ChatRoomList.map((room) => (
               <tr key={room.certificateCode.certificateCode}>
                 <td>
-                  <Link to={`/ChatBox/${room.certificateCode.certificateCode}`} target="_blank">
-                  <ul variant="contained" color="primary" style={{ fontSize: "15px" }}>
-                    {room.certificateCode.certificateClassificationCode}
-                  
-                    </ul>
-                    </Link>
+                  <Slink to={`/ChatBox/${room.certificateCode.certificateCode}`} target="_blank"
+                  style={{textDecoration: "none"}}
+                  >
+                  <Ul variant="contained" color="primary">
+                    <>
+                      <img src={ChatImg} width="20" />
+                      &nbsp;
+                      {room.certificateCode.certificateClassificationCode}
+                    </>
+                    </Ul>
+                    </Slink>
                 </td>
               </tr>
             ))}

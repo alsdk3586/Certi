@@ -7,7 +7,6 @@ import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 function Detail({ data, isWriter, history }) {
   async function deleteB() {
-    console.log(data.boardId);
     const res = await boardApi.deleteBoard(data.boardId);
     alert("삭제 성공");
     document.location.href = "/board";
@@ -42,12 +41,20 @@ function Detail({ data, isWriter, history }) {
       <hr></hr>
       <div>{isWriter ?
         <div>
-          <div><Link to={`/motifyBoard/${data.boardId}`}>수정</Link></div>
+          <div style={{float:"left"}}><Link to={`/motifyBoard/${data.boardId}`}>수정 &nbsp;</Link></div>
           <div><Link onClick={deleteB}>삭제</Link></div>
         </div>
-        : <div></div>}</div>
+        : <div></div>}
+        </div>
       <div>
-        <div id="detailBoardContent">{data.boardContent}</div>
+        <div id="detailBoardContent">{data.boardContent!==undefined?data.boardContent.split("\n").map((line) => {
+          return (<span>
+                {line}
+                <br />
+              </span>
+            );
+        }) : <div></div>}</div>
+        <p></p>
         {/* <BiDislike />
         <BiLike/> */}
       </div>
@@ -78,14 +85,14 @@ export default function DetailBoard({ match }) {
   async function createComment() {
     let data = new Object();
     data.boardId = no;
-    data.commentContent = document.getElementById("content").value;
+    data.commentContent = document.getElementById("contentComment").value;
     let res=await commentApi.addComment(data);
     if (res == false)
       alert("댓글 등록에 실패하였습니다.");
     else {
       const res = await commentApi.getComment(no);
       setComment(res);
-      document.getElementById("content").value = "";
+      document.getElementById("contentComment").value = "";
     }
   }
 
@@ -95,14 +102,14 @@ export default function DetailBoard({ match }) {
     <div id="detailBoard">
       <Detail data={board} isWriter={writer} />
       <div id="detailCommentInput">
-        <Form.Control id="content" as="textarea" />
-        <Button variant="outline-primary" style={{height:"100%", width:"10%"}} onClick={createComment}>Primary</Button>
+        <Form.Control id="contentComment" as="textarea" />
+        <Button variant="outline-primary" style={{height:"100%", width:"10%"}} onClick={createComment}>댓글 작성</Button>
       </div>
       <div id="detailCommentList">
         {comment&&comment.map(el => (
           <div id="detailComment">
             <div>
-              <div style={{float:"left"}}>
+              <div style={{float:"left", padding:"auto 0"}}>
                 <div style={{ fontWeight: "bold",float:"left" }}>{el.userId.user_nickname}</div>
                 <div style={{ float: "left", width:"100%", fontSize:'10px' }}>
                   {el.commentCreate && el.commentCreate.map((e) =>

@@ -55,7 +55,6 @@ class LoginForm extends Component {
       this.state.userPassword
     )
       .then((response) => {
-        console.log(response);
         this.setState({
           token: response.data.token,
           loginSuccess: true,

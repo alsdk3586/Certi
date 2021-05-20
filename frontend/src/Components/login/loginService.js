@@ -41,14 +41,12 @@ class LoginService {
     }
 
     logout() {
-        console.log(localStorage.getItem('token'));
         localStorage.removeItem("authenticatedUser");
         localStorage.removeItem("token");
     }
 
     isUserLoggedIn() {
         const token = localStorage.getItem('token');
-        console.log("=== UserloggedInCheck ===");
 
         if (token) {
             return true;
