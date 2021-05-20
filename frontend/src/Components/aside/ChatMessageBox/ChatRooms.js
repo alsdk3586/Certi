@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
+import ChatImg from '../../../assets/chat.png';
 
 const Slink = styled(Link)`
   fontSize: 16px; 
@@ -68,8 +69,9 @@ class ChatRooms extends Component {
                   >
                   <Ul variant="contained" color="primary">
                     <>
-                      <img src="../../../assets/chat.png" width="20" />
-                      &nbsp;{room.certificateCode.certificateClassificationCode}
+                      <img src={ChatImg} width="20" />
+                      &nbsp;
+                      {room.certificateCode.certificateClassificationCode}
                     </>
                     </Ul>
                     </Slink>
