@@ -34,7 +34,6 @@ const Item = styled.li`
   
   `;
 
-
 const Slink = styled(Link)`
   height: 50px;
   display: flex;

@@ -4,13 +4,8 @@ import ChatRooms from "./aside/ChatMessageBox/ChatRooms";
 
 export default function SideTabs({ data }) {
   const [key, setKey] = useState("chat");
-  const [favoriteList, setFavoriteList] = useState([]);
-  console.log(data);
-
-  console.log(favoriteList);
 
   if (data.length === 0) {
-    console.log("11111111111111111");
     return (
       <Tabs
         id="controlled-tab-example"
@@ -29,7 +24,6 @@ export default function SideTabs({ data }) {
       </Tabs>
     );
   } else {
-    console.log("222222222222222");
     return (
       <Tabs
         id="controlled-tab-example"

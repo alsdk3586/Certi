@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const request = axios.create({
+  // baseURL: "http://localhost:8080/",
   baseURL: "http://k4a407.p.ssafy.io:8080/",
 });
 export const favoriteApi = {
@@ -12,23 +13,49 @@ export const favoriteApi = {
     });
     return response.data;
   },
-  async addFavorite(certificateCode) {
-    console.log("----");
-    if (certificateCode !== null) {
-      let data=new Object();
-      data.certificateCode=certificateCode;
-      const response = await request.post(`favorite/create`, data, {
-        headers: {
-          "X-AUTH-TOKEN": localStorage.getItem("token"),
-         }
-        });
-        console.log("00000");
-        return response.data;
-    } else {
-      return 'ERROR: the code is null'
-    }
-  }
+  async addFavorite(code) {
+    // console.log("----");
+    let params=new Object();
+    params.certificateCode=code;
+    const response = await request.post(`favorite/create`, params, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+        }
+      });
+      return response.data;
+  },
+  // async deleteFavorite(code) {
+  //   // console.log("----");
+  //   let params=new Object();
+  //   params.certificateCode=code;
+  //   const response = await request.post(`favorite/create`, params, {
+  //     headers: {
+  //       "X-AUTH-TOKEN": localStorage.getItem("token"),
+  //       }
+  //     });
+  //     return response.data;
+  // }
 };
+
+export const statisticsApi = {
+  async getStatsList(code) {
+    const response = await request.get(`certificate/statistics/${code}`, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      }
+    })
+    return response.data[0];
+  },
+  async getPassRate(code) {
+    const response = await request.get(`certificate/acceptancerate/${code}`, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      }
+    })
+    return response.data;
+  }
+}
+
 export const certiApi = {
   async getCertiList() {
     const response = await request.get(`certificate/list`, {
@@ -60,7 +87,7 @@ export const boardApi = {
   },
   async getDetailBoard(boardId) {
     const response = await request.get(`board/detail/${boardId}`);
-    console.log(response);
+    // console.log(response);
     return response.data;
   },
 
@@ -93,6 +120,6 @@ export const boardApi = {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
-    console.log(response);
+    // console.log(response);
   }
 };
