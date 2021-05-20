@@ -4,7 +4,7 @@ class RegisterService {
     // send userName, userPassword, userNickname to the SERVER
     executeJwtRegisterService(userEmail, userPassword, userNickname) {
         return axios.post(
-            'http://localhost:8080/api/user/join',
+            'http://k4a407.p.ssafy.io:8080/api/user/join',
             {
                 userEmail,
                 userPassword,
@@ -15,7 +15,7 @@ class RegisterService {
 
     duplicateCheckClick(userNickname) {
         return axios.post(
-            'http://localhost:8080/api/user/nicknameDuplicateCheck',
+            'http://k4a407.p.ssafy.io:8080/api/user/nicknameDuplicateCheck',
             {
                 userNickname
             }
