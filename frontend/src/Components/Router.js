@@ -23,25 +23,30 @@ import motifyBoard from "../Components/board/MotifyBoard";
 export default () => (
   <Router>
     <>
-      <Navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/calendar" exact component={CalendarApp} />
-        <Route path="/board" exact component={Board} />
-        <Route path="/certi" exact component={Certi} />
-        {/* <Route path="/user" exact component={User} /> */}
-        {/* <Route path="/ChatBox" exact component={ChatBox} /> */}
-        <Route path="/ChatRooms" exact component={ChatRooms} />
-        <Route path="/ChatBox/:roomcode" component={ChatBox} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/register" exact component={Register} />
-        <AuthenticatedRoute path="/user" component={User} />
-        <AuthenticatedRoute path="/logout" component={Home} />
-        <Route path="/detailBoard/:no" component={DetailBoard} />
-        <Route path="/createBoard" component={createBoard} />
-        <Route path="/motifyBoard/:no" component={motifyBoard} />
-        <Redirect from="*" to="/" />
-      </Switch>
+
+        <Navbar />
+      <br></br>
+      <br></br>
+          <br></br>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/calendar" exact component={CalendarApp} />
+          <Route path="/board" exact component={Board} />
+          <Route path="/certi" exact component={Certi} />
+          {/* <Route path="/user" exact component={User} /> */}
+          {/* <Route path="/ChatBox" exact component={ChatBox} /> */}
+          <Route path="/ChatRooms" exact component={ChatRooms} />
+          <Route path="/ChatBox/:roomcode" component={ChatBox} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+          <AuthenticatedRoute path="/user" component={User} />
+          <AuthenticatedRoute path="/logout" component={Home} />
+          <Route path="/detailBoard/:no" component={DetailBoard} />
+          <Route path="/createBoard" component={createBoard} />
+          <Route path="/motifyBoard/:no" component={motifyBoard} />
+          <Redirect from="*" to="/" />
+        </Switch>
+
     </>
   </Router>
 );

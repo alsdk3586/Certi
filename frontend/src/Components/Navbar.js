@@ -59,7 +59,7 @@ export default withRouter(({ location: { pathname } }) => {
   }, [localStorage.getItem('token')])
 
   return (
-    <Header>
+    <Header style={{marginTop:"30px"}}>
       <List>
         <Item current={pathname === '/calendar'}>
           <Slink to="/calendar"><SmallLogo /></Slink></Item>

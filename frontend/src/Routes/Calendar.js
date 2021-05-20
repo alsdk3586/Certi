@@ -137,7 +137,7 @@ export default function CalendarApp () {
   }, [])
 
   return (
-    <>
+    <div style={{padding :"20px"}}>
       {events.length !== 0 ?
       <Row>
           <Col md={10}>
@@ -172,7 +172,7 @@ export default function CalendarApp () {
         date={dateData}
         title={title}
       />: <></>}
-    </>
+    </div>
   )
 }
 
