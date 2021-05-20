@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FavoriteListRepository extends JpaRepository<FavoriteList, Long> {
     List<FavoriteList> findByUserIdUserId(Integer userid);
-    FavoriteList findByCertificateCodeCertificateCode(String certificatecode);
+    List<FavoriteList> findByCertificateCodeCertificateCode(String certificatecode);
     void deleteByCertificateCodeCertificateCode(String certificatecode);
 }

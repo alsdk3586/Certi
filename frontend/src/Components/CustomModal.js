@@ -21,8 +21,8 @@ export default function CustomModal(props) {
   const [dateData, setDateData] = useState(props.date);
   const [passRt, setPassRt] = useState([]);
   const [noData, setNoData]  = useState(true);
-  const [favoriteList, setFavoriteList] = useState();
-  const [isFavorite, setIsFavorite] = useState();
+  const [favoriteList, setFavoriteList] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const FavoriteButton = styled.button`
     background-color: transparent;
@@ -96,20 +96,20 @@ export default function CustomModal(props) {
   }, [])
 
   useEffect(async () => {
-    const favoriteListFromApi = favoriteApi.getFavoritelist();
+    const favoriteListFromApi = await favoriteApi.getFavoritelist();
     setFavoriteList(favoriteListFromApi)
     // favoriteListFromApi.includes(code) ? setIsFavorite(true) : setIsFavorite(false);
     setIsFavorite(false)
     for (let index = 0; index < favoriteListFromApi.length; index++) {
       const element = favoriteListFromApi[index];
-      if (element.certificateCode.certificateCode === code ) {
+      if (element.certificateCode.certificateCode === String(code) ) {
         setIsFavorite(true)
         break
       }
     }
   }, [])
 
-  async function createFavorite(){
+  async function createFavorite() {
     if(isFavorite) {
       const deleteFavorite = await favoriteApi.deleteFavorite(code);
       setIsFavorite(!isFavorite)

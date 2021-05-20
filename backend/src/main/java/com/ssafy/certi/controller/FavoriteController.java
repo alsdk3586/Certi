@@ -113,9 +113,11 @@ public class FavoriteController {
     public ResponseEntity<FavoriteList> FavoriteListPostDelete(@PathVariable String certificateCode, HttpServletRequest request) {
         try {
             User person= userService.findByToken(JwtTokenProvider.resolveToken(request));
-            FavoriteList favoriteList=favoriteListRepository.findByCertificateCodeCertificateCode(certificateCode);
-            if(person.getUserId()==favoriteList.getUserId().getUserId()){
-                favoriteListRepository.deleteByCertificateCodeCertificateCode(certificateCode);//즐겨찾기 완전 삭제
+            List<FavoriteList> favoriteList=favoriteListRepository.findByCertificateCodeCertificateCode(certificateCode);
+            for(int i=0;i<favoriteList.size();i++){
+                if(person.getUserId()==favoriteList.get(i).getUserId().getUserId()){
+                    favoriteListRepository.deleteByCertificateCodeCertificateCode(certificateCode);//즐겨찾기 완전 삭제
+                }
             }
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (IllegalStateException e) { // exception return 하게 수정

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
 const request = axios.create({
-  // baseURL: "http://localhost:8080/",
+  //baseURL: "http://localhost:8080/",
   baseURL: "http://k4a407.p.ssafy.io:8080/",
 });
 export const favoriteApi = {
@@ -11,7 +11,6 @@ export const favoriteApi = {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
       }
     });
-    console.log(response.data)
     return response.data;
   },
   async addFavorite(code) {
@@ -25,7 +24,7 @@ export const favoriteApi = {
       return response.data;
   },
   async deleteFavorite(code) {
-    const response = await request.post(`favorite/delete/${code}`, {
+    const response = await request.delete(`favorite/delete/${code}`, {
       headers: {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
         }
