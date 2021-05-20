@@ -48,14 +48,14 @@ function Detail({ data, isWriter, history }) {
         : <div></div>}
         </div>
       <div>
-        <div id="detailBoardContent">{data.boardContent.split("\n").map((line) => {
-          return (
-              <span>
+        <div id="detailBoardContent">{data.boardContent!==undefined?data.boardContent.split("\n").map((line) => {
+          return (<span>
                 {line}
                 <br />
               </span>
             );
-        })}</div>
+        }) : <div></div>}</div>
+        <p></p>
         {/* <BiDislike />
         <BiLike/> */}
       </div>

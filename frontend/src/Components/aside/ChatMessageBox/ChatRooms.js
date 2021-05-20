@@ -34,7 +34,7 @@ class ChatRooms extends Component {
       }
 
     getList = async() => {
-        axios.get('http://localhost:8080/chat/rooms')
+        axios.get("http://k4a407.p.ssafy.io:8080/chat/rooms")
             .then((res) => {
                 this.setState({
                     ChatRoomList: res.data
@@ -68,7 +68,7 @@ class ChatRooms extends Component {
                   >
                   <Ul variant="contained" color="primary">
                     <>
-                      <img src="https://img-premium.flaticon.com/png/512/2950/2950711.png?token=exp=1621496121~hmac=aab8cf9c7bcdf6e1b9c460d3491fd840" width="20" />
+                      <img src="../../../assets/chat.png" width="20" />
                       &nbsp;{room.certificateCode.certificateClassificationCode}
                     </>
                     </Ul>
