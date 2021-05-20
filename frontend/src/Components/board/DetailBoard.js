@@ -48,7 +48,14 @@ function Detail({ data, isWriter, history }) {
         : <div></div>}
         </div>
       <div>
-        <div id="detailBoardContent">{data.boardContent}</div>
+        <div id="detailBoardContent">{data.boardContent.split("\n").map((line) => {
+          return (
+              <span>
+                {line}
+                <br />
+              </span>
+            );
+        })}</div>
         {/* <BiDislike />
         <BiLike/> */}
       </div>
