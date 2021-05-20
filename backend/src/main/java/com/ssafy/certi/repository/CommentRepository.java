@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Optional<List<Comment>> findAllByBoard(Board board);
+    void deleteByBoard(Board board);
 }
