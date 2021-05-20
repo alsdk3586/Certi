@@ -3,6 +3,10 @@ import Chart from "react-apexcharts";
 
 function ColumnChart(props) {
   const [options, setOptions] = useState({
+    title: {
+      text: '연령별 합격자 수',
+      align: 'left'
+    },
     chart: {
       height: 500,
       type: 'bar',

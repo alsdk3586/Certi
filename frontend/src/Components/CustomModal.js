@@ -21,6 +21,9 @@ export default function CustomModal(props) {
   const [dateData, setDateData] = useState(props.date);
   const [passRt, setPassRt] = useState([]);
   const [noData, setNoData]  = useState(true);
+  const [favoriteList, setFavoriteList] = useState();
+  const [isFavorite, setIsFavorite] = useState();
+
   const FavoriteButton = styled.button`
     background-color: transparent;
     border: none;
@@ -92,8 +95,28 @@ export default function CustomModal(props) {
     }
   }, [])
 
+  useEffect(async () => {
+    const favoriteListFromApi = favoriteApi.getFavoritelist();
+    setFavoriteList(favoriteListFromApi)
+    // favoriteListFromApi.includes(code) ? setIsFavorite(true) : setIsFavorite(false);
+    setIsFavorite(false)
+    for (let index = 0; index < favoriteListFromApi.length; index++) {
+      const element = favoriteListFromApi[index];
+      if (element.certificateCode.certificateCode === code ) {
+        setIsFavorite(true)
+        break
+      }
+    }
+  }, [])
+
   async function createFavorite(){
-    const favorite = await favoriteApi.addFavorite(code);
+    if(isFavorite) {
+      const deleteFavorite = await favoriteApi.deleteFavorite(code);
+      setIsFavorite(!isFavorite)
+    } else {
+      const favorite = await favoriteApi.addFavorite(code);
+      setIsFavorite(!isFavorite)
+    }
   }
 
   return (
@@ -126,7 +149,7 @@ export default function CustomModal(props) {
           </Container>
           {/* Chart */}
           <Container>
-            <Row className="d-flex justify-content-around">
+            <Row className="d-flex justify-content-around mt-4">
               <Col lg={7} md={12} className="d-flex justify-content-center">
                 <ColumnChart series={ageStats} />
               </Col>
@@ -157,13 +180,15 @@ export default function CustomModal(props) {
           >
             {title}
           </Modal.Title>
+
           {/* <Button isFilled={true} onClick={createFavorite} /> */}
-          <FavoriteButton onClick={createFavorite}>
+          <FavoriteButton onClick={createFavorite} isFilled={isFavorite}>
             <BtnStar />
             </FavoriteButton>
             <Slink to={`/ChatBox/${code}`} >
               채팅방 참여하기
             </Slink>
+
         </Modal.Header>
         <Modal.Body>
           {/* Chart */}

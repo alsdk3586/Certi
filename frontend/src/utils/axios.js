@@ -11,6 +11,7 @@ export const favoriteApi = {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
       }
     });
+    console.log(response.data)
     return response.data;
   },
   async addFavorite(code) {
@@ -23,16 +24,14 @@ export const favoriteApi = {
       });
       return response.data;
   },
-  // async deleteFavorite(code) {
-  //   let params=new Object();
-  //   params.certificateCode=code;
-  //   const response = await request.post(`favorite/create`, params, {
-  //     headers: {
-  //       "X-AUTH-TOKEN": localStorage.getItem("token"),
-  //       }
-  //     });
-  //     return response.data;
-  // }
+  async deleteFavorite(code) {
+    const response = await request.post(`favorite/delete/${code}`, {
+      headers: {
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+        }
+      });
+      return response.data;
+  }
 };
 
 export const statisticsApi = {
