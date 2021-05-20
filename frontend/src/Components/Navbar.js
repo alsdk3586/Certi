@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect}from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginService from './login/loginService';
@@ -49,17 +49,26 @@ const Slink = styled(Link)`
 
 const isUserLoggedIn = LoginService.isUserLoggedIn();
 
-export default withRouter(({ location : { pathname }}) => (
-  <Header>
-    <List>
-      <Item current={pathname === '/calendar'}>
-        <Slink to="/calendar"><SmallLogo/></Slink></Item>
-      <Item current={pathname === '/board'}>
-        <Slink to="/board">게시판</Slink></Item>
-      <Item current={pathname === '/login'}>
-        {!isUserLoggedIn && <Slink to="/login">로그인</Slink>}</Item>
-      <Item current={pathname === '/logout'} onClick={LoginService.logout}>
-        {isUserLoggedIn && <Slink to="/logout">로그아웃</Slink>}</Item>
-    </List>
-  </Header>
-));
+export default withRouter(({ location: { pathname } }) => {
+  const [data, setdata] = useState();
+  
+  useEffect(() => {
+    if (localStorage.getItem('token') === null)
+      setdata(<Item current={pathname === '/login'}><Slink to="/login">로그인</Slink></Item>);
+    else
+      setdata(<Item current={pathname === '/logout'} onClick={LoginService.logout}><Slink to="/logout">로그아웃</Slink></Item>);
+  }, [localStorage.getItem('token')])
+
+  console.log(localStorage.getItem('token'));
+  return (
+    <Header>
+      <List>
+        <Item current={pathname === '/calendar'}>
+          <Slink to="/calendar"><SmallLogo /></Slink></Item>
+        <Item current={pathname === '/board'}>
+          <Slink to="/board">게시판</Slink></Item>
+        {data}
+      </List>
+    </Header>
+  )
+});

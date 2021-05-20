@@ -50,8 +50,8 @@ export default class Footer extends Component {
             </div>:<div className="footerComponent">
                 <TextField
                     id="msg"
-                    label="Type your message here... team"
-                    placeholder="Press enter to send message"
+                    label="메세지를 입력해주세요 "
+                    placeholder="전송하려면 Enter키 눌러주세요 "
                     onChange={this.handleTyping}
                     margin="normal"
                     value={this.state.chatMessage}

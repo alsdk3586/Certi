@@ -9,7 +9,8 @@ import axios from "axios";
 import Loader from '../Components/Loader';
 import SearchBox from '../Components/SearchBox';
 import { favoriteApi } from "../utils/axios";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import styled from 'styled-components';
 
 export default function CalendarApp () {
   const [events, setEvent] = useState([]);          // 전체 자격증 데이터
@@ -25,66 +26,67 @@ export default function CalendarApp () {
     .then((res)=> {
       const data = res.data;
       let dataLists = [];
+      let startLists = [];
       data.forEach(elem => {
         let docRegStart = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode+ `필기 원서 시작일`,
           code: elem.certificateCode.certificateCode,
           date: elem.scheduleDocRegStartDt,
-          type: '필기접수시작'
+          id: '필기접수시작'
         }
         let docRegEnd = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `필기 원서 마감일`,
           code: elem.certificateCode.certificateCode,
           date: elem.scheduleDocRegEndDt,
-          type: '필기접수끝'
+          id: '필기접수끝'
         }
         let docExamStart = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `필기 시험 시작일`,
           code: elem.certificateCode.certificateCode,
           date: elem.scheduleDocExamStartDt,
-          type: '필기시험시작'
+          id: '필기시험시작'
         }
         let docExamEnd = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `필기 시험 마감일`,
           code: elem.certificateCode.certificateCode,
           date: elem.scheduleDocExamEndDt,
-          type: '필기시험끝'
+          id: '필기시험끝'
         }
         let docExamPass = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `필기 시험 합격발표`,
           code: elem.certificateCode.certificateCode,
           date: elem.scheduleDocPassDt,
-          type: '필기합격'
+          id: '필기합격'
         }
         let pracRegStart = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `실기 원서 시작일`,
           code: elem.certificateCode.certificateCode,
           date: elem.schedulePracRegStartDt,
-          type: '실기시험시작'
+          id: '실기접수시작'
         }
         let pracRegEnd = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `실기 원서 마감일`,
           code: elem.certificateCode.certificateCode,
           date: elem.schedulePracRegEndDt,
-          type: '실기시험시작'
+          id: '실기접수끝'
         }
         let pracExamStart = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `실기 시험 시작`,
           code: elem.certificateCode.certificateCode,
           date: elem.schedulePracExamStartDt,
-          type: '실기시험시작'
+          id: '실기시험시작'
         }
         let pracExamEnd = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `실기 시험 마감`,
           code: elem.certificateCode.certificateCode,
           date: elem.schedulePracExamEndDt,
-          type: '실기시험끝'
+          id: '실기시험끝'
         }
         let pracExamPass = {
-          title: elem.certificateCode.certificateClassificationCode,
+          title: elem.certificateCode.certificateClassificationCode + `실기 시험 합격발표`,
           code: elem.certificateCode.certificateCode,
           date: elem.schedulePracPassDt,
-          type: '실기합격'
+          id: '실기합격'
         }
         let dataList = [docRegStart, docRegEnd, docExamStart, docExamEnd, docExamPass, pracRegStart, pracRegEnd, pracExamStart, pracExamEnd, pracExamPass];
         dataLists = [...dataList, ...dataLists]
@@ -116,13 +118,12 @@ export default function CalendarApp () {
       return data.title.includes(userInput);
     });
     setEvent(filterEventsData);
+    test();
   };
   // 즐겨찾기 목록
   useEffect (() => {
     const res = favoriteApi.getFavoritelist();
-    console.log("useEffect function 작동")
     res.then((res2) => {
-      // console.log('res2: ',res2)
       let tmp = [];
       res2.map((data) => {
         if (data.certificateCode !== null) {
@@ -132,6 +133,25 @@ export default function CalendarApp () {
       setFavoriteList(tmp)
     })
   }, [])
+  function test() {
+    const dots = document.querySelectorAll('.fc-daygrid-event');
+      dots.forEach(dot => {
+        if (dot.outerText.includes('시작'))  {
+          // dot.classList.add('dot-start')
+
+        } else if (dot.outerText.includes('끝')) {
+          // console.log('끝')
+          // 끝
+        } else {
+          // 합격
+          const a = dot.querySelectorAll('.fc-daygrid-event-dot')
+          a.forEach(res => {
+            console.log(a)
+            res.classList.add('dot-pass')
+          })
+        }
+      })
+  }
 
   return (
     <>
@@ -139,14 +159,11 @@ export default function CalendarApp () {
       <Row>
           <Col md={10}>
             <div className="search-box">
-              <Link to = "/board">
-                게시판
-              </Link>
-            <SearchBox
-              handleChange={searchUser}
-            />
-            <Button variant="outline-success" onClick={filterUser} className="d-flex" 
-            style={{ marginBottom: "10px"}}>검색</Button>
+              <SearchBox
+                handleChange={searchUser}
+              />
+              <Button variant="outline-success" onClick={filterUser} className="d-flex" 
+              style={{ marginBottom: "10px"}}>검색</Button>
           </div>
           <FullCalendar
             plugins={[ dayGridPlugin, interactionPlugin ]}
@@ -157,6 +174,7 @@ export default function CalendarApp () {
             events={events}
             eventDisplay="list-item"
             dayMaxEventRows={12}
+            eventContent={renderEventContent}
           /> 
         </Col>
         <Col md={2}>
@@ -169,6 +187,24 @@ export default function CalendarApp () {
         onHide={() => modalOpen()}
         data={eventData}
       />: <></>}
+    </>
+  )
+}
+
+function renderEventContent(eventInfo) {
+  return (
+    <>
+      {eventInfo.event.id.includes('시작') ?
+        <>
+          <div class=".fc-daygrid-event-dot" style={{borderRadius: "4px", border : "4px solid blue"}}></div>
+          <div class=".fc-event-title">{eventInfo.event.title}</div>
+        </>
+        :
+        <>
+          <div class=".fc-daygrid-event-dot" style={{borderRadius: "4px", border : "4px solid red"}}></div>
+          <div class=".fc-event-title">{eventInfo.event.title}</div>
+        </> 
+      }
     </>
   )
 }

@@ -67,6 +67,7 @@ class LoginForm extends Component {
 
         if (this.state.loginSuccess === true) {
           // 로그인 성공 시 페이지 이동
+          window.location.reload()
           alert(this.state.userEmail + "님 환영합니다 :)")
           this.props.history.push(`/calendar`);
         } else {

@@ -22,17 +22,11 @@ export default class Login extends Component
   };
 
   componentDidUpdate() {
-    console.log(this.state.roomcode);
-    console.log(this.props)
   }
     
     render(){
         return(
             <div className="component-Login">
-              {/* <Button variant="contained" color="primary" onClick={this.handleConnectPublicly} >
-                Start Chatting
-             </Button> */}
-
             </div>
         )
     }

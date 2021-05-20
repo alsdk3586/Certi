@@ -105,11 +105,11 @@ export default () => {
       <div id="contact" class="section">
         <div class="contact__contact">
           <div class="contact__contact__info">
-            <p>팀원 소개</p>
+            <p>자격증닷컴</p>
             <p>
               <span> </span>
               <span>
-                자격증닷컴
+                팀원 소개
               </span>
             </p>
 
