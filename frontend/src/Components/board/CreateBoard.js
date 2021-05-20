@@ -22,7 +22,7 @@ export default function CreateBoard({ history, location }) {
     let data = new Object();
     data.boardCategory = category;
     data.boardTitle = document.getElementById("title").value;
-    data.boardContent = document.getElementById("content").value;
+    data.boardContent = document.getElementById("contentCreate").value;
     const res = await boardApi.addBoard(data);
     if (res == true) history.push(`/board`);
   }
@@ -51,17 +51,17 @@ export default function CreateBoard({ history, location }) {
       </div>
       <div>
         <Form.Group controlId="exampleForm.ControlTextarea1">
-          <Form.Control id="content" as="textarea" />
+          <Form.Control id="contentCreate" as="textarea" />
         </Form.Group>
       </div>
       {/* <Editor /> */}
       <div>
         <Button
-          style={{ float: "right" }}
+          style={{ float: "right", padding:"10px",marginTop:"10px" }}
           variant="outline-warning"
           onClick={add}
         >
-          추가
+          추가하기
         </Button>
       </div>
     </div>

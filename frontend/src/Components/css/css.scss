@@ -61,6 +61,7 @@
 #detailBoardContent{
     padding: 20px;
     flex:1;
+    font-size: 20px;
     justify-content: center;
 }
 
@@ -96,14 +97,20 @@
 #detailCommentContent {
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 10px;
+    font-size: 20px;
 }
 
-#content{
-    width: 85%;
-    height: 65px;
+#contentCreate{
+    width: 100%;
+    height: 365px;
     float: left;
     margin-right: 10px;
+}
+
+#contentComment{
+    width: 85%;
+    height: 65px;
+    float:left;
 }
 
 textarea {
