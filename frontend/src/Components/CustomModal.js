@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 import { Modal, Button, Table, Container, Row, Col } from 'react-bootstrap';
 import LineChart from './LineChart';
 import PieChart from './PieChart';
@@ -28,6 +29,16 @@ export default function CustomModal(props) {
     border: none;
     margin: auto 0;
   `;
+  const Slink = styled(Link)`
+  fontSize: 25px;
+  margin-left: 20px;
+  margin-top: 10px;
+  &:hover {
+    text-decoration-line: none;
+    font-weight: bold;
+    font-size: 110%
+  }
+`;
 
   useEffect(async () => {
     const statistics = await statisticsApi.getStatsList(code);
@@ -126,7 +137,10 @@ export default function CustomModal(props) {
           {/* <Button isFilled={true} onClick={createFavorite} /> */}
           <FavoriteButton onClick={createFavorite}>
             <BtnStar />
-          </FavoriteButton>
+            </FavoriteButton>
+            <Slink to={`/ChatBox/${code}`} >
+              채팅방 참여하기
+            </Slink>
         </Modal.Header>
         <Modal.Body>
           <Container >
@@ -164,9 +178,17 @@ export default function CustomModal(props) {
           <Modal.Title id="contained-modal-title-vcenter" 
           style={{ marginRight: "15px"}}
           >
-          {title}
+            {title}
           </Modal.Title>
-          <Button isFilled={isFavorite} onClick={createFavorite} />
+
+          {/* <Button isFilled={true} onClick={createFavorite} /> */}
+          <FavoriteButton onClick={createFavorite} isFilled={isFavorite}>
+            <BtnStar />
+            </FavoriteButton>
+            <Slink to={`/ChatBox/${code}`} >
+              채팅방 참여하기
+            </Slink>
+
         </Modal.Header>
         <Modal.Body>
           {/* Chart */}
