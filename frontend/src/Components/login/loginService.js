@@ -3,14 +3,14 @@ import axios from 'axios'
 class LoginService {
     // send username, password to the SERVER
     executeJwtLoginService(userEmail, userPassword) {
-        return axios.post('http://localhost:8080/api/user/login', {
+        return axios.post('http://k4a407.p.ssafy.io:8080/api/user/login', {
             userEmail,
             userPassword
         });
     }
 
     executeService() {
-        return axios.get('http://localhost:8080/');        
+        return axios.get('http://k4a407.p.ssafy.io:8080/');        
     }
 
     // 로그인 성공 시 userEmail을 autenticatedUser로 localStorage에 저장
