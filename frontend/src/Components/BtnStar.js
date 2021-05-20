@@ -8,8 +8,12 @@ export default function BtnStar(props) {
   }
   
   if (isFilled) {
-    return (<BsStarFill className="ml-2 my-auto" onClick={getIsFilled} />);
+    return (
+      <BsStarFill className="ml-2 my-auto" onClick={getIsFilled} size={20}
+        style={{color:"#FCBE32"}}
+      />
+      );
   } else {
-    return (<BsStar className="ml-2 my-auto" onClick={getIsFilled} />);
+    return (<BsStar className="ml-2 my-auto" onClick={getIsFilled} size={20}/>);
   }
 }

@@ -10,7 +10,7 @@ import Loader from '../Components/Loader';
 import SearchBox from '../Components/SearchBox';
 import { favoriteApi } from "../utils/axios";
 import { Link } from "react-router-dom";
-import styled from 'styled-components';
+import dotenv from 'dotenv';
 
 export default function CalendarApp () {
   const [events, setEvent] = useState([]);          // 전체 자격증 데이터
@@ -18,15 +18,16 @@ export default function CalendarApp () {
   const [userInput, setUserInput] = useState('');   // 검색 userInput값
 
   const [modalShow, setModalShow] = useState(false);
-  let [eventData, setEventData] = useState({});   // 클릭 시 개별 자격증 데이터
+  let [eventData, setEventData] = useState();   // 클릭 시 개별 자격증 데이터
   const [favoriteList, setFavoriteList] = useState([]);
+  const [title, setTitle] = useState();
+  const [dateData, setDateData] = useState();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/certificate/schedule')
+    axios.get(process.env.REACT_APP_API_URL+'certificate/schedule')
     .then((res)=> {
       const data = res.data;
       let dataLists = [];
-      let startLists = [];
       data.forEach(elem => {
         let docRegStart = {
           title: elem.certificateCode.certificateClassificationCode+ `필기 원서 시작일`,
@@ -71,13 +72,13 @@ export default function CalendarApp () {
           id: '실기접수끝'
         }
         let pracExamStart = {
-          title: elem.certificateCode.certificateClassificationCode + `실기 시험 시작`,
+          title: elem.certificateCode.certificateClassificationCode + `실기 시험 시작일`,
           code: elem.certificateCode.certificateCode,
           date: elem.schedulePracExamStartDt,
           id: '실기시험시작'
         }
         let pracExamEnd = {
-          title: elem.certificateCode.certificateClassificationCode + `실기 시험 마감`,
+          title: elem.certificateCode.certificateClassificationCode + `실기 시험 마감일`,
           code: elem.certificateCode.certificateCode,
           date: elem.schedulePracExamEndDt,
           id: '실기시험끝'
@@ -98,6 +99,8 @@ export default function CalendarApp () {
   }, [])
 
   function getEvent(arg) {
+    setTitle(arg.event.title)
+    setDateData(arg.event.startStr)
     setEventData(arg.event._def.extendedProps);
     modalOpen();
   }
@@ -118,7 +121,6 @@ export default function CalendarApp () {
       return data.title.includes(userInput);
     });
     setEvent(filterEventsData);
-    test();
   };
   // 즐겨찾기 목록
   useEffect (() => {
@@ -133,25 +135,6 @@ export default function CalendarApp () {
       setFavoriteList(tmp)
     })
   }, [])
-  function test() {
-    const dots = document.querySelectorAll('.fc-daygrid-event');
-      dots.forEach(dot => {
-        if (dot.outerText.includes('시작'))  {
-          // dot.classList.add('dot-start')
-
-        } else if (dot.outerText.includes('끝')) {
-          // console.log('끝')
-          // 끝
-        } else {
-          // 합격
-          const a = dot.querySelectorAll('.fc-daygrid-event-dot')
-          a.forEach(res => {
-            console.log(a)
-            res.classList.add('dot-pass')
-          })
-        }
-      })
-  }
 
   return (
     <>
@@ -186,6 +169,8 @@ export default function CalendarApp () {
         show={modalShow} 
         onHide={() => modalOpen()}
         data={eventData}
+        date={dateData}
+        title={title}
       />: <></>}
     </>
   )
@@ -201,7 +186,7 @@ function renderEventContent(eventInfo) {
         </>
         :
         <>
-          <div class=".fc-daygrid-event-dot" style={{borderRadius: "4px", border : "4px solid red"}}></div>
+          <div class=".fc-daygrid-event-dot" style={{borderRadius: "4px", border : "4px solid #ff5f2e"}}></div>
           <div class=".fc-event-title">{eventInfo.event.title}</div>
         </> 
       }
