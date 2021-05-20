@@ -7,7 +7,10 @@ function PieChart(props) {
       type: 'pie',
       height: 400,
     },
-    labels: ['남', '여']
+    labels: ['남', '여'],
+    fill: {
+      colors: ['#4dbaff', '#a7dafa']
+    }
   });
 
   const [width, setWidth] = useState();

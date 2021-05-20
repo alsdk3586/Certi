@@ -14,6 +14,12 @@ function LineChart(props) {
     },
     xaxis: {
       categories: ['고졸이하', '전문대재', '전문대졸', '대재', '대졸', '미상']
+    },
+    fill: {
+      colors: ['#e1eef6', '#fcbe32', '#ff5f2e']
+    },
+    stroke: {
+      curve: 'smooth'
     }
   });
   const [width, setWidth] = useState();
@@ -64,7 +70,7 @@ function LineChart(props) {
             {...props}
             options={options}
             // series={series}
-            type="area"
+            type="line"
             width={width}
           />
         </div>

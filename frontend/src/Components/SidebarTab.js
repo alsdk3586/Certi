@@ -27,9 +27,6 @@ class SidebarTab extends Component {
           docked={true}
           transitions={false}
         >
-          {/* <button onClick={() => this.onSetSidebarOpen(true)}>
-            Open sidebar
-          </button> */}
         </Sidebar>
       </>
     );
