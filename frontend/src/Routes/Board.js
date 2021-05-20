@@ -61,7 +61,7 @@ export default function Board() {
               placeholder="Search"
               className=" mr-m-2"
             />
-            <Button onClick={search}>Submit</Button>
+            <Button onClick={search}>검색</Button>
           </Form>
         </div>
       </Navbar>
