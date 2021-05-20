@@ -58,11 +58,9 @@ class RegisterForm extends Component {
         RegisterService
             .executeJwtRegisterService(this.state.userEmail, this.state.userPassword, this.state.userNickname)
             .then((response) => {
-                console.log(response)
                 this.props.history.push(`/login`)
 
             }).catch((response) => {
-                console.log(response)
                 this.setState({showSuccessMessage:false})
             })
     }
@@ -75,7 +73,6 @@ class RegisterForm extends Component {
                 this.setState({ duplicateCheck:true })
 
             }).catch((response) => {
-                console.log(response)
                 alert("이미 사용중인 닉네임입니다");
                 this.setState({showSuccessMessage:false})
         })

@@ -14,12 +14,10 @@ class SidebarTab extends Component {
     this.setState({ sidebarOpen: open });
   }
   render() {
-    // console.log("props: ", this.props.data);
     return (
       <>
         <Sidebar
           sidebar={<SideTabs data={this.props.data} />}
-          // open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           styles={{ sidebar: { background: "white", right: 0, width: "100%" } }}
           pullRight={true}

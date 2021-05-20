@@ -14,7 +14,6 @@ export const favoriteApi = {
     return response.data;
   },
   async addFavorite(code) {
-    // console.log("----");
     let params=new Object();
     params.certificateCode=code;
     const response = await request.post(`favorite/create`, params, {
@@ -25,7 +24,6 @@ export const favoriteApi = {
       return response.data;
   },
   // async deleteFavorite(code) {
-  //   // console.log("----");
   //   let params=new Object();
   //   params.certificateCode=code;
   //   const response = await request.post(`favorite/create`, params, {
@@ -87,7 +85,6 @@ export const boardApi = {
   },
   async getDetailBoard(boardId) {
     const response = await request.get(`board/detail/${boardId}`);
-    // console.log(response);
     return response.data;
   },
 
@@ -120,6 +117,5 @@ export const boardApi = {
         "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
-    // console.log(response);
   }
 };

@@ -57,7 +57,6 @@ export default function CustomModal(props) {
     const docPassRate = [];
     const pracPassRate = [];
     const acceptRate = await statisticsApi.getPassRate(code);
-    // console.log('acceptRate', acceptRate)
     if (acceptRate.length !== 0) {
       acceptRate.map(elem => (
         passRate.push(elem.acceptanceRateResult),

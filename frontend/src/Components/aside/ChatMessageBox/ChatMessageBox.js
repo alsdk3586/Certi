@@ -37,7 +37,6 @@ class ChatMessageBox extends Component {
             this.setState({
               chatHistory: res.data
             });
-        console.log(res.data)
         })
         .catch(e => {
             console.error(e);
