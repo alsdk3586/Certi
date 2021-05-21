@@ -1,0 +1,120 @@
+@import './colors.scss';
+
+#boardContainer{
+    // background-color: yellow;
+    padding: 30px;
+}
+#boardNavBar{
+    flex:1;
+    // background-color: red;
+}
+
+#boardNavBarTab {
+    flex:1;
+    background-color:"red";
+}
+
+#boardSearch{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#boardCreateBtn{
+    position: absolute;
+    top: 0;
+    right: 280px;
+    margin: 10px;
+}
+
+#boardList{
+    flex:1;
+    padding-top: 10px;
+}
+
+#boardListTable{
+    flex:1
+}
+
+#detailBoard{
+    flex:1;
+    padding:40px;
+    height: 100%;
+}
+
+#detailBoardTop{
+    flex:1;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    padding :10px;
+}
+#detailBoardCategory{
+    font-weight: bold;
+    color: $primary-orange;
+}
+#detailBoardTitle{
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#detailBoardContent{
+    padding: 20px;
+    flex:1;
+    font-size: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#createBoardContainer{
+    padding: 30px;
+    flex:1;
+}
+
+#createBoardContainer > div{
+    width: 90%;
+    margin: auto;
+    flex:1;
+}
+
+#detailCommentInput{
+    height: 65px;
+    width: 100%;
+}
+
+#detailCommentList {
+    padding-top: 20px;
+    margin: 10xp;
+    width: 100%;
+    height: 100%;
+}
+#detailComment{
+    flex:1;
+    width: 100%;
+    height: 100%;
+    padding:10px;
+}
+
+#detailCommentContent {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+#contentCreate{
+    width: 100%;
+    height: 365px;
+    float: left;
+    margin-right: 10px;
+}
+
+#contentComment{
+    width: 85%;
+    height: 65px;
+    float:left;
+}
+
+textarea {
+    width: 100%;
+    height: 900px;
+}

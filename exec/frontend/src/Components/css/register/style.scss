@@ -1,0 +1,56 @@
+/*******************************************************************
+// 위치 : src/Components/css/register/style.scss 
+// 설명 : 회원가입 view에 적용되는 스타일에 대해 정의함 
+// 주의 : 회원가입 view에 포함된 컴포넌트에 대한 스타일도 함께 정의
+********************************************************************/
+
+@import '../colors.scss';
+
+.register {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    width: 314px;
+    height: 141px;
+    padding-bottom: 50px;
+    margin-left: 10px;
+  }
+
+  // 회원가입 폼
+  .registerForm {
+    margin-top: 48px;
+
+    .registerButton {
+      width: 360px;
+      height: 63px;
+      padding: 23px;
+      margin-top: 41px;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      color: $basic-white;
+      border-radius: 8px;
+      background: rgba(238, 238, 238, 0.3);
+      cursor: pointer;
+      user-select: none;
+      transition: 0.2s all;
+    }
+
+    .duplicateCheckButton {
+      align-items: center;
+      margin-left: 281px;
+      margin-top: -50px;
+      position: absolute;
+      width: 79px;
+      height: 48px;
+      background: #eeeeee;
+      border-radius: 4px;
+    }
+  }
+}

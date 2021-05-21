@@ -1,3 +1,22 @@
+### macOS ###
 .DS_Store
 
+
+### git cz settings ###
 changelog.config.js
+
+
+
+### DB settings ###
+application.properties
+DBConfig
+
+.idea
+backend/.idea
+HELP.md
+.gradle
+backend/.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
